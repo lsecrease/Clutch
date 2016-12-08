@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - UIButton extensions 
 
 extension UIButton {
     
@@ -31,5 +32,85 @@ extension UIButton {
         }
     }
     
+}
+
+
+// MARK: - UILabel extensions
+
+extension UILabel {
+    
+//    func show() {
+//        self.hidden = true
+//        self.alpha = 0
+//
+//        UIView.animateWithDuration(0.3) {
+//            self.hidden = false
+//            self.alpha = 1
+//        }
+//    }
+//    
+//    func hide() {
+//        self.alpha = 1
+//        self.hidden = false
+//        
+//        UIView.animateWithDuration(0.3) { 
+//            self.alpha = 0
+//            self.hidden = true
+//        }
+//    }
     
 }
+
+
+// MARK: - UIView extensions
+
+extension UIView {
+    
+    func slideLeft(duration duration: NSTimeInterval) {
+        let slideLeftTransition = CATransition()
+        slideLeftTransition.duration = duration
+        slideLeftTransition.type = kCATransitionPush
+        slideLeftTransition.subtype = kCATransitionFromRight
+        // slideRightTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        slideLeftTransition.fillMode = kCAFillModeRemoved
+        self.layer.addAnimation(slideLeftTransition, forKey: "slideRightTransition")
+        
+    }
+    
+    
+    func show() {
+        self.hidden = true
+        self.alpha = 0
+        
+        UIView.animateWithDuration(0.3) {
+            self.hidden = false
+            self.alpha = 1
+        }
+    }
+    
+    func hide() {
+        self.alpha = 1
+        self.hidden = false
+        
+        UIView.animateWithDuration(0.3) {
+            self.alpha = 0
+            self.hidden = true
+        }
+    }
+
+    func rotate(duration: NSTimeInterval, fromValue: CGFloat, toValue: CGFloat) {
+        
+        UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: { 
+            let rotation = CABasicAnimation(keyPath: "transform.rotation")
+            rotation.fromValue = fromValue
+            rotation.toValue = CGFloat(M_PI) * toValue
+            self.layer.addAnimation(rotation, forKey: nil)
+            self.layoutSubviews()
+            }) { (finished) in
+                // Perform tasks after finishing...
+                
+        }
+        
+    }
+}
+

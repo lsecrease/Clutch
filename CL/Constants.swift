@@ -14,3 +14,17 @@ let avatarKey = "avatar"
 let avatarURLKey = "avatarURL"
 let emailKey = "email"
 let nameKey = "name"
+
+
+struct Constants {
+    
+    struct Segues {
+        static let loginToMain = "loginToMain"
+    }
+    
+    
+}
+
+enum Direction {
+    case Right, Left
+}

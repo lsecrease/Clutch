@@ -1,15 +1,28 @@
 PODS:
   - IQKeyboardManagerSwift (4.0.5)
+  - Spring (1.0.3)
   - SwiftLoader (0.2.5)
 
 DEPENDENCIES:
   - IQKeyboardManagerSwift (= 4.0.5)
+  - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
   - SwiftLoader
+
+EXTERNAL SOURCES:
+  Spring:
+    :branch: swift2
+    :git: https://github.com/MengTo/Spring.git
+
+CHECKOUT OPTIONS:
+  Spring:
+    :commit: 18d5c7b74489de8044e34767f856d1e574f0820e
+    :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 41fd3a45a2cdb2a0e031af697708a95b865068a1
+  Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftLoader: 12d7a6f661f5e9a2c9a72003e7dd6162f4ff0cc4
 
-PODFILE CHECKSUM: 921b6138ddd57368461c573892f3b1a0dd1e6a0b
+PODFILE CHECKSUM: e613af1c9fb7429635d81ac1998c252675889c61
 
 COCOAPODS: 1.1.1

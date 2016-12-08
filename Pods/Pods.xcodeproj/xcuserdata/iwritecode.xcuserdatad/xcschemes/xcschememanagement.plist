@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Spring.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftLoader.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,12 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D665EDD7529E409EAEF5D811495A4F2</key>
+		<key>5DB5A673AE96B1920DF73B6574527C7C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CE8BA9ACEF6972078094018B8BB95B1F</key>
+		<key>A0D814BAB22ACFD0B7AB27ECCB05AB07</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC933D7C725432FB33B91BB06D3CA7DF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
