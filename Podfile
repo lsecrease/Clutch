@@ -7,8 +7,9 @@ target 'CL' do
 
   # Pods for CL
   
-  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
+  pod 'Eureka', '1.7.0'
   pod 'IQKeyboardManagerSwift', '4.0.5'
+  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
   pod 'SwiftLoader'
 
 end

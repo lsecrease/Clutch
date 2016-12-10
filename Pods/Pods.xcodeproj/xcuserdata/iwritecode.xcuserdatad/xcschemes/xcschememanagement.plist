@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Eureka.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManagerSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0C1AEAE6F007E6853C683E9526DECA8A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>22E7FE712815BE9A574E192337125ABC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4DC059E04CBA98AEDDB5C34E02D551E9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5DB5A673AE96B1920DF73B6574527C7C</key>
+		<key>98D64ADE6A2E8E55BF9601253305D84E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A0D814BAB22ACFD0B7AB27ECCB05AB07</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BC933D7C725432FB33B91BB06D3CA7DF</key>
+		<key>BBACB795A5308A6D2748A2A958B67440</key>
 		<dict>
 			<key>primary</key>
 			<true/>

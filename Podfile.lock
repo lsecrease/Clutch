@@ -1,9 +1,11 @@
 PODS:
+  - Eureka (1.7.0)
   - IQKeyboardManagerSwift (4.0.5)
   - Spring (1.0.3)
   - SwiftLoader (0.2.5)
 
 DEPENDENCIES:
+  - Eureka (= 1.7.0)
   - IQKeyboardManagerSwift (= 4.0.5)
   - Spring (from `https://github.com/MengTo/Spring.git`, branch `swift2`)
   - SwiftLoader
@@ -19,10 +21,11 @@ CHECKOUT OPTIONS:
     :git: https://github.com/MengTo/Spring.git
 
 SPEC CHECKSUMS:
+  Eureka: 2020d9faeef7b7e9adeb9e3d8af779e5931c1897
   IQKeyboardManagerSwift: 41fd3a45a2cdb2a0e031af697708a95b865068a1
   Spring: 3f02b5dc3308572ef177b3cad0fa7bbc4b0706f7
   SwiftLoader: 12d7a6f661f5e9a2c9a72003e7dd6162f4ff0cc4
 
-PODFILE CHECKSUM: e613af1c9fb7429635d81ac1998c252675889c61
+PODFILE CHECKSUM: 119681293c58cbdc763d1cd55bfd96457a3f8f5c
 
 COCOAPODS: 1.1.1
