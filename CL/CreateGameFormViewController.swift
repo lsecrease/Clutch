@@ -13,19 +13,55 @@ class CreateGameFormViewController: FormViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        form = Section("Section1")
-            <<< TextRow(){ row in
-                row.title = "Text Row"
-                row.placeholder = "Enter text here"
+        
+        configureForm()
+    
+    }
+    
+    
+    
+    func configureForm() {
+        
+        // Configure Cell appearance
+        
+//        TextRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 } }
+        
+        TextRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0) }
+
+        IntRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 } }
+        DateTimeInlineRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 }  }
+        
+        // Remove separators
+        
+        self.tableView!.separatorStyle = .None
+        
+        
+        // Add rows
+        
+        form +++ TextRow() {
+            $0.title = "Category"
+            $0.placeholder = "Input"
             }
-            <<< PhoneRow(){
-                $0.title = "Phone Row"
-                $0.placeholder = "And numbers here"
+            
+            <<< TextRow() {
+                $0.title = "Team 1"
+                $0.placeholder = "Input"
+            }            
+            
+            <<< IntRow() {
+                $0.title = "Participant Starting Value"
+                $0.placeholder = "Input"
             }
-            +++ Section("Section2")
-            <<< DateRow(){
-                $0.title = "Date Row"
-        }
+            
+            <<< TextRow() {
+                $0.title = "Venue Name"
+                $0.placeholder = "Input"
+            }
+        
+            <<< DateTimeInlineRow() {
+                $0.title = "End Registration"
+            }
+
     }
     
 }

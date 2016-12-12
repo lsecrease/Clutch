@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="euR-76-c3A">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="4la-IQ-PCu">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1564,6 +1564,25 @@
             </objects>
             <point key="canvasLocation" x="624.5" y="494.5"/>
         </scene>
+        <!--Create Game Form View Controller-->
+        <scene sceneID="k4D-ma-Ig8">
+            <objects>
+                <viewController id="4la-IQ-PCu" customClass="CreateGameFormViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3yP-Jl-Ps7"/>
+                        <viewControllerLayoutGuide type="bottom" id="28F-vt-Vbp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="huQ-Yb-xT3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SY5-Mp-O5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="631.5" y="-739.5"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="HcJ-Is-Qm2">
             <objects>
@@ -2206,21 +2225,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SnL-di-8FI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2723.5" y="407.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="vgs-dw-TCD">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eG7-Rh-ti0" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3pD-My-clO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qgz-IP-Wd2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1142" y="950"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="Nmc-st-cPa">

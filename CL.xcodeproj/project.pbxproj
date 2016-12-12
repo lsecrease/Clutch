@@ -40,6 +40,8 @@
 		C0C3E2CD1DEB810100B4978B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C3E2CC1DEB810100B4978B /* FBSDKCoreKit.framework */; };
 		C0C3E2CF1DEB957900B4978B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2CE1DEB957900B4978B /* Constants.swift */; };
 		C0C3E2D31DEBE09C00B4978B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2D21DEBE09C00B4978B /* Extensions.swift */; };
+		C0E281951DFF159400BF35D0 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */; };
+		C0E281961DFF159400BF35D0 /* AddPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */; };
 		C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E302601DEA4FD00007988B /* AppDelegate.swift */; };
 		C0E302661DEA4FD00007988B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E302641DEA4FD00007988B /* Main.storyboard */; };
 		C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0E302671DEA4FD00007988B /* CL.xcdatamodeld */; };
@@ -84,6 +86,8 @@
 		C0C3E2CC1DEB810100B4978B /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C0C3E2CE1DEB957900B4978B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0C3E2D21DEBE09C00B4978B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
+		C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerCell.xib; sourceTree = "<group>"; };
 		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E302601DEA4FD00007988B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E302651DEA4FD00007988B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -234,6 +238,7 @@
 		C0C3E2A01DEAFA2D00B4978B /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				C0E281921DFF155000BF35D0 /* TableView Cells */,
 				C0C3E2A11DEAFA3A00B4978B /* CollectionView Cells */,
 			);
 			name = Xibs;
@@ -293,6 +298,15 @@
 				C0C3E2D21DEBE09C00B4978B /* Extensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C0E281921DFF155000BF35D0 /* TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */,
+				C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */,
+			);
+			name = "TableView Cells";
 			sourceTree = "<group>";
 		};
 		C0E302541DEA4FD00007988B = {
@@ -434,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E281961DFF159400BF35D0 /* AddPlayerCell.xib in Resources */,
 				C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */,
 				C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */,
 				C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */,
@@ -503,6 +518,7 @@
 			files = (
 				C003A3D31DF471E2008158C7 /* User.swift in Sources */,
 				C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */,
+				C0E281951DFF159400BF35D0 /* AddPlayerCell.swift in Sources */,
 				C0C3E2B61DEB57AD00B4978B /* TestData.swift in Sources */,
 				C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */,
 				C003A3DC1DF4A8B4008158C7 /* GameInfoCell.swift in Sources */,
