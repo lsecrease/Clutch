@@ -3,35 +3,48 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="idCellAddPlayer" id="KGk-i7-Jjw" customClass="AddPlayerCell" customModule="CL" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="idCellAddPlayer" id="8aC-ZZ-8qc" customClass="AddPlayerCell" customModule="CL" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8aC-ZZ-8qc" id="FQE-Fp-MwR">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTZ-GG-4kq">
-                        <rect key="frame" x="282" y="22" width="25" height="25"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNP-cG-nOe">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                        <subviews>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFk-TD-n7K">
+                                <rect key="frame" x="273" y="22" width="25" height="25"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="XBc-KX-YcC"/>
+                                    <constraint firstAttribute="width" constant="25" id="p4h-SE-gm7"/>
+                                </constraints>
+                                <state key="normal" image="plus"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="50m-Wj-1OD"/>
-                            <constraint firstAttribute="height" constant="25" id="FeI-l7-Gh5"/>
+                            <constraint firstItem="qFk-TD-n7K" firstAttribute="centerY" secondItem="RNP-cG-nOe" secondAttribute="centerY" id="RhV-hW-LCl"/>
+                            <constraint firstAttribute="trailing" secondItem="qFk-TD-n7K" secondAttribute="trailing" constant="22" id="TRd-MD-V3D"/>
                         </constraints>
-                        <state key="normal" image="plus"/>
-                    </button>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="pTZ-GG-4kq" secondAttribute="trailing" constant="5" id="Yoo-R8-WAA"/>
-                    <constraint firstItem="pTZ-GG-4kq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="oY8-T9-3hz"/>
+                    <constraint firstAttribute="bottom" secondItem="RNP-cG-nOe" secondAttribute="bottom" id="6DZ-Vd-nPv"/>
+                    <constraint firstItem="RNP-cG-nOe" firstAttribute="leading" secondItem="FQE-Fp-MwR" secondAttribute="leading" id="Icr-rG-EtN"/>
+                    <constraint firstItem="RNP-cG-nOe" firstAttribute="top" secondItem="FQE-Fp-MwR" secondAttribute="top" id="ot3-UB-AXc"/>
+                    <constraint firstAttribute="trailing" secondItem="RNP-cG-nOe" secondAttribute="trailing" id="xPa-Wg-HIr"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addButton" destination="pTZ-GG-4kq" id="zIf-VT-mZS"/>
+                <outlet property="addButton" destination="qFk-TD-n7K" id="f1W-6s-k4c"/>
             </connections>
+            <point key="canvasLocation" x="290" y="530"/>
         </tableViewCell>
     </objects>
     <resources>

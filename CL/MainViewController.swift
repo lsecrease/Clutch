@@ -416,14 +416,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let cellWidth: CGFloat = self.view.bounds.width - 15.0
-        // var cellHeight: CGFloat!
         let cellHeight: CGFloat = 70.0
-        
-//        if collectionView == gameMatchupCollectionView {
-//            cellHeight = 70.0
-//        } else {
-//            cellHeight = 68.0
-//        }
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }

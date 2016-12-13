@@ -14,17 +14,26 @@ final class AddPlayerCell: Cell<Bool>, CellType {
     var isExpanded: Bool?
     
     @IBOutlet weak var addButton: UIButton!
-
-    required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    override func setup() {
+        super.setup()
+                
+        addButton.tintColor = UIColor.blueColor()
+        addButton.addTarget(self, action: #selector(AddPlayerCell.addButtonPressed), forControlEvents: .TouchUpInside)
+        selectionStyle = .None
+        
     }
 
     func addButtonPressed() {
         print("ADD BUTTON PRESSED")
     }
     
+
 }
 
+
+// Custom rows must conform to RowType protocol
 
 final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
     required init(tag: String?) {

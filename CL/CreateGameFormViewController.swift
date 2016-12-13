@@ -10,7 +10,10 @@ import Eureka
 import UIKit
 
 class CreateGameFormViewController: FormViewController {
-
+    
+    var createGameTable: UITableView!
+    var rowShouldExpand: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,25 +25,35 @@ class CreateGameFormViewController: FormViewController {
     
     func configureForm() {
         
+        // Customize TableView
+        
+        self.tableView?.sectionHeaderHeight = 0
+        self.tableView!.separatorStyle = .None
+        
+        self.createGameTable = self.tableView
+        
         // Configure Cell appearance
         
-//        TextRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 } }
+        // PickerInlineRow.defaultCellUpdate = { cell, row in cell.height = { 70.0 }; cell.textLabel.font = UIFont(name: "Helvetica Neue", size: 15.0) }
         
-        TextRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0) }
-
-        IntRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 } }
-        DateTimeInlineRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 70.0 }  }
+        TextRow.defaultCellUpdate = { cell, row in
+            cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0);
+            cell.textField.font = UIFont(name: "Helvetica Neue", size: 15.0);
+            cell.textField.spellCheckingType = .No
+            cell.height = { 70.0 } }
         
-        // Remove separators
-        
-        self.tableView!.separatorStyle = .None
+        AddPlayerRow.defaultCellUpdate = { cell, row in
+            cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0);
+            cell.height = { 60.0 } }
+        IntRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.textField.font = UIFont(name: "Helvetica Neue", size: 15.0);cell.height = { 70.0 } }
+        DateTimeInlineRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 60.0 }  }
         
         
         // Add rows
         
         form +++ TextRow() {
-            $0.title = "Category"
-            $0.placeholder = "Input"
+                $0.title = "Category"
+                $0.placeholder = "Input"
             }
             
             <<< TextRow() {
@@ -48,6 +61,19 @@ class CreateGameFormViewController: FormViewController {
                 $0.placeholder = "Input"
             }            
             
+            <<< AddPlayerRow() {
+                $0.title = "Add Player to Team 1"
+            }
+            
+            <<< TextRow() {
+                $0.title = "Team 2"
+                $0.placeholder = "Input"
+            }
+            
+            <<< AddPlayerRow() {
+                $0.title = "Add Player to Team 2"
+            }
+
             <<< IntRow() {
                 $0.title = "Participant Starting Value"
                 $0.placeholder = "Input"
@@ -63,5 +89,17 @@ class CreateGameFormViewController: FormViewController {
             }
 
     }
+    
+    func addButtonPressed() {
+        let addPlayerCellIndexPath = NSIndexPath(forItem: 1, inSection: 0)
+        
+        rowShouldExpand = !rowShouldExpand
+        
+        self.createGameTable.beginUpdates()
+        self.createGameTable.reloadRowsAtIndexPaths([addPlayerCellIndexPath], withRowAnimation: .Automatic)
+        self.createGameTable.endUpdates()
+        
+    }
+
     
 }
