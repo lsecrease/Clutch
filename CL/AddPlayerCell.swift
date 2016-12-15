@@ -7,38 +7,52 @@
 //
 
 import UIKit
-import Eureka
 
-final class AddPlayerCell: Cell<Bool>, CellType {
+class AddPlayerCell: UITableViewCell {
     
-    var isExpanded: Bool?
+    // MARK: IBOutlets
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var addPlayerButton: UIButton!
     
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
+    // Inputs
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var numberField: UITextField!
+    @IBOutlet weak var valueField: UITextField!
     
-    override func setup() {
-        super.setup()
-                
-        addButton.tintColor = UIColor.blueColor()
-        addButton.addTarget(self, action: #selector(AddPlayerCell.addButtonPressed), forControlEvents: .TouchUpInside)
-        selectionStyle = .None
+    // MARK: Variables
+    
+    // Cell title
+    var title: String = "Title" {
+        didSet {
+            label.text = title
+        }
+    }
+    
+    var playerNumber: String = "" {
+        didSet {
+            numberField.text = playerNumber
+        }
+    }
+    
+    var playerValue: String = "" {
+        didSet {
+            valueField.text = playerValue
+        }
+    }
+    
+    // View lifecycle
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
         
-    }
-
-    func addButtonPressed() {
-        print("ADD BUTTON PRESSED")
+        // Configure the view for the selected state
     }
     
-
 }
 
-
-// Custom rows must conform to RowType protocol
-
-final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
-    required init(tag: String?) {
-        super.init(tag: tag)
-        
-        cellProvider = CellProvider<AddPlayerCell>(nibName: "AddPlayerCell")
-    }
-}

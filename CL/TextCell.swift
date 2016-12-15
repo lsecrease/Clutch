@@ -13,6 +13,12 @@ class TextCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var lineView: UIView!
+    
+    var title: String = "" {
+        didSet {
+            titleLabel.text = title
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
