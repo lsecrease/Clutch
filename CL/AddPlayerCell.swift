@@ -12,7 +12,7 @@ class AddPlayerCell: UITableViewCell {
     
     // MARK: IBOutlets
     @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var addOrCancelButton: RotatingButton!
     @IBOutlet weak var addPlayerButton: UIButton!
     
     // Inputs
@@ -21,6 +21,8 @@ class AddPlayerCell: UITableViewCell {
     @IBOutlet weak var valueField: UITextField!
     
     // MARK: Variables
+    
+    var isExpanded = false
     
     // Cell title
     var title: String = "Title" {
@@ -41,16 +43,20 @@ class AddPlayerCell: UITableViewCell {
         }
     }
     
+    
+    
     // View lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
+
         // Configure the view for the selected state
     }
     

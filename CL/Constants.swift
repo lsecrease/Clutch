@@ -28,3 +28,7 @@ struct Constants {
 enum Direction {
     case Right, Left
 }
+
+enum RotationDirection {
+    case Clockwise, CounterClockwise
+}

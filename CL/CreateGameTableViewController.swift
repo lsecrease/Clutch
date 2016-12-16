@@ -175,7 +175,7 @@ extension CreateGameTableViewController: ExpandableTableViewDelegate {
         
         switch expandableIndexPath.row {
         case 2, 4:
-            return 265.0
+            return 200.0
         default:
             return 0
         }
@@ -185,7 +185,7 @@ extension CreateGameTableViewController: ExpandableTableViewDelegate {
         
         switch expandableIndexPath.row {
         case 2, 4:
-            return 265.0
+            return 200.0
         default:
             return 0
         }

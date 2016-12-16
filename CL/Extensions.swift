@@ -12,6 +12,7 @@ import Foundation
 
 extension UIButton {
     
+    // Underline button label text
     func addUnderline() {
         let underlineAttr = [NSUnderlineStyleAttributeName : 1]
         
@@ -31,6 +32,7 @@ extension UIButton {
 
         }
     }
+    
     
 }
 
@@ -112,5 +114,7 @@ extension UIView {
         }
         
     }
+    
+
 }
 
