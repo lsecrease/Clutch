@@ -10,17 +10,29 @@ import UIKit
 import CoreLocation
 import Eureka
 
-//class CoordinateCell: Cell<Coordinates>, {
-//
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-//    
-//}
+public class CoordinateCell: Cell<Coordinates>, CellType {
+    
+    @IBOutlet weak var latitudeField: UITextField!
+    @IBOutlet weak var longitudeField: UITextField!
+
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    public override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+    
+}
+
+public class CoordinateRow: Row<Coordinates, CoordinateCell>, RowType {
+    
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        
+    }
+    
+}
