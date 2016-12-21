@@ -19,6 +19,12 @@ class LiveLeaderboardController: UIViewController {
     @IBOutlet weak var liveLeaderboardView: UIView!
     @IBOutlet weak var leaderboardCollectionView: UICollectionView!
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

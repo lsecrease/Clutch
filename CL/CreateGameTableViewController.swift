@@ -194,6 +194,13 @@ extension CreateGameTableViewController: ExpandableTableViewDelegate {
     
     func expandableTableView(expandableTableView: ExpandableTableView, didSelectSubRowAtExpandableIndexPath expandableIndexPath: ExpandableIndexPath) {
         
+        switch expandableIndexPath.row {
+        case 2, 4:
+            print("Expandable Cell Clicked")
+        default:
+            break
+        }
+        
     }
     
 }

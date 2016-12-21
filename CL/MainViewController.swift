@@ -26,6 +26,9 @@ class MainViewController: UIViewController {
     
     var currentView: UIView!
     
+    var gameRosterViewIsActive: Bool = true
+    var liveTeamViewIsActive: Bool = false
+    
     // MARK: Profile IBOutlets
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
@@ -39,8 +42,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var liveTeamViewCenterX: NSLayoutConstraint!
     @IBOutlet weak var leaderboardView: UIView!
     @IBOutlet weak var leaderboardViewCenterX: NSLayoutConstraint!
-    
-    var liveTeamViewIsActive: Bool = false
     
     
     // MARK: Live Team View
@@ -88,7 +89,6 @@ class MainViewController: UIViewController {
             gameView.hide()
             currentView = profileView
             
-            updateViews()
         case gameButton:
             profileUnderlineLabel.hide()
             gameUnderlineLabel.show()
@@ -98,7 +98,6 @@ class MainViewController: UIViewController {
             liveView.hide()
             currentView = gameView
             
-            updateViews()
         case liveButton:
             profileUnderlineLabel.hide()
             gameUnderlineLabel.hide()
@@ -109,7 +108,6 @@ class MainViewController: UIViewController {
             currentView = liveView
             
             checkInButton.show()
-            updateViews()
         default:
             break
             
@@ -117,29 +115,40 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func leaderboardButtonPressed(sender: UIButton) {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+        
+        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: { 
             self.liveTeamViewCenterX.constant -= self.view.bounds.width
             self.leaderboardViewCenterX.constant -= self.view.bounds.width
             self.view.layoutIfNeeded()
-            }, completion: nil)
-        
-        checkInButton.hide()
+        }) { (finished) in
+            self.liveTeamViewIsActive = false
+            self.updateViews()
+        }
     }
     
     @IBAction func myTeamButtonPressed(sender: UIButton) {
-        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-            self.liveTeamViewCenterX.constant += self.view.bounds.width
-            self.leaderboardViewCenterX.constant += self.view.bounds.width
-            self.view.layoutIfNeeded()
-            }, completion: nil)
         
-        checkInButton.show()
+//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+//            self.liveTeamViewCenterX.constant += self.view.bounds.width
+//            self.leaderboardViewCenterX.constant += self.view.bounds.width
+//            self.view.layoutIfNeeded()
+//        }) { (finished) in
+//            self.liveTeamViewIsActive = true
+//            self.updateViews()
+//        }
+        
+        slideViewCenterXConstraints(liveTeamViewCenterX, centerXConstraint2: leaderboardViewCenterX, direction: .Right)
+        self.liveTeamViewIsActive = true
+        self.updateViews()
+
     }
     
     @IBAction func cancelRosterButtonPressed(sender: UIButton) {
-        self.slideViewCenterXConstraints(gameMatchupViewCenterX, centerXConstraint2: gameRosterViewCenterX, direction: .Left)
-        cancelButton.hide()
+        self.slideViewCenterXConstraints(gameMatchupViewCenterX, centerXConstraint2: gameRosterViewCenterX, direction: .Right)
+        gameRosterViewIsActive = false
+        updateViews()
     }
+    
     
     // MARK: View Lifecycle
     
@@ -182,32 +191,24 @@ class MainViewController: UIViewController {
         
         // Register Collection view cells
         registerCells()
+        
+        // Set active views
+        liveTeamViewIsActive = true
+        gameRosterViewIsActive = false
 
     }
     
     func updateViews() {
+        
         if liveTeamViewIsActive {
             checkInButton.show()
         } else {
+            // checkInButton.hidden = true
             checkInButton.hide()
         }
         
-//        if gameMatchupViewIsActive {
-//            cancelButton.show()
-//        } else {
-//            cancelButton.hide()
-//        }
         
-        if self.view.subviews.last == liveTeamView {
-            checkInButton.show()
-        } else {
-            checkInButton.hide()
-        }
-        
-        if self.view.subviews.first == gameMatchupView {
-            
-            print("GAME MATCHUP VIEW IS SHOWING")
-            
+        if gameRosterViewIsActive {
             cancelButton.show()
         } else {
             cancelButton.hide()
@@ -271,13 +272,13 @@ class MainViewController: UIViewController {
     
     func slideViewCenterXConstraints(centerXConstraint1: NSLayoutConstraint, centerXConstraint2: NSLayoutConstraint, direction: Direction) {
         
-        if direction == .Left {
+        if direction == .Right {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
                 centerXConstraint1.constant += self.view.bounds.width
                 centerXConstraint2.constant += self.view.bounds.width
                 self.view.layoutIfNeeded()
                 }, completion: nil)
-        } else if direction == .Right {
+        } else if direction == .Left {
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
                 centerXConstraint1.constant -= self.view.bounds.width
                 centerXConstraint2.constant -= self.view.bounds.width
@@ -371,13 +372,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             // Slide GAME views right to simulate navigation
             UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-            
                 self.gameRosterViewCenterX.constant -= self.view.bounds.width
                 self.gameMatchupViewCenterX.constant -= self.view.bounds.width
                 self.view.layoutIfNeeded()
-                }, completion: nil)
-            
-            self.cancelButton.show()
+            }) { (finished) in
+                self.gameRosterViewIsActive = true
+                self.updateViews()
+            }
 
         default:
             break
@@ -393,9 +394,11 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         case UICollectionElementKindSectionHeader:
             
             switch collectionView {
-            case liveTeamCollectionView, gameRosterCollectionView:
+            case liveTeamCollectionView:
                 headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
-                return headerView
+            case gameRosterCollectionView:
+                headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
+
             default:
                 break
             }
@@ -407,6 +410,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         return headerView
     }
+    
 }
 
 

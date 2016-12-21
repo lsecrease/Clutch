@@ -35,6 +35,8 @@
 		C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */; };
 		C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */; };
 		C048B88D1DEA7CD500CB6F72 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */; };
+		C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08607141E091D460091A8BF /* AddNewPlayerCell.swift */; };
+		C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08607151E091D460091A8BF /* AddNewPlayerCell.xib */; };
 		C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */; };
 		C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */; };
 		C087EF091DF5E52300BA3EA2 /* GameMatchupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */; };
@@ -96,6 +98,8 @@
 		C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoHeaderView.swift; sourceTree = "<group>"; };
 		C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoHeaderView.xib; sourceTree = "<group>"; };
 		C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C08607141E091D460091A8BF /* AddNewPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewPlayerCell.swift; sourceTree = "<group>"; };
+		C08607151E091D460091A8BF /* AddNewPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlayerCell.xib; sourceTree = "<group>"; };
 		C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameMatchupCell.xib; sourceTree = "<group>"; };
 		C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupCell.swift; sourceTree = "<group>"; };
 		C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupViewController.swift; sourceTree = "<group>"; };
@@ -279,6 +283,15 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		C08607131E091CBA0091A8BF /* Add New Player Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C08607141E091D460091A8BF /* AddNewPlayerCell.swift */,
+				C08607151E091D460091A8BF /* AddNewPlayerCell.xib */,
+			);
+			name = "Add New Player Cell";
+			sourceTree = "<group>";
+		};
 		C087EEFC1DF5DB5B00BA3EA2 /* Game View */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +413,7 @@
 		C0E2819F1DFF29A400BF35D0 /* Create Game */ = {
 			isa = PBXGroup;
 			children = (
+				C08607131E091CBA0091A8BF /* Add New Player Cell */,
 				C00346F71E0358A10000A335 /* Date Cell */,
 				C00346EE1E02C35E0000A335 /* Add Player Expandable Cell */,
 				C0E281A51DFF2C5C00BF35D0 /* Multi Input Cell */,
@@ -574,6 +588,7 @@
 				C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */,
 				C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */,
 				C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */,
+				C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */,
 				C0E3026E1DEA4FD00007988B /* LaunchScreen.storyboard in Resources */,
 				C0E2819E1DFF276100BF35D0 /* TextCell.xib in Resources */,
 				C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */,
@@ -655,6 +670,7 @@
 				C048B88D1DEA7CD500CB6F72 /* MainViewController.swift in Sources */,
 				C003A3DF1DF4AD96008158C7 /* LeaderboardCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
+				C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */,
 				C0E2819C1DFF274E00BF35D0 /* TextCell.swift in Sources */,
 				C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
