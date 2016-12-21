@@ -6,115 +6,148 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import Eureka
+
 import UIKit
+import Eureka
 
 class CreateGameFormViewController: FormViewController {
     
-    var createGameTable: UITableView!
-    var rowShouldExpand: Bool = false
+    typealias AddPlayerInlineRow = _AddPlayerInlineRow<Player>
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureForm()
-    
+        loadForm()
+        
+        
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
+
     
+    // MARK: Eureka Form
+    
+    func loadForm() {
+        customizeFormAppearance()
+        configureForm()
+    }
     
     func configureForm() {
         
-        // Customize TableView
+        // Initialize form
         
-        self.tableView?.sectionHeaderHeight = 0
-        self.tableView!.separatorStyle = .None
-        
-        self.createGameTable = self.tableView
-        
-        // Configure Cell appearance
-        
-        // PickerInlineRow.defaultCellUpdate = { cell, row in cell.height = { 70.0 }; cell.textLabel.font = UIFont(name: "Helvetica Neue", size: 15.0) }
-        
-        TextRow.defaultCellUpdate = { cell, row in
-            cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0);
-            cell.textField.font = UIFont(name: "Helvetica Neue", size: 15.0);
-            cell.textField.spellCheckingType = .No
-            cell.height = { 70.0 } }
-        
-        AddPlayerRow.defaultCellUpdate = { cell, row in
-            cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0);
-            cell.height = { 60.0 } }
-        IntRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.textField.font = UIFont(name: "Helvetica Neue", size: 15.0);cell.height = { 70.0 } }
-        DateTimeInlineRow.defaultCellUpdate = { cell, row in cell.textLabel!.font = UIFont(name: "Helvetica Neue", size: 15.0); cell.height = { 60.0 }  }
-        
-        
-        // Add rows
-        
-        form +++ TextRow() {
-                $0.title = "Category"
-                $0.placeholder = "Input"
+        form
+            
+            // Add section and remove section header and footer by setting its height to 0.
+                +++ Section {
+                    $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+                    $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+                    $0.header?.height = { 0 }
+                    $0.footer?.height = { 0 }
+                }
+            
+            // Add rows 
+            
+            // 1
+            
+//            <<< TextRow() {
+//                $0.title = "Category"
+//                $0.placeholder = "Input"
+//            }
+            
+            <<< PickerInlineRow() {
+                
             }
+            
+            // 2
             
             <<< TextRow() {
                 $0.title = "Team 1"
                 $0.placeholder = "Input"
-            }            
-            
-            <<< AddPlayerRow() {
-                $0.title = "Add Player to Team 1"
-                $0.cell.addButton.addTarget(self, action: #selector(CreateGameFormViewController.addButtonPressed), forControlEvents: .TouchUpInside)
             }
             
+            // 3
+
+            <<< AddPlayerInlineRow() {_ in
+                
+            }
+            
+            // 4
+
             <<< TextRow() {
                 $0.title = "Team 2"
                 $0.placeholder = "Input"
             }
             
-            <<< AddPlayerRow() {
-                $0.title = "Add Player to Team 2"
-                
+            // 5
+            
+            // Custom Inline row
+            <<< AddPlayerInlineRow() { row in
+                row.title = "Add Player to Team 2"
             }
-
+        
+            // 6
+            
             <<< IntRow() {
-                $0.title = "Participant Starting Value"
+                $0.title = "Participant starting value"
                 $0.placeholder = "Input"
             }
+            
+            // 7
+
+//            <<< CoordinateRow() {
+//                
+//            }
+        
+            // 8
             
             <<< TextRow() {
                 $0.title = "Venue Name"
                 $0.placeholder = "Input"
             }
+            
+            // 9
         
             <<< DateTimeInlineRow() {
                 $0.title = "End Registration"
-            }
-
-    }
-    
-    func addButtonPressed() {
-        let addPlayerCellIndexPath = NSIndexPath(forItem: 1, inSection: 0)
-        
-        rowShouldExpand = !rowShouldExpand
-        
-        self.createGameTable.beginUpdates()
-        self.createGameTable.reloadRowsAtIndexPaths([addPlayerCellIndexPath], withRowAnimation: .Automatic)
-        self.createGameTable.endUpdates()
-        
-    }
-    
-}
-
-extension CreateGameFormViewController {
-
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.row {
-        case 2, 4:
-            print("Add Player Row Selected")
-        default:
-            break
+                $0.value = NSDate()
         }
-    }
-    
+        
+        }
+        
+        func customizeFormAppearance() {
+            // Customize table view
+            
+            self.tableView?.sectionHeaderHeight = 0
+            self.tableView?.separatorStyle = .None
+            
+            
+            // Customize cell appearance
+            
+            TextRow.defaultCellUpdate = { cell, row in
+                cell.textLabel!.font = defaultFont
+                cell.textField.font = defaultFont
+                cell.textField.spellCheckingType = .No
+                cell.height = { 65.0 }
+            }
+            
+            IntRow.defaultCellUpdate = { cell, row in
+                cell.textLabel!.font = defaultFont
+                cell.textField.font = defaultFont
+                cell.height = { 65.0 }
+            }
+            
+            DateTimeInlineRow.defaultCellUpdate = { cell, row in
+                cell.textLabel!.font = defaultFont
+                cell.height = { 65.0 }
+            }
+            
+        }
     
 }
+

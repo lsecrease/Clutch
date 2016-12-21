@@ -2,63 +2,51 @@
 //  AddPlayerCell.swift
 //  CL
 //
-//  Created by iwritecode on 12/12/16.
+//  Created by iwritecode on 12/21/16.
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import UIKit
 
-class AddPlayerCell: UITableViewCell {
+import UIKit
+import Spring
+import Eureka
+
+public class AddPlayerCell: Cell<Player>, CellType {
     
-    // MARK: IBOutlets
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var addOrCancelButton: RotatingButton!
-    @IBOutlet weak var addPlayerButton: UIButton!
-    
-    // Inputs
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var numberField: UITextField!
     @IBOutlet weak var valueField: UITextField!
+    @IBOutlet weak var addPlayerButton: DesignableButton!
     
-    // MARK: Variables
-    
-    var isExpanded = false
-    
-    // Cell title
-    var title: String = "Title" {
-        didSet {
-            label.text = title
-        }
+    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    var playerNumber: String = "" {
-        didSet {
-            numberField.text = playerNumber
-        }
-    }
-    
-    var playerValue: String = "" {
-        didSet {
-            valueField.text = playerValue
-        }
-    }
-    
-    
-    
-    // View lifecycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    override public func setup() {
+        super.setup()
         
+        selectionStyle = .None
+        
+        height = { return 205 }
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    override public func update() {
+        super.update()
         
-
-        // Configure the view for the selected state
     }
     
 }
 
+
+public final class _AddPlayerRow<Z>: Row<Player, AddPlayerCell>, Eureka.RowType {
+    
+    required public init(tag: String?) {
+        super.init(tag: tag)
+        
+        cellProvider = CellProvider<AddPlayerCell>(nibName: "AddPlayerCell", bundle: nil)
+    }
+    
+    public typealias AddPlayerRow = _AddPlayerRow<Player>
+    
+    
+}

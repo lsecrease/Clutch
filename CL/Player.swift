@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Player: NSObject {
+public struct Player: Equatable {
     
     var number: String
     var name: String
@@ -16,7 +16,7 @@ class Player: NSObject {
     var pointValue: Int
     var cost: Int
     
-    required init(number: String, name: String, teamName: String, pointValue: Int, cost: Int) {
+    init(number: String, name: String, teamName: String, pointValue: Int, cost: Int) {
         self.number = number
         self.name = name
         self.teamName = teamName
@@ -25,3 +25,8 @@ class Player: NSObject {
     }
     
 }
+
+public func ==(lhs: Player, rhs: Player) -> Bool {
+    return lhs.name == rhs.name
+}
+    

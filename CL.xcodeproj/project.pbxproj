@@ -35,6 +35,10 @@
 		C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */; };
 		C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */; };
 		C048B88D1DEA7CD500CB6F72 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */; };
+		C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CCB1E0B03CF00A03B57 /* AddPlayerCell.swift */; };
+		C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0638CCD1E0B041C00A03B57 /* AddPlayerCell.xib */; };
+		C0638CD31E0B04D600A03B57 /* AddPlayerInlineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CD11E0B04D600A03B57 /* AddPlayerInlineCell.swift */; };
+		C0638CD41E0B04D600A03B57 /* AddPlayerInlineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0638CD21E0B04D600A03B57 /* AddPlayerInlineCell.xib */; };
 		C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08607141E091D460091A8BF /* AddNewPlayerCell.swift */; };
 		C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08607151E091D460091A8BF /* AddNewPlayerCell.xib */; };
 		C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */; };
@@ -53,8 +57,6 @@
 		C0C3E2CF1DEB957900B4978B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2CE1DEB957900B4978B /* Constants.swift */; };
 		C0C3E2D31DEBE09C00B4978B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2D21DEBE09C00B4978B /* Extensions.swift */; };
 		C0DA56001DFF96DA00210462 /* MultiInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA55FF1DFF96DA00210462 /* MultiInputCell.swift */; };
-		C0E281951DFF159400BF35D0 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */; };
-		C0E281961DFF159400BF35D0 /* AddPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */; };
 		C0E2819C1DFF274E00BF35D0 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E2819B1DFF274E00BF35D0 /* TextCell.swift */; };
 		C0E2819E1DFF276100BF35D0 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E2819D1DFF276100BF35D0 /* TextCell.xib */; };
 		C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */; };
@@ -98,6 +100,10 @@
 		C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoHeaderView.swift; sourceTree = "<group>"; };
 		C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoHeaderView.xib; sourceTree = "<group>"; };
 		C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C0638CCB1E0B03CF00A03B57 /* AddPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
+		C0638CCD1E0B041C00A03B57 /* AddPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerCell.xib; sourceTree = "<group>"; };
+		C0638CD11E0B04D600A03B57 /* AddPlayerInlineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerInlineCell.swift; sourceTree = "<group>"; };
+		C0638CD21E0B04D600A03B57 /* AddPlayerInlineCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerInlineCell.xib; sourceTree = "<group>"; };
 		C08607141E091D460091A8BF /* AddNewPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewPlayerCell.swift; sourceTree = "<group>"; };
 		C08607151E091D460091A8BF /* AddNewPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlayerCell.xib; sourceTree = "<group>"; };
 		C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameMatchupCell.xib; sourceTree = "<group>"; };
@@ -117,8 +123,6 @@
 		C0C3E2CE1DEB957900B4978B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0C3E2D21DEBE09C00B4978B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C0DA55FF1DFF96DA00210462 /* MultiInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiInputCell.swift; sourceTree = "<group>"; };
-		C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
-		C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerCell.xib; sourceTree = "<group>"; };
 		C0E2819B1DFF274E00BF35D0 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		C0E2819D1DFF276100BF35D0 /* TextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextCell.xib; sourceTree = "<group>"; };
 		C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -283,6 +287,33 @@
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
+		C0638CCA1E0B03B500A03B57 /* Add Player Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C0638CCB1E0B03CF00A03B57 /* AddPlayerCell.swift */,
+				C0638CCD1E0B041C00A03B57 /* AddPlayerCell.xib */,
+			);
+			name = "Add Player Cell";
+			sourceTree = "<group>";
+		};
+		C0638CCF1E0B046400A03B57 /* Add Player Inline Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C0638CD11E0B04D600A03B57 /* AddPlayerInlineCell.swift */,
+				C0638CD21E0B04D600A03B57 /* AddPlayerInlineCell.xib */,
+			);
+			name = "Add Player Inline Cell";
+			sourceTree = "<group>";
+		};
+		C0638CD01E0B049600A03B57 /* Eureka Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				C0638CCF1E0B046400A03B57 /* Add Player Inline Cell */,
+				C0638CCA1E0B03B500A03B57 /* Add Player Cell */,
+			);
+			name = "Eureka Xibs";
+			sourceTree = "<group>";
+		};
 		C08607131E091CBA0091A8BF /* Add New Player Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,15 +423,6 @@
 			name = "TableView Cells";
 			sourceTree = "<group>";
 		};
-		C0E281991DFF270C00BF35D0 /* Add Player Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C0E281931DFF159400BF35D0 /* AddPlayerCell.swift */,
-				C0E281941DFF159400BF35D0 /* AddPlayerCell.xib */,
-			);
-			name = "Add Player Cell";
-			sourceTree = "<group>";
-		};
 		C0E2819A1DFF273400BF35D0 /* Text Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,13 +435,13 @@
 		C0E2819F1DFF29A400BF35D0 /* Create Game */ = {
 			isa = PBXGroup;
 			children = (
+				C0638CD01E0B049600A03B57 /* Eureka Xibs */,
 				C08607131E091CBA0091A8BF /* Add New Player Cell */,
 				C00346F71E0358A10000A335 /* Date Cell */,
 				C00346EE1E02C35E0000A335 /* Add Player Expandable Cell */,
 				C0E281A51DFF2C5C00BF35D0 /* Multi Input Cell */,
 				C0E281A01DFF2A0300BF35D0 /* Label Cell */,
 				C0E2819A1DFF273400BF35D0 /* Text Cell */,
-				C0E281991DFF270C00BF35D0 /* Add Player Cell */,
 				C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */,
 			);
 			name = "Create Game";
@@ -584,7 +606,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0E281A71DFF2C9300BF35D0 /* MultiInputCell.xib in Resources */,
-				C0E281961DFF159400BF35D0 /* AddPlayerCell.xib in Resources */,
 				C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */,
 				C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */,
 				C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */,
@@ -592,6 +613,7 @@
 				C0E3026E1DEA4FD00007988B /* LaunchScreen.storyboard in Resources */,
 				C0E2819E1DFF276100BF35D0 /* TextCell.xib in Resources */,
 				C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */,
+				C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */,
 				C0E3026B1DEA4FD00007988B /* Assets.xcassets in Resources */,
 				C00346FB1E0358D70000A335 /* DateCell.xib in Resources */,
 				C00A07391DF725190032C39A /* GameRosterCell.xib in Resources */,
@@ -599,6 +621,7 @@
 				C003A3E11DF4ADBE008158C7 /* LeaderboardCell.xib in Resources */,
 				C00346ED1E02C3550000A335 /* AddPlayerExpandableCell.xib in Resources */,
 				C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */,
+				C0638CD41E0B04D600A03B57 /* AddPlayerInlineCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +685,6 @@
 				C00346F11E02EEF20000A335 /* CreateGameTableViewCell.swift in Sources */,
 				C00346E81E02C3170000A335 /* ExpandableTableViewController.swift in Sources */,
 				C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */,
-				C0E281951DFF159400BF35D0 /* AddPlayerCell.swift in Sources */,
 				C0C3E2B61DEB57AD00B4978B /* TestData.swift in Sources */,
 				C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */,
 				C003A3DC1DF4A8B4008158C7 /* GameInfoCell.swift in Sources */,
@@ -672,6 +694,7 @@
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
 				C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */,
 				C0E2819C1DFF274E00BF35D0 /* TextCell.swift in Sources */,
+				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
 				C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
 				C0DA56001DFF96DA00210462 /* MultiInputCell.swift in Sources */,
@@ -683,6 +706,7 @@
 				C0AFE6581DF89D8C00F2A32A /* AddOrRemoveButton.swift in Sources */,
 				C003A3D91DF4A63D008158C7 /* LiveTeamCell.swift in Sources */,
 				C00346F61E0345CB0000A335 /* RotatingButton.swift in Sources */,
+				C0638CD31E0B04D600A03B57 /* AddPlayerInlineCell.swift in Sources */,
 				C0C3E2B41DEB546E00B4978B /* Team.swift in Sources */,
 				C003A4011DF55232008158C7 /* GameViewController.swift in Sources */,
 				C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */,
