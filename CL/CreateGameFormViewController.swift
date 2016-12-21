@@ -46,23 +46,18 @@ class CreateGameFormViewController: FormViewController {
             // Add section and remove section header and footer by setting its height to 0.
                 +++ Section {
                     $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
-                    $0.footer = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
                     $0.header?.height = { 0 }
-                    $0.footer?.height = { 0 }
                 }
             
             // Add rows 
             
             // 1
             
-//            <<< TextRow() {
-//                $0.title = "Category"
-//                $0.placeholder = "Input"
-//            }
-            
-            <<< PickerInlineRow() {
-                
+            <<< TextRow() {
+                $0.title = "Category"
+                $0.placeholder = "Input"
             }
+            
             
             // 2
             

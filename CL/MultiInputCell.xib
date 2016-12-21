@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XVx-u8-9QZ" id="1Rs-18-gME">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkY-rK-2kK" userLabel="Multi Input Area">

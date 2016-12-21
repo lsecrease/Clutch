@@ -27,6 +27,14 @@ SOFTWARE.
 
 
 
+## GoogleMaps
+
+Copyright 2016 Google
+
+## GooglePlaces
+
+Copyright 2016 Google
+
 ## IQKeyboardManagerSwift
 
 IQKeyboardManager license
