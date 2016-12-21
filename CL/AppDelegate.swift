@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
-import GoogleMaps
 import IQKeyboardManagerSwift
 
 
@@ -21,11 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        
-        
-        // MARK: Google MAps
-        
-        GMSServices.provideAPIKey(googleMapsApiKey)
         
         
         // MARK: IQKeyboardManager

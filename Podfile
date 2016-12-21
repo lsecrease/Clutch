@@ -8,8 +8,6 @@ target 'CL' do
   # Pods for CL
   
   pod 'Eureka', '1.7.0'
-  pod 'GoogleMaps'
-  pod 'GooglePlaces'
   pod 'IQKeyboardManagerSwift', '4.0.5'
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
   pod 'SwiftLoader'

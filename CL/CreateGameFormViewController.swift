@@ -9,11 +9,15 @@
 
 import UIKit
 import Eureka
+import CoreLocation
+
+// MARK: - CreateGameFormViewController
 
 class CreateGameFormViewController: FormViewController {
     
     typealias AddPlayerInlineRow = _AddPlayerInlineRow<Player>
     
+    // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,10 +99,11 @@ class CreateGameFormViewController: FormViewController {
             
             // 7
 
-//            <<< CoordinateRow() {
-//                
-//            }
-        
+            <<< LocationRow() {
+                $0.title = "Coordinates"
+                $0.value = CLLocation(latitude: 29.68, longitude: -95.4107)
+            }
+            
             // 8
             
             <<< TextRow() {
