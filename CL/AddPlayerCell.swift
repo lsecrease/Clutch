@@ -11,12 +11,13 @@ import UIKit
 import Spring
 import Eureka
 
-public class AddPlayerCell: Cell<Player>, CellType {
+public class AddPlayerCell: Cell<Bool>, CellType {
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var numberField: UITextField!
-    @IBOutlet weak var valueField: UITextField!
-    @IBOutlet weak var addPlayerButton: DesignableButton!
+    var shouldHideCells = false
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addButton: RotatingButton!
+    @IBOutlet weak var topSeparator: UIView!
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,27 +27,55 @@ public class AddPlayerCell: Cell<Player>, CellType {
         super.setup()
         
         selectionStyle = .None
+        editingAccessoryType = .None
         
-        height = { return 205 }
+        titleLabel.font = defaultFont
+        topSeparator.hidden = true
+        height = { return 65 }
+        
     }
     
     override public func update() {
         super.update()
         
+        textLabel?.text = nil
+        
+    }
+    
+    public override func didSelect() {
+        super.didSelect()
+        
+        print("CELL TAPPED")
+
+        if shouldHideCells {
+            let finalImage = UIImage(named: "cancel")
+            addButton.turnForward(finalImage)
+        } else {
+            let finalImage = UIImage(named: "plus")
+            addButton.turnBack(finalImage)
+        }
+        
+        shouldHideCells = !shouldHideCells
+
     }
     
 }
 
 
-public final class _AddPlayerRow<Z>: Row<Player, AddPlayerCell>, Eureka.RowType {
+final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
     
-    required public init(tag: String?) {
+    
+    required init(tag: String?) {
         super.init(tag: tag)
         
         cellProvider = CellProvider<AddPlayerCell>(nibName: "AddPlayerCell", bundle: nil)
+        
     }
     
-    public typealias AddPlayerRow = _AddPlayerRow<Player>
+    override func customDidSelect() {
+        super.customDidSelect()
+        
+    }
     
     
 }

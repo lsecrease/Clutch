@@ -19,9 +19,11 @@ class AddPlayerExpandableCell: UITableViewCell {
     var isExpanded: Bool = false {
         didSet {
             if isExpanded {
-                self.addOrCancelButton.rotateForward()
+                let finalImage = UIImage(named: "add")
+                self.addOrCancelButton.turnForward(finalImage)
             } else {
-                self.addOrCancelButton.rotateToOrigin()
+                let finalImage = UIImage(named: "delete")
+                self.addOrCancelButton.turnBack(finalImage)
             }
         }
     }
@@ -36,8 +38,6 @@ class AddPlayerExpandableCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        addOrCancelButton.startImage = UIImage(named: "plus")
-        addOrCancelButton.endImage = UIImage(named: "cancel")
 
     }
 

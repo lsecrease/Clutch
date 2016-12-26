@@ -18,6 +18,12 @@ class GameRosterCell: UICollectionViewCell {
     
     var padding: CGFloat = 3.0
     
+    let startImage = UIImage(named: "add")
+    let endImage = UIImage(named: "close")
+    
+    
+    var addedToRoster = false
+    
     var number: String = "" {
         didSet {
             numberLabel.text = number
@@ -42,10 +48,6 @@ class GameRosterCell: UICollectionViewCell {
         }
     }
     
-    var hasBeenSelected = false
-    
-    var isShowingClose = false
-    
     private var change: CGFloat!
 
     override func awakeFromNib() {
@@ -54,6 +56,31 @@ class GameRosterCell: UICollectionViewCell {
         
         
     }
+    
+    func turnButtonForward() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.button.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
+            
+            if self.endImage != nil {
+                self.button.setImage(self.endImage, forState: .Normal)
+            }
+            
+            self.layoutSubviews()
+        })
+    }
+    
+    func turnButtonBack() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.button.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
+            
+            if self.startImage != nil {
+                self.button.setImage(self.startImage, forState: .Normal)
+                self.layoutSubviews()
+            }
+            
+        })
+    }
+
     
 
 }

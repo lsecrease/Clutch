@@ -21,7 +21,7 @@ let nameKey = "name"
 
 // MARK: UI
 
-let defaultFont = UIFont(name: "Helvetica Neue", size: 15.0)
+let defaultFont = UIFont.systemFontOfSize(16.0)
 
 
 struct Constants {

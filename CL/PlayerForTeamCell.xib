@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="sUK-Tj-0WS" customClass="PlayerForTeamCell" customModule="CL" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sUK-Tj-0WS" id="B9i-xm-mfK">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Michael Johnson" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnh-w6-nKa">
+                        <rect key="frame" x="15" y="11" width="180" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="UkA-eM-OLa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$10,000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJ9-sh-eLQ">
+                        <rect key="frame" x="272" y="11" width="95" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="1eE-o1-tAQ"/>
+                            <constraint firstAttribute="width" constant="95" id="5hc-pa-RgN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="nnh-w6-nKa" firstAttribute="centerY" secondItem="B9i-xm-mfK" secondAttribute="centerY" id="4Fg-CU-yJA"/>
+                    <constraint firstAttribute="leadingMargin" secondItem="nnh-w6-nKa" secondAttribute="leading" constant="-7" id="Ds9-zn-wzc"/>
+                    <constraint firstItem="HJ9-sh-eLQ" firstAttribute="centerY" secondItem="B9i-xm-mfK" secondAttribute="centerY" id="YlU-WU-sz4"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="HJ9-sh-eLQ" secondAttribute="trailing" id="ZIs-o5-t4o"/>
+                    <constraint firstItem="nnh-w6-nKa" firstAttribute="width" secondItem="B9i-xm-mfK" secondAttribute="width" multiplier="0.48" id="bRT-uy-w6V"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="nameLabel" destination="nnh-w6-nKa" id="uU8-UN-w2c"/>
+                <outlet property="valueLabel" destination="HJ9-sh-eLQ" id="dS2-D6-zgd"/>
+            </connections>
+            <point key="canvasLocation" x="155.5" y="334"/>
+        </tableViewCell>
+    </objects>
+</document>

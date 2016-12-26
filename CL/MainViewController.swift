@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: UIViewController {
     
@@ -30,9 +31,9 @@ class MainViewController: UIViewController {
     var liveTeamViewIsActive: Bool = false
     
     // MARK: Profile IBOutlets
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var fullNameLabel: UILabel!
-    @IBOutlet weak var textView: UITextView!
+//    @IBOutlet weak var profileImageView: UIImageView!
+//    @IBOutlet weak var fullNameLabel: UILabel!
+//    @IBOutlet weak var textView: UITextView!
     
     
     // MARK: LIVE VIEW
@@ -174,8 +175,8 @@ class MainViewController: UIViewController {
         
         // After all subview layout, use actual profile image view
         // width to make it round.
-        let imgWidth = profileImageView.bounds.width
-        profileImageView.layer.cornerRadius = imgWidth / 2.0
+//        let imgWidth = profileImageView.bounds.width
+//        profileImageView.layer.cornerRadius = imgWidth / 2.0
         
         // liveView2CenterX.constant -= self.view.bounds.width
 
@@ -222,8 +223,8 @@ class MainViewController: UIViewController {
         
         // LIVE Collection Views
         liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
-        liveTeamCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
-        leaderboardCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
+//        liveTeamCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
+//        leaderboardCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
         leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
         
         // GAME CollectionViews
@@ -320,7 +321,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = liveTeamCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLiveTeam, forIndexPath: indexPath) as! LiveTeamCell
             cell.playerNumberLabel.text = player.number
             cell.playerNameLabel.text = player.name
-            cell.teamNameLabel.text = player.teamName
+//            cell.teamNameLabel.text = player.teamName
             cell.playerPointLabel.text = "\(player.pointValue)"
             return cell
             
@@ -348,8 +349,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             let player = players[indexPath.row]
             cell.number = player.number
             cell.playerName = player.name
-            cell.teamName = player.teamName
-            cell.cost = "\(player.cost)"
+//            cell.teamName = player.teamName
+//            cell.cost = "\(player.cost)"
             return cell
             
         default:
@@ -397,7 +398,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
             case liveTeamCollectionView:
                 headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
             case gameRosterCollectionView:
-                headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
+                headerView = gameRosterCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
 
             default:
                 break
@@ -426,3 +427,40 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
+
+//  MARK: CLLocationManagerDelegate
+
+extension MainViewController: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        
+        switch status {
+        case .AuthorizedWhenInUse, .AuthorizedAlways:
+            manager.startUpdatingLocation()
+        default:
+            manager.stopUpdatingLocation()
+        }
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error: \(error.localizedDescription)")
+    }
+    
+//    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        <#code#>
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+//        <#code#>
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+//        <#code#>
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
+//        <#code#>
+//    }
+    
+}

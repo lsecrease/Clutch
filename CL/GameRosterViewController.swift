@@ -54,8 +54,8 @@ extension GameRosterViewController: UICollectionViewDelegate, UICollectionViewDa
         let player = players[indexPath.row]
         cell.number = player.number
         cell.playerName = player.name
-        cell.teamName = player.teamName
-        cell.cost = "\(player.cost)"
+//        cell.teamName = player.teamName
+//        cell.cost = "\(player.cost)"
         return cell
     }
     

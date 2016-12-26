@@ -11,49 +11,49 @@ import UIKit
 class RotatingButton: UIButton {
     
     var isRotated: Bool = false
-    var endImage: UIImage?
-    var startImage: UIImage?
+//    var endImage: UIImage?
+//    var startImage: UIImage?
     
-    func rotateForward() {
+    func turnForward(finalImage: UIImage?) {
         UIView.animateWithDuration(0.2, animations: {
             self.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
             
-            if self.endImage != nil {
-                self.setImage(self.endImage!, forState: .Normal)
+            if finalImage != nil {
+                self.setImage(finalImage!, forState: .Normal)
             }
             
             self.layoutSubviews()
         })
     }
     
-    func rotateToOrigin() {
+    func turnBack(finalImage: UIImage?) {
         UIView.animateWithDuration(0.2, animations: {
             self.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
             
-            if self.startImage != nil {
-                self.setImage(self.startImage, forState: .Normal)
+            if finalImage != nil {
+                self.setImage(finalImage, forState: .Normal)
                 self.layoutSubviews()
             }
             
         })
     }
     
-    func buttonPressed() {
-        
-        isRotated = !isRotated
-        
-        if isRotated {
-            self.rotateForward()
-        } else {
-            self.rotateToOrigin()
-        }
-    }
+//    func buttonPressed() {
+//        
+//        isRotated = !isRotated
+//        
+//        if isRotated {
+//            self.rotateForward()
+//        } else {
+//            self.rotateToOrigin()
+//        }
+//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         self.contentMode = .ScaleAspectFit
-        self.addTarget(self, action: #selector(self.buttonPressed), forControlEvents: .TouchUpInside)
+        // self.addTarget(self, action: #selector(self.buttonPressed), forControlEvents: .TouchUpInside)
         
     }
     
