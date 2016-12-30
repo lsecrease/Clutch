@@ -19,8 +19,9 @@ class CreateGameFormViewController: FormViewController {
     let categories = ["MLB", "MLS", "NCAA Basketball", "NCAA Football", "NBA", "NFL", "NHL"]
     
     var gameCategory: String!
-    var hideRows1 = true
     var hideRows2 = true
+    
+    var firstInputRow = AddPlayerInputRow()
     
     // Team 1
     var teamName1: String!
@@ -69,7 +70,7 @@ class CreateGameFormViewController: FormViewController {
             // Add section and remove section header and footer by setting its height to 0.
                 +++ Section {
                     $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
-                    $0.header?.height = { 0 }
+                    $0.header!.height = { 0 }
                 }
             
             // Add rows 
@@ -82,6 +83,7 @@ class CreateGameFormViewController: FormViewController {
                 row.title = "Category"
                 row.value = row.options[0]
                 row.cell.height = { 65 }
+                row.cell.detailTextLabel?.textColor = UIColor.blackColor()
             }.onChange({ (picker) in
                 // picker.hidden = true
                 picker.hidden = Condition.Predicate(NSPredicate(format: "$RowName != nil"))
@@ -98,20 +100,29 @@ class CreateGameFormViewController: FormViewController {
                 row.disabled = true
             })
             
+            
             // 3
 
             <<< AddPlayerRow() { row in
-            
+
                 }.onCellSelection({ (cell, row) in
-                    if let secondCell = self.form.rowByTag("AddPlayerInputRow1") {
-                        secondCell.hidden = cell.shouldHideCells ? true : false
-                        secondCell.evaluateHidden()
+                row.value = !row.value!
+                    
+                    if let nextRow = self.form.rowByTag("AddPlayerInputRow1") as? AddPlayerInputRow {
+                        if row.value == true {
+                            nextRow.hidden = true
+                        } else {
+                            nextRow.hidden = false
+                        }
+                        nextRow.evaluateHidden()
                     }
+
                 })
             
             <<< AddPlayerInputRow() {
+                
                 $0.tag = "AddPlayerInputRow1"
-                $0.hidden = hideRows1 ? true : false
+                $0.hidden = true
                 $0.evaluateHidden()
                 
                 }.cellSetup({ (cell, row) in
@@ -138,16 +149,20 @@ class CreateGameFormViewController: FormViewController {
             // Custom Inline row
             <<< AddPlayerRow() { row in
                 
-                row.title = "Add Player to Team 2"
+                // row.value = true
                 
                 }.cellSetup({ (cell, row) in
                     cell.titleLabel.text = "Add Player to Team 2"
                     
                 }).onCellSelection({ (cell, row) in
-                    
-                    if let secondCell = self.form.rowByTag("AddPlayerInputRow2") {
-                        secondCell.hidden = cell.shouldHideCells ? true : false
-                        secondCell.evaluateHidden()
+                    row.value = !row.value!
+                    if let nextRow = self.form.rowByTag("AddPlayerInputRow2") as? AddPlayerInputRow {
+                        if row.value == true {
+                            nextRow.hidden = true
+                        } else {
+                            nextRow.hidden = false
+                        }
+                        nextRow.evaluateHidden()
                     }
                 })
             
@@ -264,7 +279,8 @@ class CreateGameFormViewController: FormViewController {
 
             print("Added player to team 2")
         }
-        
+        print("PLAYERS FOR TEAM 2: \(playersForTeam1)")
+
     }
 
     

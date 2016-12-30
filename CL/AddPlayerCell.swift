@@ -13,7 +13,6 @@ import Eureka
 
 public class AddPlayerCell: Cell<Bool>, CellType {
     
-    var shouldHideCells = false
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addButton: RotatingButton!
@@ -44,18 +43,6 @@ public class AddPlayerCell: Cell<Bool>, CellType {
     
     public override func didSelect() {
         super.didSelect()
-        
-        print("CELL TAPPED")
-
-        if shouldHideCells {
-            let finalImage = UIImage(named: "cancel")
-            addButton.turnForward(finalImage)
-        } else {
-            let finalImage = UIImage(named: "plus")
-            addButton.turnBack(finalImage)
-        }
-        
-        shouldHideCells = !shouldHideCells
 
     }
     
@@ -69,11 +56,19 @@ final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
         super.init(tag: tag)
         
         cellProvider = CellProvider<AddPlayerCell>(nibName: "AddPlayerCell", bundle: nil)
-        
+        self.value = true
     }
     
     override func customDidSelect() {
         super.customDidSelect()
+        
+        if self.value == true {
+            let finalImage = UIImage(named: "cancel")
+            self.cell.addButton.turnBack(finalImage)
+        } else {
+            let finalImage = UIImage(named: "plus")
+            self.cell.addButton.turnForward(finalImage)
+        }
         
     }
     

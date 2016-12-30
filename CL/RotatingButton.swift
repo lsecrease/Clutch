@@ -14,9 +14,9 @@ class RotatingButton: UIButton {
 //    var endImage: UIImage?
 //    var startImage: UIImage?
     
-    func turnForward(finalImage: UIImage?) {
+    func turnBack(finalImage: UIImage?) {
         UIView.animateWithDuration(0.2, animations: {
-            self.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
+            self.transform = CGAffineTransformMakeRotation(-45 * (CGFloat(M_PI) / 180.0))
             
             if finalImage != nil {
                 self.setImage(finalImage!, forState: .Normal)
@@ -26,9 +26,9 @@ class RotatingButton: UIButton {
         })
     }
     
-    func turnBack(finalImage: UIImage?) {
+    func turnForward(finalImage: UIImage?) {
         UIView.animateWithDuration(0.2, animations: {
-            self.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
+            self.transform = CGAffineTransformMakeRotation((CGFloat(M_PI) / 180.0))
             
             if finalImage != nil {
                 self.setImage(finalImage, forState: .Normal)
@@ -38,16 +38,6 @@ class RotatingButton: UIButton {
         })
     }
     
-//    func buttonPressed() {
-//        
-//        isRotated = !isRotated
-//        
-//        if isRotated {
-//            self.rotateForward()
-//        } else {
-//            self.rotateToOrigin()
-//        }
-//    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
