@@ -15,18 +15,27 @@ class GameViewController: UIViewController {
     @IBOutlet weak var gameRosterCollectionView: UICollectionView!
     @IBOutlet weak var gameMatchupViewCenterX: NSLayoutConstraint!
     @IBOutlet weak var gameRosterViewCenterX: NSLayoutConstraint!
+    
+    var gameRosterViewIsActive = false
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         registerCells()
+        
+        
+        // Set center constraints
+        // Note: MUST be set in viewDidLoad for proper alignment.
+        gameMatchupViewCenterX.constant = self.view.bounds.origin.x
+        gameRosterViewCenterX.constant += self.view.bounds.width
+
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        gameRosterViewCenterX.constant += self.view.bounds.width
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,7 +47,44 @@ class GameViewController: UIViewController {
         // GAME CollectionViews
         gameMatchupCollectionView.registerNib(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
         gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
+        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCollectionFooter", bundle: nil), forCellWithReuseIdentifier: "idFooterGameRoster")
 
+    }
+    
+    func setGameRosterViewState() {
+        if let mainVC = self.parentViewController as? MainViewController2 {
+            mainVC.gameRosterViewIsActive = self.gameRosterViewIsActive
+        }
+    }
+
+    func slideGameViews(direction direction: Direction) {
+        switch direction {
+        case .Right:
+            UIView.animateWithDuration(0.2) {
+                self.gameRosterViewCenterX.constant += self.view.bounds.width
+                self.gameMatchupViewCenterX.constant += self.view.bounds.width
+                self.view.layoutIfNeeded()
+                self.gameRosterViewIsActive = false
+                
+                if let mainVC = self.parentViewController as? MainViewController2 {
+                    mainVC.cancelButton.hide()
+                }
+            }
+        case .Left:
+            UIView.animateWithDuration(0.2) {
+                self.gameRosterViewCenterX.constant -= self.view.bounds.width
+                self.gameMatchupViewCenterX.constant -= self.view.bounds.width
+                self.view.layoutIfNeeded()
+                self.gameRosterViewIsActive = true
+                
+                if let mainVC = self.parentViewController as? MainViewController2 {
+                    mainVC.cancelButton.show()
+                }
+            }
+        }
+        
+        setGameRosterViewState()
+        
     }
     
 
@@ -73,17 +119,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         switch collectionView {
             
         case gameMatchupCollectionView:
-            
-            // Slide GAME views right to simulate navigation
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-                self.gameRosterViewCenterX.constant -= self.view.bounds.width
-                self.gameMatchupViewCenterX.constant -= self.view.bounds.width
-                self.view.layoutIfNeeded()
-            }) { (finished) in
-//                self.gameRosterViewIsActive = true
-//                self.updateViews()
-            }
-            
+            self.slideGameViews(direction: .Left)
         default:
             break
         }
@@ -102,10 +138,16 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
         
-        return headerView
-
+        if kind == UICollectionElementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
+            return headerView
+        } else {
+            
+            let footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "idFooterGameRoster", forIndexPath: indexPath)
+            return footerView
+        }
+        
     }
 
 }

@@ -163,8 +163,8 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // Position Live views
-        leaderboardViewCenterX.constant += self.view.bounds.width
-        liveTeamViewCenterX.constant = self.view.bounds.origin.x
+//        leaderboardViewCenterX.constant += self.view.bounds.width
+//        liveTeamViewCenterX.constant = self.view.bounds.origin.x
         
         // Position GAME views
         gameRosterViewCenterX.constant += self.view.bounds.width

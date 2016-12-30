@@ -38,6 +38,11 @@ class LiveViewController: UIViewController {
         registerCells()
         
         // setLiveTeamViewState()
+        
+        // Position live views
+        leaderboardViewCenterX.constant += self.view.bounds.width
+        liveTeamViewCenterX.constant = self.view.bounds.origin.x
+
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -45,40 +50,14 @@ class LiveViewController: UIViewController {
         
         setLiveTeamViewState()
         
-        // Position Live views
-        leaderboardViewCenterX.constant += self.view.bounds.width
-        liveTeamViewCenterX.constant = self.view.bounds.origin.x
-        
     }
     
-//    @IBAction func leaderboardButtonPressed(sender: UIButton) {
-//        
-//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-//            self.liveTeamViewCenterX.constant -= self.view.bounds.width
-//            self.leaderboardViewCenterX.constant -= self.view.bounds.width
-//            self.view.layoutIfNeeded()
-//        }) { (finished) in
-//            self.liveTeamViewIsActive = false
-//            self.setLiveTeamViewState()
-//        }
-//    }
-//    
-//    @IBAction func myTeamButtonPressed(sender: UIButton) {
-//        
-//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-//            self.liveTeamViewCenterX.constant += self.view.bounds.width
-//            self.leaderboardViewCenterX.constant += self.view.bounds.width
-//            self.view.layoutIfNeeded()
-//        }) { (finished) in
-//            self.liveTeamViewIsActive = true
-//            self.setLiveTeamViewState()
-//        }
-//        
-////        slideViewCenterXConstraints(liveTeamViewCenterX, centerXConstraint2: leaderboardViewCenterX, direction: .Right)
-////        self.liveTeamViewIsActive = true
-////        self.updateViews()
-//        
-//    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+
+    }
+    
     
     @IBAction func bottomTabButtonPressed(sender: UIButton) {
         switch sender {
@@ -184,6 +163,7 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
 }
+
 
 extension LiveViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {

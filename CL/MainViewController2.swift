@@ -100,11 +100,28 @@ class MainViewController2: UIViewController {
 
     }
     
+    @IBAction func cancelButtonPressed(sender: UIButton) {
+        
+        for child in self.childViewControllers {
+            if let gameVC = child as? GameViewController {
+                gameVC.slideGameViews(direction: .Right)
+                gameVC.gameRosterViewIsActive = false
+            }
+        }
+        
+    }
+    
     func updateBarButtons() {
         if !liveContainerView.hidden && liveTeamViewIsActive {
             self.checkInbutton.show()
         } else {
             self.checkInbutton.hide()
+        }
+        
+        if !gameContainerView.hidden && gameRosterViewIsActive {
+            self.cancelButton.show()
+        } else {
+            self.cancelButton.hide()
         }
     
     }

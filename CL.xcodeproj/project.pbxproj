@@ -49,6 +49,8 @@
 		C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */; };
 		C087EF091DF5E52300BA3EA2 /* GameMatchupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */; };
 		C087EF0B1DF5E58D00BA3EA2 /* GameMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF0A1DF5E58D00BA3EA2 /* GameMatchup.swift */; };
+		C08B5AC11E15BE58000C8328 /* GameRosterCollectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08B5ABF1E15BE58000C8328 /* GameRosterCollectionFooter.swift */; };
+		C08B5AC21E15BE58000C8328 /* GameRosterCollectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08B5AC01E15BE58000C8328 /* GameRosterCollectionFooter.xib */; };
 		C0AFE6581DF89D8C00F2A32A /* AddOrRemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */; };
 		C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */; };
 		C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */; };
@@ -124,6 +126,8 @@
 		C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupCell.swift; sourceTree = "<group>"; };
 		C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupViewController.swift; sourceTree = "<group>"; };
 		C087EF0A1DF5E58D00BA3EA2 /* GameMatchup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchup.swift; sourceTree = "<group>"; };
+		C08B5ABF1E15BE58000C8328 /* GameRosterCollectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRosterCollectionFooter.swift; sourceTree = "<group>"; };
+		C08B5AC01E15BE58000C8328 /* GameRosterCollectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameRosterCollectionFooter.xib; sourceTree = "<group>"; };
 		C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddOrRemoveButton.swift; sourceTree = "<group>"; };
 		C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
@@ -367,6 +371,23 @@
 			name = "Game Matchup";
 			sourceTree = "<group>";
 		};
+		C08B5ABE1E15BCA3000C8328 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				C08B5AC31E15BE5D000C8328 /* Game Roster Collection Footer */,
+			);
+			name = Footers;
+			sourceTree = "<group>";
+		};
+		C08B5AC31E15BE5D000C8328 /* Game Roster Collection Footer */ = {
+			isa = PBXGroup;
+			children = (
+				C08B5ABF1E15BE58000C8328 /* GameRosterCollectionFooter.swift */,
+				C08B5AC01E15BE58000C8328 /* GameRosterCollectionFooter.xib */,
+			);
+			name = "Game Roster Collection Footer";
+			sourceTree = "<group>";
+		};
 		C0AFE6551DF89D3700F2A32A /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -390,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				C00A073D1DF74B170032C39A /* Headers */,
+				C08B5ABE1E15BCA3000C8328 /* Footers */,
 				C087EEFC1DF5DB5B00BA3EA2 /* Game View */,
 				C003A3DD1DF4AD07008158C7 /* Live View */,
 			);
@@ -661,6 +683,7 @@
 				C003A3E11DF4ADBE008158C7 /* LeaderboardCell.xib in Resources */,
 				C00346ED1E02C3550000A335 /* AddPlayerExpandableCell.xib in Resources */,
 				C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */,
+				C08B5AC21E15BE58000C8328 /* GameRosterCollectionFooter.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,6 +744,7 @@
 			files = (
 				C003A3D31DF471E2008158C7 /* User.swift in Sources */,
 				C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */,
+				C08B5AC11E15BE58000C8328 /* GameRosterCollectionFooter.swift in Sources */,
 				C00346F11E02EEF20000A335 /* CreateGameTableViewCell.swift in Sources */,
 				C00346E81E02C3170000A335 /* ExpandableTableViewController.swift in Sources */,
 				C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */,
