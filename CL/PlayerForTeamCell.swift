@@ -15,17 +15,17 @@ public class PlayerForTeamCell: Cell<Player>, CellType {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    var name: String = "" {
-        didSet {
-            nameLabel.text = name
-        }
-    }
-    
-    var value: String = "" {
-        didSet {
-            valueLabel.text = "$\(value)"
-        }
-    }
+//    var name: String = "" {
+//        didSet {
+//            nameLabel.text = name
+//        }
+//    }
+//    
+//    var value: String = "" {
+//        didSet {
+//            valueLabel.text = "$\(value)"
+//        }
+//    }
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,6 +40,19 @@ public class PlayerForTeamCell: Cell<Player>, CellType {
 }
 
 public final class PlayerForTeamRow: Row<Player, PlayerForTeamCell>, RowType {
+    
+    var name: String = "" {
+        didSet {
+            self.cell.nameLabel.text = name
+        }
+    }
+    
+    var playerValue: String = "" {
+        didSet {
+            self.cell.valueLabel.text = "$\(value)"
+        }
+    }
+
     
     required public init(tag: String?) {
         super.init(tag: tag)

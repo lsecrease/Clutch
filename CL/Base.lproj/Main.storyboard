@@ -665,7 +665,7 @@
             </objects>
             <point key="canvasLocation" x="2410.5" y="-492"/>
         </scene>
-        <!--Create Game Form View Controller-->
+        <!--Create Game-->
         <scene sceneID="k4D-ma-Ig8">
             <objects>
                 <viewController id="4la-IQ-PCu" customClass="CreateGameFormViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
@@ -678,7 +678,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VOI-WQ-Gl1">
+                    <navigationItem key="navigationItem" title="Create Game" id="VOI-WQ-Gl1">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="A6m-oh-yS4">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="4la-IQ-PCu" id="9z9-Fy-2b6"/>
@@ -694,7 +694,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SY5-Mp-O5Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1529.5" y="-74.5"/>
+            <point key="canvasLocation" x="1325.5" y="-6.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0KB-Co-hr4">
@@ -1575,6 +1575,56 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NdC-mV-Ydr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2410.5" y="-1126"/>
+        </scene>
+        <!--Update Points-->
+        <scene sceneID="JUx-hW-d1f">
+            <objects>
+                <viewController id="vVH-iU-I3A" customClass="CreateGameFormViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SKU-62-nY8"/>
+                        <viewControllerLayoutGuide type="bottom" id="CjC-sa-rVH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mIh-KA-s1F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Update Points" id="X3g-UM-N5y">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="8Gg-yV-3l7">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="vVH-iU-I3A" id="HM9-hL-eCc"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="pzS-uJ-rV0">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="vVH-iU-I3A" id="GPx-c7-CEc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fX2-Ba-gf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2035.5" y="32.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yjm-1U-A8N">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a6Q-Xt-7c6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dvX-q4-bTb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vVH-iU-I3A" kind="relationship" relationship="rootViewController" id="xx1-F1-EEO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ttw-LJ-Jtn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1819.5" y="-35.5"/>
         </scene>
     </scenes>
     <resources>

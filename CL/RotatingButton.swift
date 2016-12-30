@@ -11,8 +11,6 @@ import UIKit
 class RotatingButton: UIButton {
     
     var isRotated: Bool = false
-//    var endImage: UIImage?
-//    var startImage: UIImage?
     
     func turnBack(finalImage: UIImage?) {
         UIView.animateWithDuration(0.2, animations: {

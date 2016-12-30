@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="idCellUpdateTeam" rowHeight="83" id="KGk-i7-Jjw" customClass="UpdateTeamCell" customModule="CL" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cm-9a-maM" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
+                        <rect key="frame" x="337" y="29.5" width="23" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="23" id="Ayy-Lf-fqE"/>
+                            <constraint firstAttribute="height" constant="22" id="K57-Ph-1md"/>
+                        </constraints>
+                        <state key="normal" image="right-arrow"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wake Forest University" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oci-P5-qj7">
+                        <rect key="frame" x="13" y="30" width="225" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="225" id="WmA-94-nCy"/>
+                            <constraint firstAttribute="height" constant="21" id="a95-fv-64d"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="9Cm-9a-maM" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="QCq-Hn-zQ6"/>
+                    <constraint firstItem="Oci-P5-qj7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="YKX-IP-HHC"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="9Cm-9a-maM" secondAttribute="trailing" constant="7" id="ZsE-ad-k6S"/>
+                    <constraint firstItem="Oci-P5-qj7" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aoB-HQ-e9b"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="arrowButton" destination="9Cm-9a-maM" id="6KK-fC-Oc6"/>
+                <outlet property="teamNameLabel" destination="Oci-P5-qj7" id="O6v-xz-xqS"/>
+            </connections>
+            <point key="canvasLocation" x="515.5" y="322.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="right-arrow" width="256" height="256"/>
+    </resources>
+</document>

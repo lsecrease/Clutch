@@ -71,11 +71,12 @@ class CreateGameFormViewController: FormViewController {
                 +++ Section {
                     $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
                     $0.header!.height = { 0 }
+                    $0.tag = "MainSection"
                 }
             
             // Add rows 
             
-            // 1
+            // 0
             
             <<< PickerInlineRow<String>("Category Row") { (row : PickerInlineRow<String>) -> Void in
                 
@@ -90,7 +91,7 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // 2
+            // 1
             
             <<< TextRow() {
                 $0.title = "Team 1"
@@ -101,16 +102,28 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // 3
+            // 2
 
             <<< AddPlayerRow() { row in
 
                 }.onCellSelection({ (cell, row) in
                 row.value = !row.value!
                     
+                    
                     if let nextRow = self.form.rowByTag("AddPlayerInputRow1") as? AddPlayerInputRow {
                         if row.value == true {
-                            nextRow.hidden = true
+                            let startIndex = 2
+                            let endIndex = row.indexPath()!.row
+                            let allRows = self.form.allRows
+
+                            if self.playersForTeam1.count > 0 {
+                                for i in startIndex...endIndex + 1 {
+                                    allRows[i].hidden = true
+                                }
+                                
+                            }
+                            
+                            // nextRow.hidden = true
                         } else {
                             nextRow.hidden = false
                         }
@@ -118,6 +131,8 @@ class CreateGameFormViewController: FormViewController {
                     }
 
                 })
+            
+            // 3
             
             <<< AddPlayerInputRow() {
                 
@@ -166,6 +181,8 @@ class CreateGameFormViewController: FormViewController {
                     }
                 })
             
+            // 6
+            
             <<< AddPlayerInputRow() {
                 $0.tag = "AddPlayerInputRow2"
                 $0.hidden = hideRows2 ? true : false
@@ -182,7 +199,7 @@ class CreateGameFormViewController: FormViewController {
                     print("PLAYER TO ADD TO TEAM 1: \(self.playerForTeam2)")
                 })
             
-            // 6
+            // 7
             
             <<< IntRow() {
                 $0.title = "Participant starting value"
@@ -190,13 +207,13 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "StartingValue"
             }
             
-            // 7
+            // 8
 
             <<< CoordinateRow() { row in
                 
             }
             
-            // 8
+            // 9
             
             <<< TextRow() {
                 $0.title = "Venue Name"
@@ -204,7 +221,7 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "Venue"
             }
             
-            // 9
+            // 10
         
             <<< DateTimeInlineRow() {
                 $0.title = "End Registration"
@@ -246,6 +263,8 @@ class CreateGameFormViewController: FormViewController {
     
     func addPlayerButtonPressed() {
         form.rowByTag("AddPlayer1")?.deselect()
+        
+
     }
     
     
@@ -269,6 +288,20 @@ class CreateGameFormViewController: FormViewController {
             self.playersForTeam1 += [playerForTeam1]
             
             print("Added player to team 1")
+            
+            // section.insert(LabelRow() { $0.title = "new row at index 2"}, at: 2)
+            
+            if var mainSection = self.form.sectionByTag("MainSection") {
+                
+                let index = playersForTeam1.count > 0 ? playersForTeam1.count + 1 : 2
+                
+                mainSection.insert(PlayerForTeamRow() { row in
+                    row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
+                    row.cell.nameLabel.text = playerForTeam1.name
+                    }, atIndex: index)
+                
+                mainSection.reload()
+            }
         }
         print("PLAYERS FOR TEAM 1: \(playersForTeam1)")
     }

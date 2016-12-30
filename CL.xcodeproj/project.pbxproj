@@ -51,6 +51,10 @@
 		C087EF0B1DF5E58D00BA3EA2 /* GameMatchup.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF0A1DF5E58D00BA3EA2 /* GameMatchup.swift */; };
 		C08B5AC11E15BE58000C8328 /* GameRosterCollectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08B5ABF1E15BE58000C8328 /* GameRosterCollectionFooter.swift */; };
 		C08B5AC21E15BE58000C8328 /* GameRosterCollectionFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08B5AC01E15BE58000C8328 /* GameRosterCollectionFooter.xib */; };
+		C08B5ACB1E1636D3000C8328 /* UpdateTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08B5AC91E1636D3000C8328 /* UpdateTeamCell.swift */; };
+		C08B5ACC1E1636D3000C8328 /* UpdateTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08B5ACA1E1636D3000C8328 /* UpdateTeamCell.xib */; };
+		C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */; };
+		C08B5AD61E1642AA000C8328 /* UpdatePlayerPointsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */; };
 		C0AFE6581DF89D8C00F2A32A /* AddOrRemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */; };
 		C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */; };
 		C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */; };
@@ -128,6 +132,10 @@
 		C087EF0A1DF5E58D00BA3EA2 /* GameMatchup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchup.swift; sourceTree = "<group>"; };
 		C08B5ABF1E15BE58000C8328 /* GameRosterCollectionFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRosterCollectionFooter.swift; sourceTree = "<group>"; };
 		C08B5AC01E15BE58000C8328 /* GameRosterCollectionFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameRosterCollectionFooter.xib; sourceTree = "<group>"; };
+		C08B5AC91E1636D3000C8328 /* UpdateTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateTeamCell.swift; sourceTree = "<group>"; };
+		C08B5ACA1E1636D3000C8328 /* UpdateTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateTeamCell.xib; sourceTree = "<group>"; };
+		C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePlayerPointsCell.swift; sourceTree = "<group>"; };
+		C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatePlayerPointsCell.xib; sourceTree = "<group>"; };
 		C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddOrRemoveButton.swift; sourceTree = "<group>"; };
 		C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
@@ -388,6 +396,33 @@
 			name = "Game Roster Collection Footer";
 			sourceTree = "<group>";
 		};
+		C08B5AC41E1635B5000C8328 /* Update Points */ = {
+			isa = PBXGroup;
+			children = (
+				C08B5ACE1E163946000C8328 /* Update Player Points Cell */,
+				C08B5ACD1E163933000C8328 /* Update Team */,
+			);
+			name = "Update Points";
+			sourceTree = "<group>";
+		};
+		C08B5ACD1E163933000C8328 /* Update Team */ = {
+			isa = PBXGroup;
+			children = (
+				C08B5AC91E1636D3000C8328 /* UpdateTeamCell.swift */,
+				C08B5ACA1E1636D3000C8328 /* UpdateTeamCell.xib */,
+			);
+			name = "Update Team";
+			sourceTree = "<group>";
+		};
+		C08B5ACE1E163946000C8328 /* Update Player Points Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */,
+				C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */,
+			);
+			name = "Update Player Points Cell";
+			sourceTree = "<group>";
+		};
 		C0AFE6551DF89D3700F2A32A /* Custom Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +513,7 @@
 		C0E281921DFF155000BF35D0 /* TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
+				C08B5AC41E1635B5000C8328 /* Update Points */,
 				C0E2819F1DFF29A400BF35D0 /* Create Game */,
 			);
 			name = "TableView Cells";
@@ -678,6 +714,8 @@
 				C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */,
 				C0E3026B1DEA4FD00007988B /* Assets.xcassets in Resources */,
 				C0638CDA1E0B11B100A03B57 /* CoordinateCell.xib in Resources */,
+				C08B5AD61E1642AA000C8328 /* UpdatePlayerPointsCell.xib in Resources */,
+				C08B5ACC1E1636D3000C8328 /* UpdateTeamCell.xib in Resources */,
 				C00A07391DF725190032C39A /* GameRosterCell.xib in Resources */,
 				C0E302661DEA4FD00007988B /* Main.storyboard in Resources */,
 				C003A3E11DF4ADBE008158C7 /* LeaderboardCell.xib in Resources */,
@@ -743,6 +781,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C003A3D31DF471E2008158C7 /* User.swift in Sources */,
+				C08B5ACB1E1636D3000C8328 /* UpdateTeamCell.swift in Sources */,
 				C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */,
 				C08B5AC11E15BE58000C8328 /* GameRosterCollectionFooter.swift in Sources */,
 				C00346F11E02EEF20000A335 /* CreateGameTableViewCell.swift in Sources */,
@@ -780,6 +819,7 @@
 				C003A4011DF55232008158C7 /* GameViewController.swift in Sources */,
 				C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */,
 				C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */,
+				C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */,
 				C00346EC1E02C3550000A335 /* AddPlayerExpandableCell.swift in Sources */,
 				C003A3C91DF46B93008158C7 /* LiveLeaderboardController.swift in Sources */,
 				C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */,
