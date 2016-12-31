@@ -14,7 +14,7 @@ public class UpdateTeamCell: Cell<Bool>, CellType {
     var hideCells = true
     
     @IBOutlet weak var teamNameLabel: UILabel!
-    @IBOutlet weak var arrowButton: UIButton!
+    @IBOutlet weak var arrowButton: RotatingButton!
     
     
     required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -32,6 +32,8 @@ public class UpdateTeamCell: Cell<Bool>, CellType {
     
     public override func didSelect() {
         super.didSelect()
+        
+        
         
     }
     
@@ -52,17 +54,19 @@ final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
         super.init(tag: tag)
         
         cellProvider = CellProvider<UpdateTeamCell>(nibName: "UpdateTeamCell")
+        self.value = true
         
     }
     
     override func customDidSelect() {
         super.customDidSelect()
         
-        if self.cell.hideCells {
-            self.cell.hideCells = false
+        if self.value == true {
+            self.cell.arrowButton.turn(90.0, direction: .Clockwise, finalImage: nil)
         } else {
-            self.cell.hideCells = true
+            self.cell.arrowButton.turn(1, direction: .CounterClockwise, finalImage: nil)
         }
+        self.value = !self.value!
         
     }
     

@@ -79,7 +79,6 @@ extension UIView {
         
     }
     
-    
     func show() {
         self.hidden = true
         self.alpha = 0
@@ -100,21 +99,56 @@ extension UIView {
         }
     }
 
-    func rotate(duration: NSTimeInterval, fromValue: CGFloat, toValue: CGFloat) {
+//    func rotate(duration: NSTimeInterval, fromValue: CGFloat, toValue: CGFloat) {
+//        
+//        UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: { 
+//            let rotation = CABasicAnimation(keyPath: "transform.rotation")
+//            rotation.fromValue = fromValue
+//            rotation.toValue = CGFloat(M_PI) * toValue
+//            self.layer.addAnimation(rotation, forKey: nil)
+//            self.layoutSubviews()
+//            }) { (finished) in
+//                // Perform tasks after finishing...
+//                
+//        }
+//        
+//    }
+
+}
+
+extension UIImageView {
+    
+    /*  This function makes an imageView rotate to a specified angle e.g. 45 degrees.
+     It can be called to both turn an image forward and back. 
+     
+     EXAMPLE: Making an imageView turn forward 45 degrees
+          
+        1a) Call the function and set the angle to 45 and the direction to '.Clockwise'.
+        b) Set finalImage to 'nil' or a UIImage depending on whether you want a different
+            after once rotated or not.
+        2a) If you wish to rotate the image back, call the function again and set
+            the angle to 1 and the direction to '.CounterClockwise'
+     */
+    func turn(angle: CGFloat, direction: RotationDirection, finalImage: UIImage?) {
+        var angleToTurn: CGFloat!
         
-        UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: { 
-            let rotation = CABasicAnimation(keyPath: "transform.rotation")
-            rotation.fromValue = fromValue
-            rotation.toValue = CGFloat(M_PI) * toValue
-            self.layer.addAnimation(rotation, forKey: nil)
-            self.layoutSubviews()
-            }) { (finished) in
-                // Perform tasks after finishing...
-                
+        if direction == .CounterClockwise {
+            angleToTurn = angle * -1.0
+        } else {
+            angleToTurn = angle
         }
         
+        UIView.animateWithDuration(0.2, animations: {
+            self.transform = CGAffineTransformMakeRotation(angleToTurn * (CGFloat(M_PI) / 180.0))
+            
+            if finalImage != nil {
+                self.image = finalImage
+            }
+            
+            self.layoutSubviews()
+        })
     }
     
-
+    
 }
 

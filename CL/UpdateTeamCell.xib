@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cm-9a-maM" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Cm-9a-maM" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
                         <rect key="frame" x="337" y="29.5" width="23" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="23" id="Ayy-Lf-fqE"/>
@@ -30,7 +30,7 @@
                             <constraint firstAttribute="height" constant="21" id="a95-fv-64d"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -42,7 +42,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="arrowButton" destination="9Cm-9a-maM" id="6KK-fC-Oc6"/>
+                <outlet property="arrowButton" destination="9Cm-9a-maM" id="rqt-Z1-NfM"/>
                 <outlet property="teamNameLabel" destination="Oci-P5-qj7" id="O6v-xz-xqS"/>
             </connections>
             <point key="canvasLocation" x="515.5" y="322.5"/>

@@ -12,8 +12,6 @@
 		C00346E71E02C3170000A335 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E31E02C3170000A335 /* ArrayExtension.swift */; };
 		C00346E81E02C3170000A335 /* ExpandableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E41E02C3170000A335 /* ExpandableTableViewController.swift */; };
 		C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E51E02C3170000A335 /* ExpandableTableViewDelegate.swift */; };
-		C00346EC1E02C3550000A335 /* AddPlayerExpandableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346EA1E02C3550000A335 /* AddPlayerExpandableCell.swift */; };
-		C00346ED1E02C3550000A335 /* AddPlayerExpandableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00346EB1E02C3550000A335 /* AddPlayerExpandableCell.xib */; };
 		C00346F11E02EEF20000A335 /* CreateGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */; };
 		C00346F61E0345CB0000A335 /* RotatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346F51E0345CB0000A335 /* RotatingButton.swift */; };
 		C003A3C91DF46B93008158C7 /* LiveLeaderboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C003A3C81DF46B93008158C7 /* LiveLeaderboardController.swift */; };
@@ -45,8 +43,6 @@
 		C0638CE61E0B28AC00A03B57 /* UpdatePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */; };
 		C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0859E371E174B3E00341F1C /* GoogleService-Info.plist */; };
 		C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0859E3A1E175C5900341F1C /* DeviceType.swift */; };
-		C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08607141E091D460091A8BF /* AddNewPlayerCell.swift */; };
-		C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08607151E091D460091A8BF /* AddNewPlayerCell.xib */; };
 		C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */; };
 		C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */; };
 		C087EF091DF5E52300BA3EA2 /* GameMatchupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */; };
@@ -74,12 +70,8 @@
 		C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */; };
 		C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */; };
 		C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BE1E0EBBE80033A072 /* Game.swift */; };
-		C0DA56001DFF96DA00210462 /* MultiInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA55FF1DFF96DA00210462 /* MultiInputCell.swift */; };
-		C0E2819C1DFF274E00BF35D0 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E2819B1DFF274E00BF35D0 /* TextCell.swift */; };
-		C0E2819E1DFF276100BF35D0 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E2819D1DFF276100BF35D0 /* TextCell.xib */; };
 		C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */; };
 		C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */; };
-		C0E281A71DFF2C9300BF35D0 /* MultiInputCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281A61DFF2C9300BF35D0 /* MultiInputCell.xib */; };
 		C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E302601DEA4FD00007988B /* AppDelegate.swift */; };
 		C0E302661DEA4FD00007988B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E302641DEA4FD00007988B /* Main.storyboard */; };
 		C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0E302671DEA4FD00007988B /* CL.xcdatamodeld */; };
@@ -95,8 +87,6 @@
 		C00346E31E02C3170000A335 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		C00346E41E02C3170000A335 /* ExpandableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewController.swift; sourceTree = "<group>"; };
 		C00346E51E02C3170000A335 /* ExpandableTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewDelegate.swift; sourceTree = "<group>"; };
-		C00346EA1E02C3550000A335 /* AddPlayerExpandableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerExpandableCell.swift; sourceTree = "<group>"; };
-		C00346EB1E02C3550000A335 /* AddPlayerExpandableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerExpandableCell.xib; sourceTree = "<group>"; };
 		C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameTableViewCell.swift; sourceTree = "<group>"; };
 		C00346F51E0345CB0000A335 /* RotatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingButton.swift; sourceTree = "<group>"; };
 		C003A3C81DF46B93008158C7 /* LiveLeaderboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveLeaderboardController.swift; sourceTree = "<group>"; };
@@ -128,8 +118,6 @@
 		C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePointsViewController.swift; sourceTree = "<group>"; };
 		C0859E371E174B3E00341F1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0859E3A1E175C5900341F1C /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
-		C08607141E091D460091A8BF /* AddNewPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewPlayerCell.swift; sourceTree = "<group>"; };
-		C08607151E091D460091A8BF /* AddNewPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlayerCell.xib; sourceTree = "<group>"; };
 		C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameMatchupCell.xib; sourceTree = "<group>"; };
 		C087EF031DF5E3EC00BA3EA2 /* GameMatchupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupCell.swift; sourceTree = "<group>"; };
 		C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchupViewController.swift; sourceTree = "<group>"; };
@@ -158,12 +146,8 @@
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
 		C0CDD2BE1E0EBBE80033A072 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		C0DA55FF1DFF96DA00210462 /* MultiInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiInputCell.swift; sourceTree = "<group>"; };
-		C0E2819B1DFF274E00BF35D0 /* TextCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
-		C0E2819D1DFF276100BF35D0 /* TextCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextCell.xib; sourceTree = "<group>"; };
 		C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
-		C0E281A61DFF2C9300BF35D0 /* MultiInputCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiInputCell.xib; sourceTree = "<group>"; };
 		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E302601DEA4FD00007988B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E302651DEA4FD00007988B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -227,15 +211,6 @@
 			);
 			name = ExpandableTableViewController;
 			path = ../Pods;
-			sourceTree = "<group>";
-		};
-		C00346EE1E02C35E0000A335 /* Add Player Expandable Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C00346EA1E02C3550000A335 /* AddPlayerExpandableCell.swift */,
-				C00346EB1E02C3550000A335 /* AddPlayerExpandableCell.xib */,
-			);
-			name = "Add Player Expandable Cell";
 			sourceTree = "<group>";
 		};
 		C003A3C71DF460BC008158C7 /* Constants */ = {
@@ -340,9 +315,10 @@
 		C0638CD01E0B049600A03B57 /* Eureka Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				C0638CCA1E0B03B500A03B57 /* Add Player Cell */,
 				C00FE4491E0D981C002E56D5 /* Add Player Input Cell */,
 				C0638CD61E0B119600A03B57 /* Coordinate Cell */,
-				C0638CCA1E0B03B500A03B57 /* Add Player Cell */,
+				C0CDD2B51E0E525D0033A072 /* Player For Team Cell */,
 			);
 			name = "Eureka Xibs";
 			sourceTree = "<group>";
@@ -363,15 +339,6 @@
 				C0E3026F1DEA4FD00007988B /* Info.plist */,
 			);
 			name = "Property Lists";
-			sourceTree = "<group>";
-		};
-		C08607131E091CBA0091A8BF /* Add New Player Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C08607141E091D460091A8BF /* AddNewPlayerCell.swift */,
-				C08607151E091D460091A8BF /* AddNewPlayerCell.xib */,
-			);
-			name = "Add New Player Cell";
 			sourceTree = "<group>";
 		};
 		C087EEFC1DF5DB5B00BA3EA2 /* Game View */ = {
@@ -474,7 +441,7 @@
 			name = "Test Data";
 			sourceTree = "<group>";
 		};
-		C0C3E2B01DEB50B800B4978B /* Classes */ = {
+		C0C3E2B01DEB50B800B4978B /* Classes and Structs */ = {
 			isa = PBXGroup;
 			children = (
 				C0C3E2B11DEB50E200B4978B /* Player.swift */,
@@ -486,7 +453,7 @@
 				C0638CDB1E0B12A300A03B57 /* Coordinates.swift */,
 				C0CDD2BE1E0EBBE80033A072 /* Game.swift */,
 			);
-			name = Classes;
+			name = "Classes and Structs";
 			sourceTree = "<group>";
 		};
 		C0C3E2C41DEB7D9D00B4978B /* Supporting Files */ = {
@@ -533,25 +500,11 @@
 			name = "TableView Cells";
 			sourceTree = "<group>";
 		};
-		C0E2819A1DFF273400BF35D0 /* Text Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C0E2819B1DFF274E00BF35D0 /* TextCell.swift */,
-				C0E2819D1DFF276100BF35D0 /* TextCell.xib */,
-			);
-			name = "Text Cell";
-			sourceTree = "<group>";
-		};
 		C0E2819F1DFF29A400BF35D0 /* Create Game */ = {
 			isa = PBXGroup;
 			children = (
-				C0CDD2B51E0E525D0033A072 /* Player For Team Cell */,
 				C0638CD01E0B049600A03B57 /* Eureka Xibs */,
-				C08607131E091CBA0091A8BF /* Add New Player Cell */,
-				C00346EE1E02C35E0000A335 /* Add Player Expandable Cell */,
-				C0E281A51DFF2C5C00BF35D0 /* Multi Input Cell */,
 				C0E281A01DFF2A0300BF35D0 /* Label Cell */,
-				C0E2819A1DFF273400BF35D0 /* Text Cell */,
 				C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */,
 			);
 			name = "Create Game";
@@ -564,15 +517,6 @@
 				C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */,
 			);
 			name = "Label Cell";
-			sourceTree = "<group>";
-		};
-		C0E281A51DFF2C5C00BF35D0 /* Multi Input Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C0E281A61DFF2C9300BF35D0 /* MultiInputCell.xib */,
-				C0DA55FF1DFF96DA00210462 /* MultiInputCell.swift */,
-			);
-			name = "Multi Input Cell";
 			sourceTree = "<group>";
 		};
 		C0E302541DEA4FD00007988B = {
@@ -611,7 +555,7 @@
 		C0E302751DEA4FDD0007988B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C0C3E2B01DEB50B800B4978B /* Classes */,
+				C0C3E2B01DEB50B800B4978B /* Classes and Structs */,
 				C0C3E2AF1DEB50B000B4978B /* Test Data */,
 			);
 			name = Models;
@@ -715,15 +659,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0E281A71DFF2C9300BF35D0 /* MultiInputCell.xib in Resources */,
 				C00FE44D1E0D9BD4002E56D5 /* AddPlayerInputCell.xib in Resources */,
 				C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */,
 				C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */,
 				C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */,
 				C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */,
-				C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */,
 				C0E3026E1DEA4FD00007988B /* LaunchScreen.storyboard in Resources */,
-				C0E2819E1DFF276100BF35D0 /* TextCell.xib in Resources */,
 				C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */,
 				C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */,
 				C0E3026B1DEA4FD00007988B /* Assets.xcassets in Resources */,
@@ -733,7 +674,6 @@
 				C00A07391DF725190032C39A /* GameRosterCell.xib in Resources */,
 				C0E302661DEA4FD00007988B /* Main.storyboard in Resources */,
 				C003A3E11DF4ADBE008158C7 /* LeaderboardCell.xib in Resources */,
-				C00346ED1E02C3550000A335 /* AddPlayerExpandableCell.xib in Resources */,
 				C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */,
 				C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */,
 				C08B5AC21E15BE58000C8328 /* GameRosterCollectionFooter.xib in Resources */,
@@ -813,12 +753,9 @@
 				C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */,
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
-				C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */,
-				C0E2819C1DFF274E00BF35D0 /* TextCell.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
 				C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
-				C0DA56001DFF96DA00210462 /* MultiInputCell.swift in Sources */,
 				C00A073B1DF738C70032C39A /* Roster.swift in Sources */,
 				C003A3D51DF47212008158C7 /* RankedUser.swift in Sources */,
 				C087EF0B1DF5E58D00BA3EA2 /* GameMatchup.swift in Sources */,
@@ -835,7 +772,6 @@
 				C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */,
 				C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */,
 				C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */,
-				C00346EC1E02C3550000A335 /* AddPlayerExpandableCell.swift in Sources */,
 				C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */,
 				C003A3C91DF46B93008158C7 /* LiveLeaderboardController.swift in Sources */,
 				C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */,

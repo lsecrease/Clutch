@@ -42,15 +42,24 @@ class UpdatePointsViewController: FormViewController {
             row.teamName = teamName1
         }.onCellSelection({ (cell, row) in
             
-            if let row = self.form.rowByTag("UpdateTeamRow1") {
-                row.hidden = false
+            if let nextRow = self.form.rowByTag("UpdatePlayerPointsRow") {
+                // nextRow.hidden = row.value ? true : false
+                
+                if row.value == true {
+                    nextRow.hidden = true
+                } else {
+                    nextRow.hidden = false
+                }
+                nextRow.evaluateHidden()
             }
+
         })
             
-        <<< UpdatePlayerPointsRow("UpdateTeamRow2") { row in
+        <<< UpdatePlayerPointsRow("UpdatePlayerPointsRow") { row in
             row.name = "Devin Thomas"
             row.pointValue = 50
             row.hidden = true
+            row.evaluateHidden()
         }
             
         <<< UpdateTeamRow() { row in

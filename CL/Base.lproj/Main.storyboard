@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V0K-jc-GPo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="a6Q-Xt-7c6">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1594,16 +1594,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Update Points" id="X3g-UM-N5y">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="8Gg-yV-3l7">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="vVH-iU-I3A" id="HM9-hL-eCc"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="pzS-uJ-rV0">
-                            <connections>
-                                <action selector="doneButtonPressed:" destination="vVH-iU-I3A" id="GPx-c7-CEc"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="8Gg-yV-3l7"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="pzS-uJ-rV0"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>

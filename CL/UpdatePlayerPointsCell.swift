@@ -31,7 +31,9 @@ public class UpdatePlayerPointsCell: Cell<Int>, CellType {
     @IBAction func stepperPressed(sender: UIStepper) {
         
         pointLabel.text = "\(Int(sender.value)) pts"
+        self.row.value = Int(sender.value)
         
+        print("NEW VALUE: \(sender.value)")
     }
     
 }
@@ -61,7 +63,6 @@ final class UpdatePlayerPointsRow: Row<Int, UpdatePlayerPointsCell>, RowType {
     override func customDidSelect() {
         super.customDidSelect()
         
-    }
-    
+    }    
     
 }
