@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5FE-Tw-jnJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V0K-jc-GPo">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -1516,14 +1515,6 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSL-O0-e8i" userLabel="Profile View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="568"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileSample" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-ts-nge" customClass="DesignableImageView" customModule="Spring">
-                                        <rect key="frame" x="122" y="23" width="130" height="130"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="65"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGq-aV-IYg">
                                         <rect key="frame" x="100" y="170" width="174" height="32"/>
                                         <constraints>
@@ -1536,20 +1527,32 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permanent Statement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etG-zY-uFa">
                                         <rect key="frame" x="12" y="231" width="350" height="307"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileSample" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-ts-nge" customClass="DesignableImageView" customModule="Spring">
+                                        <rect key="frame" x="122" y="23" width="130" height="130"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="AKp-H5-Ryp"/>
+                                            <constraint firstAttribute="height" constant="130" id="rST-gT-fdq"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="65"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="etG-zY-uFa" secondAttribute="bottom" constant="30" id="1XO-7e-AcS"/>
                                     <constraint firstItem="etG-zY-uFa" firstAttribute="leading" secondItem="hSL-O0-e8i" secondAttribute="leading" constant="12" id="JQc-2Q-LiE"/>
                                     <constraint firstItem="yGq-aV-IYg" firstAttribute="centerX" secondItem="hSL-O0-e8i" secondAttribute="centerX" id="KjA-UD-mbk"/>
+                                    <constraint firstItem="etG-zY-uFa" firstAttribute="top" secondItem="yGq-aV-IYg" secondAttribute="bottom" constant="29" id="NQ9-Yt-k9Y"/>
                                     <constraint firstItem="yGq-aV-IYg" firstAttribute="top" secondItem="pCO-ts-nge" secondAttribute="bottom" constant="17" id="Ncx-go-gtK"/>
                                     <constraint firstAttribute="trailing" secondItem="etG-zY-uFa" secondAttribute="trailing" constant="13" id="WMY-3j-jt5"/>
-                                    <constraint firstItem="pCO-ts-nge" firstAttribute="width" secondItem="hSL-O0-e8i" secondAttribute="height" multiplier="0.2289" id="WqC-AQ-UXf"/>
-                                    <constraint firstItem="pCO-ts-nge" firstAttribute="height" secondItem="hSL-O0-e8i" secondAttribute="height" multiplier="0.2289" id="evq-ez-bIW"/>
                                     <constraint firstItem="pCO-ts-nge" firstAttribute="centerX" secondItem="hSL-O0-e8i" secondAttribute="centerX" id="tHL-ix-afy"/>
                                     <constraint firstItem="pCO-ts-nge" firstAttribute="top" secondItem="hSL-O0-e8i" secondAttribute="top" constant="23" id="u7S-SQ-cx2"/>
                                 </constraints>
@@ -1561,7 +1564,6 @@
                             <constraint firstItem="TJx-nL-7kp" firstAttribute="top" secondItem="hSL-O0-e8i" secondAttribute="bottom" id="BKc-MV-5AR"/>
                             <constraint firstAttribute="trailing" secondItem="hSL-O0-e8i" secondAttribute="trailing" id="GIz-LS-1RH"/>
                             <constraint firstItem="hSL-O0-e8i" firstAttribute="top" secondItem="CI3-Df-ykx" secondAttribute="top" id="PGg-a5-XPe"/>
-                            <constraint firstItem="etG-zY-uFa" firstAttribute="height" secondItem="CI3-Df-ykx" secondAttribute="height" multiplier="0.5405" id="Zcz-Y0-7Mt"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -1569,6 +1571,8 @@
                     <connections>
                         <outlet property="fullNameLabel" destination="yGq-aV-IYg" id="Mvh-Zw-gro"/>
                         <outlet property="profileImageView" destination="pCO-ts-nge" id="ysG-dF-LJ4"/>
+                        <outlet property="profileImageViewHeight" destination="rST-gT-fdq" id="G7L-p6-PPK"/>
+                        <outlet property="profileImageViewWidth" destination="AKp-H5-Ryp" id="hAl-JA-zPO"/>
                         <outlet property="statementLabel" destination="etG-zY-uFa" id="85c-ne-Nte"/>
                     </connections>
                 </viewController>
@@ -1579,7 +1583,7 @@
         <!--Update Points-->
         <scene sceneID="JUx-hW-d1f">
             <objects>
-                <viewController id="vVH-iU-I3A" customClass="CreateGameFormViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vVH-iU-I3A" customClass="UpdatePointsViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SKU-62-nY8"/>
                         <viewControllerLayoutGuide type="bottom" id="CjC-sa-rVH"/>

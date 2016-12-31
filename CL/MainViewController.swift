@@ -129,15 +129,6 @@ class MainViewController: UIViewController {
     
     @IBAction func myTeamButtonPressed(sender: UIButton) {
         
-//        UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-//            self.liveTeamViewCenterX.constant += self.view.bounds.width
-//            self.leaderboardViewCenterX.constant += self.view.bounds.width
-//            self.view.layoutIfNeeded()
-//        }) { (finished) in
-//            self.liveTeamViewIsActive = true
-//            self.updateViews()
-//        }
-        
         slideViewCenterXConstraints(liveTeamViewCenterX, centerXConstraint2: leaderboardViewCenterX, direction: .Right)
         self.liveTeamViewIsActive = true
         self.updateViews()
@@ -162,23 +153,12 @@ class MainViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Position Live views
-//        leaderboardViewCenterX.constant += self.view.bounds.width
-//        liveTeamViewCenterX.constant = self.view.bounds.origin.x
-        
         // Position GAME views
         gameRosterViewCenterX.constant += self.view.bounds.width
 
     }
     
     override func viewDidLayoutSubviews() {
-        
-        // After all subview layout, use actual profile image view
-        // width to make it round.
-//        let imgWidth = profileImageView.bounds.width
-//        profileImageView.layer.cornerRadius = imgWidth / 2.0
-        
-        // liveView2CenterX.constant -= self.view.bounds.width
 
     }
     
@@ -222,14 +202,12 @@ class MainViewController: UIViewController {
     func registerCells() {
         
         // LIVE Collection Views
-        liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
-//        liveTeamCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
-//        leaderboardCollectionView.registerNib(UINib(nibName: "GameInfoCell", bundle: nil), forCellWithReuseIdentifier: idCellGameInfo)
-        leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
-        
-        // GAME CollectionViews
-        gameMatchupCollectionView.registerNib(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
-        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
+//        liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
+//        leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
+//        
+//        // GAME CollectionViews
+//        gameMatchupCollectionView.registerNib(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
+//        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
         
     }
     

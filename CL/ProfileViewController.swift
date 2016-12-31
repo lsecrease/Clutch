@@ -15,6 +15,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var statementLabel: UILabel!
+    
+    // MARK: Constraints
+    
+    @IBOutlet weak var profileImageViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var profileImageViewWidth: NSLayoutConstraint!
 
 
     override func viewDidLoad() {
@@ -27,8 +32,20 @@ class ProfileViewController: UIViewController {
         
         // After all subview layout, use actual profile image view
         // width to make it round.
-        let imgWidth = profileImageView.bounds.width
-        profileImageView.layer.cornerRadius = imgWidth / 2.0
+        
+        if DeviceType.isIphone4s {
+            adjustConstraintsForSmallerScreenSizes()
+        }
+        
+        let imgWidth = profileImageViewWidth.constant
+        profileImageView.cornerRadius = imgWidth / 2.0
+        
+    }
+    
+    func adjustConstraintsForSmallerScreenSizes(){
+        
+        profileImageViewWidth.constant = 100
+        profileImageViewHeight.constant = 100
         
     }
     

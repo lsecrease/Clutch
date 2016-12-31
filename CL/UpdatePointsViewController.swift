@@ -31,19 +31,40 @@ class UpdatePointsViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureFormAppearance()
+        
         
         form +++ Section() { _ in
             
             }
             
-        <<< UpdateTeamRow() { row in
+        <<< UpdateTeamRow("UpdateTeamRow1") { row in
             row.teamName = teamName1
+        }.onCellSelection({ (cell, row) in
+            
+            if let row = self.form.rowByTag("UpdateTeamRow1") {
+                row.hidden = false
+            }
+        })
+            
+        <<< UpdatePlayerPointsRow("UpdateTeamRow2") { row in
+            row.name = "Devin Thomas"
+            row.pointValue = 50
+            row.hidden = true
         }
-        
+            
         <<< UpdateTeamRow() { row in
             row.teamName = teamName2
         }
         
+    }
+    
+    func configureFormAppearance() {
+        self.tableView?.separatorStyle = .None
+        
+        UpdatePlayerPointsRow.defaultCellUpdate = { cell, row in
+            row.hidden = true
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

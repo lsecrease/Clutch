@@ -43,6 +43,8 @@
 		C0638CDC1E0B12A300A03B57 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CDB1E0B12A300A03B57 /* Coordinates.swift */; };
 		C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE31E0B221200A03B57 /* LocationRow.swift */; };
 		C0638CE61E0B28AC00A03B57 /* UpdatePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */; };
+		C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0859E371E174B3E00341F1C /* GoogleService-Info.plist */; };
+		C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0859E3A1E175C5900341F1C /* DeviceType.swift */; };
 		C08607161E091D460091A8BF /* AddNewPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08607141E091D460091A8BF /* AddNewPlayerCell.swift */; };
 		C08607171E091D460091A8BF /* AddNewPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08607151E091D460091A8BF /* AddNewPlayerCell.xib */; };
 		C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */; };
@@ -124,6 +126,8 @@
 		C0638CDB1E0B12A300A03B57 /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		C0638CE31E0B221200A03B57 /* LocationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
 		C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePointsViewController.swift; sourceTree = "<group>"; };
+		C0859E371E174B3E00341F1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C0859E3A1E175C5900341F1C /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		C08607141E091D460091A8BF /* AddNewPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewPlayerCell.swift; sourceTree = "<group>"; };
 		C08607151E091D460091A8BF /* AddNewPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewPlayerCell.xib; sourceTree = "<group>"; };
 		C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameMatchupCell.xib; sourceTree = "<group>"; };
@@ -352,6 +356,15 @@
 			name = "Coordinate Cell";
 			sourceTree = "<group>";
 		};
+		C0859E361E174B2900341F1C /* Property Lists */ = {
+			isa = PBXGroup;
+			children = (
+				C0859E371E174B3E00341F1C /* GoogleService-Info.plist */,
+				C0E3026F1DEA4FD00007988B /* Info.plist */,
+			);
+			name = "Property Lists";
+			sourceTree = "<group>";
+		};
 		C08607131E091CBA0091A8BF /* Add New Player Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +502,7 @@
 			children = (
 				C003A3C71DF460BC008158C7 /* Constants */,
 				C0C3E2D11DEBE08B00B4978B /* Extensions */,
+				C0859E3A1E175C5900341F1C /* DeviceType.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -513,8 +527,8 @@
 		C0E281921DFF155000BF35D0 /* TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C08B5AC41E1635B5000C8328 /* Update Points */,
 				C0E2819F1DFF29A400BF35D0 /* Create Game */,
+				C08B5AC41E1635B5000C8328 /* Update Points */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -582,13 +596,13 @@
 		C0E3025F1DEA4FD00007988B /* CL */ = {
 			isa = PBXGroup;
 			children = (
+				C0859E361E174B2900341F1C /* Property Lists */,
 				C0E302751DEA4FDD0007988B /* Models */,
 				C0E302761DEA4FE60007988B /* Views */,
 				C0E302771DEA4FED0007988B /* Controllers */,
 				C0C3E2D01DEBE08200B4978B /* Utility */,
 				C0C3E2C41DEB7D9D00B4978B /* Supporting Files */,
 				C0E302601DEA4FD00007988B /* AppDelegate.swift */,
-				C0E3026F1DEA4FD00007988B /* Info.plist */,
 				C0E302671DEA4FD00007988B /* CL.xcdatamodeld */,
 			);
 			path = CL;
@@ -720,6 +734,7 @@
 				C0E302661DEA4FD00007988B /* Main.storyboard in Resources */,
 				C003A3E11DF4ADBE008158C7 /* LeaderboardCell.xib in Resources */,
 				C00346ED1E02C3550000A335 /* AddPlayerExpandableCell.xib in Resources */,
+				C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */,
 				C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */,
 				C08B5AC21E15BE58000C8328 /* GameRosterCollectionFooter.xib in Resources */,
 			);
@@ -821,6 +836,7 @@
 				C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */,
 				C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */,
 				C00346EC1E02C3550000A335 /* AddPlayerExpandableCell.swift in Sources */,
+				C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */,
 				C003A3C91DF46B93008158C7 /* LiveLeaderboardController.swift in Sources */,
 				C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */,
 				C0C637E71E0F6D09007A86D4 /* MainViewController2.swift in Sources */,

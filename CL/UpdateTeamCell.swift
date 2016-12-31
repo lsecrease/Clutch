@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-public class UpdateTeamCell: Cell<Int>, CellType {
+public class UpdateTeamCell: Cell<Bool>, CellType {
     
     var hideCells = true
     
@@ -39,7 +39,7 @@ public class UpdateTeamCell: Cell<Int>, CellType {
 
 
 
-final class UpdateTeamRow: Row<Int, UpdateTeamCell>, RowType {
+final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
     
     var teamName: String = "" {
         didSet {
@@ -59,7 +59,9 @@ final class UpdateTeamRow: Row<Int, UpdateTeamCell>, RowType {
         super.customDidSelect()
         
         if self.cell.hideCells {
-            
+            self.cell.hideCells = false
+        } else {
+            self.cell.hideCells = true
         }
         
     }
