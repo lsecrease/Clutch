@@ -7,6 +7,10 @@ target 'CL' do
 
   # Pods for CL
   
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'Eureka', '1.7.0'
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
   pod 'SwiftLoader'
