@@ -79,14 +79,12 @@ class CreateGameFormViewController: FormViewController {
             // 0
             
             <<< PickerInlineRow<String>("Category Row") { (row : PickerInlineRow<String>) -> Void in
-                
                 row.options = categories
                 row.title = "Category"
                 row.value = row.options[0]
                 row.cell.height = { 65 }
                 row.cell.detailTextLabel?.textColor = UIColor.blackColor()
             }.onChange({ (picker) in
-                // picker.hidden = true
                 picker.hidden = Condition.Predicate(NSPredicate(format: "$RowName != nil"))
             })
             
@@ -107,27 +105,51 @@ class CreateGameFormViewController: FormViewController {
             <<< AddPlayerRow() { row in
 
                 }.onCellSelection({ (cell, row) in
-                row.value = !row.value!
                     
+                    row.value = !row.value!
+                    
+                    var startIndex: Int!
+                    var endIndex: Int!
+                    
+                    
+                    // Hide/show the input row for adding new players
                     
                     if let nextRow = self.form.rowByTag("AddPlayerInputRow1") as? AddPlayerInputRow {
+                        
                         if row.value == true {
-                            let startIndex = 2
-                            let endIndex = row.indexPath()!.row
-                            let allRows = self.form.allRows
-
-                            if self.playersForTeam1.count > 0 {
-                                for i in startIndex...endIndex + 1 {
-                                    allRows[i].hidden = true
-                                }
-                                
-                            }
-                            
-                            // nextRow.hidden = true
+                            nextRow.hidden = true
                         } else {
                             nextRow.hidden = false
                         }
                         nextRow.evaluateHidden()
+                    }
+
+                    
+                    // Hide/show player rows that have been added (if any)
+                    
+                    if self.playersForTeam1.count > 0 {
+                        startIndex = 2
+                        endIndex = row.indexPath()!.row - 1
+                        let allRows = self.form.allRows
+
+                        if row.value == true {
+                            for i in startIndex...endIndex {
+                                allRows[i].hidden = true
+                                allRows[i].evaluateHidden()
+                            }
+                        } else {
+                            if var mainSection = self.form.sectionByTag("MainSection") {
+                                var index = row.indexPath()!.row
+                                for player in self.playersForTeam1 {
+                                    mainSection.insert(PlayerForTeamRow() { row in
+                                        row.cell.valueLabel.text = "\(player.pointValue)"
+                                        row.cell.nameLabel.text = player.name
+                                        }, atIndex: index)
+                                    index += 1
+                                }
+
+                            }
+                        }
                     }
 
                 })
@@ -161,10 +183,8 @@ class CreateGameFormViewController: FormViewController {
             
             // 5
             
-            // Custom Inline row
+
             <<< AddPlayerRow() { row in
-                
-                // row.value = true
                 
                 }.cellSetup({ (cell, row) in
                     cell.titleLabel.text = "Add Player to Team 2"
@@ -196,7 +216,7 @@ class CreateGameFormViewController: FormViewController {
                         self.playerForTeam2 = row.value!
                     }
                     
-                    print("PLAYER TO ADD TO TEAM 1: \(self.playerForTeam2)")
+                    print("PLAYER TO ADD TO TEAM 2: \(self.playerForTeam2)")
                 })
             
             // 7

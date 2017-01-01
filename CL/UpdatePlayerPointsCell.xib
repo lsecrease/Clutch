@@ -31,7 +31,7 @@
                             <action selector="stepperPressed:" destination="5Dg-Gr-TzX" eventType="valueChanged" id="Vh3-yF-Z2S"/>
                         </connections>
                     </stepper>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 pts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aop-Wm-Foc">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 pts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="aop-Wm-Foc">
                         <rect key="frame" x="206" y="12" width="57" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="57" id="69s-zi-nur"/>
