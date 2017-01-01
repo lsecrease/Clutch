@@ -30,8 +30,8 @@ class CreateGameFormViewController: FormViewController {
     
     // Team 2
     var teamName2: String!
-    var playersForTeam2 = [Player]()
     var playerForTeam2: Player!
+    var playersForTeam2 = [Player]()
     
     var participantStartingValue: Int!
     var gameLatitude: Float!
@@ -325,15 +325,23 @@ class CreateGameFormViewController: FormViewController {
         }
         print("PLAYERS FOR TEAM 1: \(playersForTeam1)")
     }
-
+    
     func addPlayerToTeam2() {
         if playerForTeam2 != nil {
             self.playersForTeam2 += [playerForTeam2]
-
-            print("Added player to team 2")
+            print("Player added to team 2")
+            
+            if var mainSection = self.form.sectionByTag("MainSection") {
+                
+                let index = playersForTeam2.count > 0 ? playersForTeam2.count + 4 : 4
+                
+                mainSection.insert(PlayerForTeamRow() { row in
+                    row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
+                    row.cell.nameLabel.text = "Jon Jones"
+                    }, atIndex: index)
+                
+            }
         }
-        print("PLAYERS FOR TEAM 2: \(playersForTeam1)")
-
     }
 
     

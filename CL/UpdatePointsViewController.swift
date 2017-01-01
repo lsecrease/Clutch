@@ -114,11 +114,7 @@ class UpdatePointsViewController: FormViewController {
     
     func addTeam1() {
         
-        print("Add team called")
-        
         if var mainSection = self.form.sectionByTag("MainSection") {
-            
-            print("GOT MAIN SECTION")
             if team1.players != nil {
                 var index = 1
                 for player in team1.players! {
@@ -133,6 +129,29 @@ class UpdatePointsViewController: FormViewController {
             }
             mainSection.reload()
         }
+    }
+    
+    func addTeam2() {
+        
+        print("Add team 2 called")
+        
+        if var mainSection = self.form.sectionByTag("MainSection") {
+            if team2.players != nil {
+                var index = team1.players!.count + 5
+                
+                for player in team2.players! {
+                    let newRow = UpdatePlayerPointsRow() { row in
+                        row.name = player.name
+                        row.pointValue = player.pointValue
+                        row.hidden = true
+                    }
+                    form.last! <<< newRow
+                    index += 1
+                }
+            }
+            mainSection.reload()
+        }
+        
     }
     
     func configureForm() {
