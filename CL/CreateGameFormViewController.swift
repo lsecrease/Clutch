@@ -27,6 +27,7 @@ class CreateGameFormViewController: FormViewController {
     var teamName1: String!
     var playerForTeam1: Player!
     var playersForTeam1 = [Player]()
+    var firstTeamRowsAreHidden = true
     
     // Team 2
     var teamName2: String!
@@ -122,6 +123,8 @@ class CreateGameFormViewController: FormViewController {
                             nextRow.hidden = false
                         }
                         nextRow.evaluateHidden()
+                        
+                        
                     }
 
                     
@@ -137,6 +140,10 @@ class CreateGameFormViewController: FormViewController {
                                 allRows[i].hidden = true
                                 allRows[i].evaluateHidden()
                             }
+                            
+                            // Update Team1 row status
+                            self.firstTeamRowsAreHidden = true
+                            
                         } else {
                             if var mainSection = self.form.sectionByTag("MainSection") {
                                 var index = row.indexPath()!.row
@@ -149,7 +156,13 @@ class CreateGameFormViewController: FormViewController {
                                 }
 
                             }
+                            
+                            // Update Team1 row status
+                            self.firstTeamRowsAreHidden = false
                         }
+                        
+                        print("FIRST TEAM ROWS ARE HIDDEN: \(self.firstTeamRowsAreHidden)")
+                        
                     }
 
                 })
@@ -184,6 +197,7 @@ class CreateGameFormViewController: FormViewController {
             // 5
             
 
+            // *** SECOND ROW TO ADD PLAYERS ***
             <<< AddPlayerRow() { row in
                 
                 }.cellSetup({ (cell, row) in
@@ -198,6 +212,56 @@ class CreateGameFormViewController: FormViewController {
                             nextRow.hidden = false
                         }
                         nextRow.evaluateHidden()
+                    }
+                }).onCellSelection({ (cell, row) in
+                    row.value = !row.value!
+                    
+                    var startIndex: Int!
+                    var endIndex: Int!
+                    
+                    // Hide/Show the inut row adding new players to Team 2
+                    
+                    if let nextRow = self.form.rowByTag("AddPlayerInputRow2") {
+                        
+                        if row.value == true {
+                            nextRow.hidden = true
+                        } else {
+                            nextRow.hidden = false
+                        }
+                        nextRow.evaluateHidden()
+                    }
+                    
+                    
+                    // Hide/show player rows that have been added if they exist
+                    
+                    if self.playersForTeam2.count > 0 {
+                        // startIndex = self.playersForTeam2.count + 4
+                        
+                        
+                        endIndex = row.indexPath()!.row - 1
+                        let allRows = self.form.allRows
+                        
+                        if row.value == true {
+                            
+                            print("START INDED: \(startIndex)")
+                            print("END INDEX: \(endIndex)")
+                            
+                            for i in startIndex...endIndex {
+                                allRows[i].hidden = true
+                                allRows[i].evaluateHidden()
+                            }
+                        } else {
+                            if var mainSection = self.form.sectionByTag("MainSection") {
+                                var index = row.indexPath()!.row
+                                for player in self.playersForTeam2 {
+                                    mainSection.insert(PlayerForTeamRow() { row in
+                                        row.cell.valueLabel.text = "\(player.pointValue)"
+                                        row.cell.nameLabel.text = player.name
+                                        }, atIndex: index)
+                                    index += 1
+                                }
+                            }
+                        }
                     }
                 })
             
@@ -309,8 +373,6 @@ class CreateGameFormViewController: FormViewController {
             
             print("Added player to team 1")
             
-            // section.insert(LabelRow() { $0.title = "new row at index 2"}, at: 2)
-            
             if var mainSection = self.form.sectionByTag("MainSection") {
                 
                 let index = playersForTeam1.count > 0 ? playersForTeam1.count + 1 : 2
@@ -333,11 +395,11 @@ class CreateGameFormViewController: FormViewController {
             
             if var mainSection = self.form.sectionByTag("MainSection") {
                 
-                let index = playersForTeam2.count > 0 ? playersForTeam2.count + 4 : 4
+                let index = playersForTeam2.count > 0 ? playersForTeam2.count + 3 : 6
                 
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
-                    row.cell.nameLabel.text = "Jon Jones"
+                    row.cell.nameLabel.text = playerForTeam2.name
                     }, atIndex: index)
                 
             }
