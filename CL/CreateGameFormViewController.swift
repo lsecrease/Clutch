@@ -68,12 +68,12 @@ class CreateGameFormViewController: FormViewController {
         
         form
             
-            // Add section and remove section header and footer by setting its height to 0.
-                +++ Section {
-                    $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
-                    $0.header!.height = { 0 }
-                    $0.tag = "MainSection"
-                }
+            // Add section and remove section header and footer by setting its height to 0.5
+            +++ Section {
+                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+                $0.header!.height = { 0.5 }
+                $0.tag = "MainSection"
+            }
             
             // Add rows 
             
@@ -227,9 +227,7 @@ class CreateGameFormViewController: FormViewController {
                 cell.height = { 65 }
             }
             
-            
         }
-    
     
     
     // MARK: IBAction methods
@@ -245,6 +243,8 @@ class CreateGameFormViewController: FormViewController {
         print(playersForTeam1)
         print("\nTEAM 2:")
         print(playersForTeam2)
+        
+        self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
     }
     
     func addPlayerToTeam1() {

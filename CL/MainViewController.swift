@@ -30,10 +30,8 @@ class MainViewController: UIViewController {
     var gameRosterViewIsActive: Bool = true
     var liveTeamViewIsActive: Bool = false
     
-    // MARK: Profile IBOutlets
-//    @IBOutlet weak var profileImageView: UIImageView!
-//    @IBOutlet weak var fullNameLabel: UILabel!
-//    @IBOutlet weak var textView: UITextView!
+    // Core Location
+    let locationManager = CLLocationManager()
     
     
     // MARK: LIVE VIEW
@@ -68,11 +66,40 @@ class MainViewController: UIViewController {
     @IBOutlet weak var gameMatchupViewCenterX: NSLayoutConstraint!
     @IBOutlet weak var gameRosterViewCenterX: NSLayoutConstraint!
     var gameMatchupViewIsActive = false
+    
+    
+    // MARK: View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configureViews()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Position GAME views
+        gameRosterViewCenterX.constant += self.view.bounds.width
+        
+        let locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+    }
 
-    // MARK Live Leadeboard View
+
     
     // IBOutlets
-    @IBOutlet weak var leaderboardCollectionView: UICollectionView!
+//    @IBOutlet weak var leaderboardCollectionView: UICollectionView!
 
     
     // MARK: IBActions
@@ -142,26 +169,6 @@ class MainViewController: UIViewController {
     }
     
     
-    // MARK: View Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configureViews()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Position GAME views
-        gameRosterViewCenterX.constant += self.view.bounds.width
-
-    }
-    
-    override func viewDidLayoutSubviews() {
-
-    }
-    
     // MARK: Custom UI functions
 
     func configureViews() {
@@ -200,14 +207,6 @@ class MainViewController: UIViewController {
     // MARK: Utility functions
     
     func registerCells() {
-        
-        // LIVE Collection Views
-//        liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
-//        leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
-//        
-//        // GAME CollectionViews
-//        gameMatchupCollectionView.registerNib(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
-//        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
         
     }
     
@@ -267,129 +266,6 @@ class MainViewController: UIViewController {
 
     }
 
-}
-
-
-// MARK: - UICollectionView DataSource and Delegate functions
-
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        // Adjust count to include game information cell on first row
-        
-        if collectionView == liveTeamCollectionView || collectionView == gameRosterCollectionView {
-            return players.count
-        } else if collectionView == leaderboardCollectionView {
-            return RankedUsers.count
-        } else if collectionView == gameMatchupCollectionView {
-            return GameMatchups.count
-        }
-        
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        switch collectionView {
-            
-        case liveTeamCollectionView:
-            // Access the first player's info
-            let player = players[indexPath.row]
-            let cell = liveTeamCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLiveTeam, forIndexPath: indexPath) as! LiveTeamCell
-            cell.playerNumberLabel.text = player.number
-            cell.playerNameLabel.text = player.name
-//            cell.teamNameLabel.text = player.teamName
-            cell.playerPointLabel.text = "\(player.pointValue)"
-            return cell
-            
-        case leaderboardCollectionView:
-            let cell = leaderboardCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLeaderboard, forIndexPath: indexPath) as! LeaderboardCell
-            let user = RankedUsers[indexPath.row]
-            cell.rankLabel.text = "\(user.rank)"
-            cell.usernameLabel.text = user.username
-            cell.pointsLabel.text = "\(user.points)" + " pts"
-            return cell
-        
-        case gameMatchupCollectionView:
-            let cell = gameMatchupCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameMatchup", forIndexPath: indexPath) as! GameMatchupCell
-            let matchup = GameMatchups[indexPath.row]
-            cell.awayTeam = matchup.awayTeam
-            cell.homeTeam = matchup.homeTeam
-            cell.venue = matchup.venue
-            cell.date = matchup.date
-            cell.time = matchup.time
-            return cell
-            
-        case gameRosterCollectionView:
-            
-            let cell = gameRosterCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameRoster", forIndexPath: indexPath) as! GameRosterCell
-            let player = players[indexPath.row]
-            cell.number = player.number
-            cell.playerName = player.name
-//            cell.teamName = player.teamName
-//            cell.cost = "\(player.cost)"
-            return cell
-            
-        default:
-            break
-        }
-        
-        let cell = liveTeamCollectionView.dequeueReusableCellWithReuseIdentifier(idCellGameInfo, forIndexPath: indexPath) as! GameInfoCell
-        cell.venueLabel.text = "Comcast Arena"
-        cell.dateLabel.text = "Thurs, September 9"
-        cell.timeLabel.text = "10:00pm"
-        return cell
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        switch collectionView {
-        
-        case gameMatchupCollectionView:
-            
-            // Slide GAME views right to simulate navigation
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
-                self.gameRosterViewCenterX.constant -= self.view.bounds.width
-                self.gameMatchupViewCenterX.constant -= self.view.bounds.width
-                self.view.layoutIfNeeded()
-            }) { (finished) in
-                self.gameRosterViewIsActive = true
-                self.updateViews()
-            }
-
-        default:
-            break
-        }
-    }
-    
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        
-        var headerView = UICollectionReusableView()
-        
-        switch kind {
-            
-        case UICollectionElementKindSectionHeader:
-            
-            switch collectionView {
-            case liveTeamCollectionView:
-                headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
-            case gameRosterCollectionView:
-                headerView = gameRosterCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
-
-            default:
-                break
-            }
-            
-        default:
-            
-            print(false, "Unexpected element kind")
-        }
-        
-        return headerView
-    }
-    
 }
 
 

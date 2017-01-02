@@ -40,7 +40,6 @@ public class UpdateTeamCell: Cell<Bool>, CellType {
 }
 
 
-
 final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
     
     var teamName: String = "" {

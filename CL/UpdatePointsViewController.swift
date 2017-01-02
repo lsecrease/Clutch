@@ -13,6 +13,8 @@ import Eureka
 
 class UpdatePointsViewController: FormViewController {
     
+    // MARK: Properties
+    
     let teamName1 = "Chicago Bulls"
     let teamName2 = "Miami Heat"
     
@@ -23,6 +25,8 @@ class UpdatePointsViewController: FormViewController {
 
     
     var hideTeamRows1 = true
+    
+    // MARK: Test Data
     
     let players1: [Player] = [
         Player(name: "Michael Jordan", number: "23", pointValue: 1000),
@@ -36,6 +40,9 @@ class UpdatePointsViewController: FormViewController {
         Player(name: "Chris Andersen", number: "11", pointValue: 650)
     ]
     
+    
+    // MARK: View life-cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,8 +53,9 @@ class UpdatePointsViewController: FormViewController {
         startIndex2 = self.players1.count + 2
         
         form +++ Section() { Section in
-                Section.tag = "MainSection"
-                Section.header?.height = { 0 }
+            Section.tag = "MainSection"
+            Section.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+            Section.header?.height = { 0.5 }
             }
             
         <<< UpdateTeamRow() { row in
@@ -71,13 +79,10 @@ class UpdatePointsViewController: FormViewController {
         
     }
     
+    // MARK: Custom table functions
+    
     func configureFormAppearance() {
         self.tableView?.separatorStyle = .None
-        
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
     }
     
@@ -95,6 +100,9 @@ class UpdatePointsViewController: FormViewController {
         team2.players = players2
         
     }
+    
+    
+    // MARK: Data loading
     
     func addTeam1() {
         

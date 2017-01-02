@@ -54,6 +54,7 @@
 		C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */; };
 		C08B5AD61E1642AA000C8328 /* UpdatePlayerPointsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */; };
 		C0AFE6581DF89D8C00F2A32A /* AddOrRemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */; };
+		C0B756AA1E1AE44B007DF3E1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B756A91E1AE44B007DF3E1 /* CoreLocation.framework */; };
 		C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */; };
 		C0C3E2A71DEAFB4300B4978B /* GameInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */; };
 		C0C3E2B21DEB50E200B4978B /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2B11DEB50E200B4978B /* Player.swift */; };
@@ -129,6 +130,7 @@
 		C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePlayerPointsCell.swift; sourceTree = "<group>"; };
 		C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatePlayerPointsCell.xib; sourceTree = "<group>"; };
 		C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddOrRemoveButton.swift; sourceTree = "<group>"; };
+		C0B756A91E1AE44B007DF3E1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C0C3E2A61DEAFB4300B4978B /* GameInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoCell.xib; sourceTree = "<group>"; };
 		C0C3E2B11DEB50E200B4978B /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0B756AA1E1AE44B007DF3E1 /* CoreLocation.framework in Frameworks */,
 				C0C3E2CD1DEB810100B4978B /* FBSDKCoreKit.framework in Frameworks */,
 				0F3BBA2DCA2897E8505876FA /* Pods_CL.framework in Frameworks */,
 				C0C3E2C21DEB782500B4978B /* Bolts.framework in Frameworks */,
@@ -184,6 +187,7 @@
 		3DDA0E6FDF21CDB004782C69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0B756A91E1AE44B007DF3E1 /* CoreLocation.framework */,
 				0692B644F1BA5E4A421C4A28 /* Pods_CL.framework */,
 				C0C3E2C01DEB782500B4978B /* Bolts.framework */,
 				C0C3E2CC1DEB810100B4978B /* FBSDKCoreKit.framework */,
