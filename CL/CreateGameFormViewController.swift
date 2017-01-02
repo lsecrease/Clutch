@@ -27,7 +27,7 @@ class CreateGameFormViewController: FormViewController {
     var teamName1: String!
     var playerForTeam1: Player!
     var playersForTeam1 = [Player]()
-    var firstTeamRowsAreHidden = true
+    var firstTeamHidden = true
     
     // Team 2
     var teamName2: String!
@@ -104,67 +104,9 @@ class CreateGameFormViewController: FormViewController {
             // 2
 
             <<< AddPlayerRow() { row in
-
+                    row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
-                    
                     row.value = !row.value!
-                    
-                    var startIndex: Int!
-                    var endIndex: Int!
-                    
-                    
-                    // Hide/show the input row for adding new players
-                    
-                    if let nextRow = self.form.rowByTag("AddPlayerInputRow1") as? AddPlayerInputRow {
-                        
-                        if row.value == true {
-                            nextRow.hidden = true
-                        } else {
-                            nextRow.hidden = false
-                        }
-                        nextRow.evaluateHidden()
-                        
-                        
-                    }
-
-                    
-                    // Hide/show player rows that have been added (if any)
-                    
-                    if self.playersForTeam1.count > 0 {
-                        startIndex = 2
-                        endIndex = row.indexPath()!.row - 1
-                        let allRows = self.form.allRows
-
-                        if row.value == true {
-                            for i in startIndex...endIndex {
-                                allRows[i].hidden = true
-                                allRows[i].evaluateHidden()
-                            }
-                            
-                            // Update Team1 row status
-                            self.firstTeamRowsAreHidden = true
-                            
-                        } else {
-                            if var mainSection = self.form.sectionByTag("MainSection") {
-                                var index = row.indexPath()!.row
-                                for player in self.playersForTeam1 {
-                                    mainSection.insert(PlayerForTeamRow() { row in
-                                        row.cell.valueLabel.text = "\(player.pointValue)"
-                                        row.cell.nameLabel.text = player.name
-                                        }, atIndex: index)
-                                    index += 1
-                                }
-
-                            }
-                            
-                            // Update Team1 row status
-                            self.firstTeamRowsAreHidden = false
-                        }
-                        
-                        print("FIRST TEAM ROWS ARE HIDDEN: \(self.firstTeamRowsAreHidden)")
-                        
-                    }
-
                 })
             
             // 3
@@ -172,9 +114,10 @@ class CreateGameFormViewController: FormViewController {
             <<< AddPlayerInputRow() {
                 
                 $0.tag = "AddPlayerInputRow1"
-                $0.hidden = true
-                $0.evaluateHidden()
-                
+                $0.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
+                        return row.value ?? true == true
+                    })
                 }.cellSetup({ (cell, row) in
                     cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam1), forControlEvents: .TouchUpInside)
                 }).onChange({ (row) in
@@ -194,84 +137,28 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "Team2"
             }
             
-            // 5
             
+            // 5
 
             // *** SECOND ROW TO ADD PLAYERS ***
             <<< AddPlayerRow() { row in
+                row.tag = "AddPlayerRow2"
                 
                 }.cellSetup({ (cell, row) in
                     cell.titleLabel.text = "Add Player to Team 2"
                     
                 }).onCellSelection({ (cell, row) in
                     row.value = !row.value!
-                    if let nextRow = self.form.rowByTag("AddPlayerInputRow2") as? AddPlayerInputRow {
-                        if row.value == true {
-                            nextRow.hidden = true
-                        } else {
-                            nextRow.hidden = false
-                        }
-                        nextRow.evaluateHidden()
-                    }
-                }).onCellSelection({ (cell, row) in
-                    row.value = !row.value!
-                    
-                    var startIndex: Int!
-                    var endIndex: Int!
-                    
-                    // Hide/Show the inut row adding new players to Team 2
-                    
-                    if let nextRow = self.form.rowByTag("AddPlayerInputRow2") {
-                        
-                        if row.value == true {
-                            nextRow.hidden = true
-                        } else {
-                            nextRow.hidden = false
-                        }
-                        nextRow.evaluateHidden()
-                    }
-                    
-                    
-                    // Hide/show player rows that have been added if they exist
-                    
-                    if self.playersForTeam2.count > 0 {
-                        // startIndex = self.playersForTeam2.count + 4
-                        
-                        
-                        endIndex = row.indexPath()!.row - 1
-                        let allRows = self.form.allRows
-                        
-                        if row.value == true {
-                            
-                            print("START INDED: \(startIndex)")
-                            print("END INDEX: \(endIndex)")
-                            
-                            for i in startIndex...endIndex {
-                                allRows[i].hidden = true
-                                allRows[i].evaluateHidden()
-                            }
-                        } else {
-                            if var mainSection = self.form.sectionByTag("MainSection") {
-                                var index = row.indexPath()!.row
-                                for player in self.playersForTeam2 {
-                                    mainSection.insert(PlayerForTeamRow() { row in
-                                        row.cell.valueLabel.text = "\(player.pointValue)"
-                                        row.cell.nameLabel.text = player.name
-                                        }, atIndex: index)
-                                    index += 1
-                                }
-                            }
-                        }
-                    }
                 })
             
             // 6
             
             <<< AddPlayerInputRow() {
                 $0.tag = "AddPlayerInputRow2"
-                $0.hidden = hideRows2 ? true : false
-                $0.evaluateHidden()
-                
+                $0.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
+                        return row.value ?? true == true
+                    })
                 }.cellSetup({ (cell, row) in
                     cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam2), forControlEvents: .TouchUpInside)
                 }).onChange({ (row) in
@@ -279,8 +166,6 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         self.playerForTeam2 = row.value!
                     }
-                    
-                    print("PLAYER TO ADD TO TEAM 2: \(self.playerForTeam2)")
                 })
             
             // 7
@@ -345,11 +230,6 @@ class CreateGameFormViewController: FormViewController {
             
         }
     
-    func addPlayerButtonPressed() {
-        form.rowByTag("AddPlayer1")?.deselect()
-        
-
-    }
     
     
     // MARK: IBAction methods
@@ -371,39 +251,52 @@ class CreateGameFormViewController: FormViewController {
         if playerForTeam1 != nil {
             self.playersForTeam1 += [playerForTeam1]
             
-            print("Added player to team 1")
             
             if var mainSection = self.form.sectionByTag("MainSection") {
+                var index: Int!
                 
-                let index = playersForTeam1.count > 0 ? playersForTeam1.count + 1 : 2
+                if let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
+                    index = addPlayerRow1.indexPath()!.row
+                }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
                     row.cell.nameLabel.text = playerForTeam1.name
+                    row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
+                        return row.value ?? true == true
+                    })
                     }, atIndex: index)
                 
                 mainSection.reload()
             }
         }
-        print("PLAYERS FOR TEAM 1: \(playersForTeam1)")
+        
     }
     
     func addPlayerToTeam2() {
-        if playerForTeam2 != nil {
-            self.playersForTeam2 += [playerForTeam2]
-            print("Player added to team 2")
+
+        self.playersForTeam2 += [playerForTeam2]
             
             if var mainSection = self.form.sectionByTag("MainSection") {
                 
-                let index = playersForTeam2.count > 0 ? playersForTeam2.count + 3 : 6
+                var index: Int!
+                
+                if let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
+                    index = addPlayerRow2.indexPath()!.row
+                }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
                     row.cell.nameLabel.text = playerForTeam2.name
+                    row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
+                        return row.value ?? true == true
+                    })
                     }, atIndex: index)
                 
             }
-        }
+
     }
 
     
