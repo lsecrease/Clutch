@@ -29,7 +29,7 @@ class MainViewController2: UIViewController {
     var gameRosterViewIsActive: Bool!
     var liveTeamViewIsActive: Bool!
 
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager!
     
     
 
@@ -37,6 +37,12 @@ class MainViewController2: UIViewController {
         super.viewDidLoad()
         
         configureViews()
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+
     }
     
     
@@ -54,9 +60,9 @@ class MainViewController2: UIViewController {
     }
 
     func setupCoreLocation() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestWhenInUseAuthorization()
     }
     
     
@@ -130,7 +136,16 @@ class MainViewController2: UIViewController {
 
 extension MainViewController2: CLLocationManagerDelegate {
     
-    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        switch status {
+        case .AuthorizedWhenInUse, .AuthorizedAlways:
+            manager.startUpdatingLocation()
+        case .Denied:
+            manager.stopUpdatingLocation()
+        default:
+            break
+        }
+    }
     
 }
 

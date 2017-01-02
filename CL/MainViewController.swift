@@ -31,7 +31,7 @@ class MainViewController: UIViewController {
     var liveTeamViewIsActive: Bool = false
     
     // Core Location
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager!
     
     
     // MARK: LIVE VIEW
@@ -75,7 +75,9 @@ class MainViewController: UIViewController {
         
         configureViews()
         
+        locationManager = CLLocationManager()
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
     }
     
@@ -85,10 +87,10 @@ class MainViewController: UIViewController {
         // Position GAME views
         gameRosterViewCenterX.constant += self.view.bounds.width
         
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+//        let locationManager = CLLocationManager()
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.requestWhenInUseAuthorization()
         
     }
     
@@ -195,7 +197,6 @@ class MainViewController: UIViewController {
             checkInButton.hide()
         }
         
-        
         if gameRosterViewIsActive {
             cancelButton.show()
         } else {
@@ -287,14 +288,14 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
         switch status {
-        case .AuthorizedWhenInUse, .AuthorizedAlways:
+        case .AuthorizedWhenInUse:
             manager.startUpdatingLocation()
-        default:
+        case .Denied, .NotDetermined:
             manager.stopUpdatingLocation()
+        default:
+            break
         }
-        
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {

@@ -103,7 +103,7 @@
                     <navigationItem key="navigationItem" id="vQS-u4-i3i"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <segue destination="KvL-JV-Kbd" kind="presentation" identifier="loginToMain" id="MEL-nI-Dfu"/>
+                        <segue destination="KvL-JV-Kbd" kind="presentation" identifier="loginToMain" modalTransitionStyle="crossDissolve" id="MEL-nI-Dfu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -41,6 +41,7 @@
 		C0638CDC1E0B12A300A03B57 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CDB1E0B12A300A03B57 /* Coordinates.swift */; };
 		C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE31E0B221200A03B57 /* LocationRow.swift */; };
 		C0638CE61E0B28AC00A03B57 /* UpdatePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */; };
+		C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */; };
 		C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0859E371E174B3E00341F1C /* GoogleService-Info.plist */; };
 		C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0859E3A1E175C5900341F1C /* DeviceType.swift */; };
 		C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */; };
@@ -117,6 +118,7 @@
 		C0638CDB1E0B12A300A03B57 /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		C0638CE31E0B221200A03B57 /* LocationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
 		C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePointsViewController.swift; sourceTree = "<group>"; };
+		C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideRightTransitionManager.swift; sourceTree = "<group>"; };
 		C0859E371E174B3E00341F1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0859E3A1E175C5900341F1C /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
 		C087EF011DF5E3D200BA3EA2 /* GameMatchupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameMatchupCell.xib; sourceTree = "<group>"; };
@@ -336,6 +338,14 @@
 			name = "Coordinate Cell";
 			sourceTree = "<group>";
 		};
+		C08281751E1AFCF900185ABF /* Transition Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */,
+			);
+			name = "Transition Managers";
+			sourceTree = "<group>";
+		};
 		C0859E361E174B2900341F1C /* Property Lists */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +481,7 @@
 		C0C3E2D01DEBE08200B4978B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				C08281751E1AFCF900185ABF /* Transition Managers */,
 				C003A3C71DF460BC008158C7 /* Constants */,
 				C0C3E2D11DEBE08B00B4978B /* Extensions */,
 				C0859E3A1E175C5900341F1C /* DeviceType.swift */,
@@ -759,6 +770,7 @@
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
 				C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */,
+				C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
 				C00A073B1DF738C70032C39A /* Roster.swift in Sources */,
 				C003A3D51DF47212008158C7 /* RankedUser.swift in Sources */,

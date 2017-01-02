@@ -9,6 +9,8 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    let slideRightTransiton = SlideRightTransitionManager()
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -28,6 +30,16 @@ class LoginViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "loginToMain" {
+            if let mainVC = segue.destinationViewController as? MainViewController2 {
+                mainVC.transitioningDelegate = slideRightTransiton
+            }
+        }
     }
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
