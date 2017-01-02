@@ -48,48 +48,32 @@ class UpdatePointsViewController: FormViewController {
         form +++ Section() { Section in
                 Section.tag = "MainSection"
                 Section.header?.height = { 0 }
-                addTeam1()
             }
             
-        <<< UpdateTeamRow("UpdateTeamRow1") { row in
+        <<< UpdateTeamRow() { row in
             row.teamName = teamName1
-
+            row.tag = "UpdateTeamRow1"
+            self.addTeam1()
         }.onCellSelection({ (cell, row) in
-            
-            if self.team1.players != nil {
-                let allRows = self.form.allRows
-                let startIndex = 1
-                if row.value == true {
-                } else {
-                    for i in startIndex..<self.team1.players!.count {
-                        allRows[i].hidden = true
-                    }
-                }
-            }
-
+            row.value = !row.value!
         })
             
-//        <<< UpdatePlayerPointsRow("UpdatePlayerPointsRow") { row in
-//            row.name = "Devin Thomas"
-//            row.pointValue = 50
-//            row.hidden = true
-//            row.evaluateHidden()
-//        }
-//            
-//        <<< UpdateTeamRow() { row in
-//            row.teamName = teamName2
-//        }
-        
         addTeam1()
+        
+         form.last! <<< UpdateTeamRow() { row in
+                row.teamName = teamName2
+                row.tag = "UpdateTeamRow2"
+        }.onCellSelection({ (cell, row) in
+            row.value = !row.value!
+        })
+        
+        addTeam2()
         
     }
     
     func configureFormAppearance() {
         self.tableView?.separatorStyle = .None
         
-        UpdatePlayerPointsRow.defaultCellUpdate = { cell, row in
-            row.hidden = true
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -114,14 +98,18 @@ class UpdatePointsViewController: FormViewController {
     
     func addTeam1() {
         
-        if var mainSection = self.form.sectionByTag("MainSection") {
+        if let mainSection = self.form.sectionByTag("MainSection") {
             if team1.players != nil {
                 var index = 1
                 for player in team1.players! {
                     let newRow = UpdatePlayerPointsRow() { row in
                         row.name = player.name
                         row.pointValue = player.pointValue
-                        row.hidden = true
+                        row.hidden = .Function(["UpdateTeamRow1"], { form -> Bool in
+                            let row: RowOf<Bool>! = form.rowByTag("UpdateTeamRow1")
+                            return row.value ?? true == true
+                        })
+
                     }
                     form.last! <<< newRow
                     index += 1
@@ -133,17 +121,18 @@ class UpdatePointsViewController: FormViewController {
     
     func addTeam2() {
         
-        print("Add team 2 called")
-        
-        if var mainSection = self.form.sectionByTag("MainSection") {
-            if team2.players != nil {
-                var index = team1.players!.count + 5
-                
+        if let mainSection = self.form.sectionByTag("MainSection") {
+            if team1.players != nil {
+                var index = 1
                 for player in team2.players! {
                     let newRow = UpdatePlayerPointsRow() { row in
                         row.name = player.name
                         row.pointValue = player.pointValue
-                        row.hidden = true
+                        row.hidden = .Function(["UpdateTeamRow2"], { form -> Bool in
+                            let row: RowOf<Bool>! = form.rowByTag("UpdateTeamRow2")
+                            return row.value ?? true == true
+                        })
+                        
                     }
                     form.last! <<< newRow
                     index += 1

@@ -66,7 +66,7 @@ final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
         } else {
             self.cell.arrowButton.turn(1, direction: .CounterClockwise, finalImage: nil)
         }
-        self.value = !self.value!
+        // self.value = !self.value!
         
     }
     
