@@ -12,6 +12,6 @@ import Foundation
 class Team {
     
     var name: String!
-    var players: [Player]?
+    var players = [Player]()
     
 }

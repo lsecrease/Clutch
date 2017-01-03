@@ -20,16 +20,10 @@ class CreateGameFormViewController: FormViewController {
     
     var game = Game()
     
-    var gameCategory: String!
-    var hideRows2 = true
-    
-    var firstInputRow = AddPlayerInputRow()
-    
     // Team 1
     var teamName1: String!
     var playerForTeam1: Player!
     var playersForTeam1 = [Player]()
-    var firstTeamHidden = true
     
     // Team 2
     var teamName2: String!
@@ -59,8 +53,12 @@ class CreateGameFormViewController: FormViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showUpdatePointsVC" {
             if let updatePointsVC = segue.destinationViewController as? UpdatePointsViewController {
-                updatePointsVC.players1 = self.playersForTeam1
-                updatePointsVC.players2 = self.playersForTeam2
+
+                updatePointsVC.team1 = self.game.team1
+                updatePointsVC.team2 = self.game.team2
+                
+                updatePointsVC.game = self.game
+                
             }
         }
     }
@@ -97,13 +95,13 @@ class CreateGameFormViewController: FormViewController {
                 row.cell.height = { 65 }
                 row.cell.detailTextLabel?.textColor = UIColor.blackColor()
             }.onChange({ (picker) in
+
+                picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
                 
                 if picker.value != nil {
                     self.game.category = picker.value
                 }
 
-                picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
-                
             })
             
             
@@ -114,15 +112,9 @@ class CreateGameFormViewController: FormViewController {
                 $0.placeholder = "Input"
                 $0.tag = "Team1"
             }.cellSetup({ (cell, row) in
-                row.disabled = true
+
             }).onChange({ (row) in
-                
-                if row.value != nil {
-                    self.game.team1?.name = row.value
-                    print("TEAM!: ")
-                    print(self.game.team1?.name)
-                }
-                
+                self.game.team1.name = row.value!
             })
             
             
@@ -150,8 +142,6 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
                     }
-                    
-                    print("PLAYER TO ADD TO TEAM 1: \(self.playerForTeam1)")
                 })
             
             // 4
@@ -163,7 +153,8 @@ class CreateGameFormViewController: FormViewController {
             }.onChange({ (row) in
                 
                 if row.value != nil {
-                    self.game.team2?.name = row.value
+                    self.game.team2.name = row.value!
+                    
                 }
                 
             })
@@ -248,10 +239,10 @@ class CreateGameFormViewController: FormViewController {
             } // END OF FORM
         
         
-        
-        
         } // END OF 'VIEWDIDLOAD'
     
+    
+        // MARK: Form Appearance Customization
     
         func customizeFormAppearance() {
             // Customize table view
@@ -291,25 +282,21 @@ class CreateGameFormViewController: FormViewController {
     }
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
-        print("TEAM 1:\n")
-        print(playersForTeam1)
-        print("\nTEAM 2:")
-        print(playersForTeam2)
         
-        if playersForTeam1.isEmpty {
+        if game.team1.players.isEmpty {
             let title = "Error"
             let message = "Team #1 Has no player(s). Please add players to the game."
             self.showAlert(title, message: message)
         } else {
-            self.game.team1?.players = playersForTeam1
+            self.game.team1.players = playersForTeam1
         }
         
-        if playersForTeam2.isEmpty {
+        if game.team1.players.isEmpty {
             let title = "Error"
             let message = "Team #2 Has no player(s). Please add players to the game."
             self.showAlert(title, message: message)
         } else {
-            self.game.team2?.players = playersForTeam2
+            self.game.team2.players = playersForTeam2
         }
         
         self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
@@ -325,8 +312,12 @@ class CreateGameFormViewController: FormViewController {
     }
     
     func addPlayerToTeam1() {
+        
         if playerForTeam1 != nil {
-            self.playersForTeam1 += [playerForTeam1]
+            
+            self.game.team1.players += [playerForTeam1]
+            
+            print(self.game.team1.players)
             
             
             if var mainSection = self.form.sectionByTag("MainSection") {
@@ -349,11 +340,14 @@ class CreateGameFormViewController: FormViewController {
             }
         }
         
+        playerForTeam1 = nil
+        
     }
     
     func addPlayerToTeam2() {
-
-        self.playersForTeam2 += [playerForTeam2]
+        
+        if playerForTeam2 != nil {
+            self.game.team2.players += [playerForTeam2]
             
             if var mainSection = self.form.sectionByTag("MainSection") {
                 
@@ -373,6 +367,10 @@ class CreateGameFormViewController: FormViewController {
                     }, atIndex: index)
                 
             }
+
+        }
+        
+        playerForTeam2 = nil
 
     }
 

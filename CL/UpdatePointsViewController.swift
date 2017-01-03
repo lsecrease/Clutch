@@ -15,36 +15,19 @@ class UpdatePointsViewController: FormViewController {
     
     // MARK: Properties
     
-    let teamName1 = "Chicago Bulls"
-    let teamName2 = "Miami Heat"
-    
     var team1 = Team()
     var team2 = Team()
-    var startIndex1: Int!
-    var startIndex2: Int!
-
     
-    var hideTeamRows1 = true
-    
-    // MARK: Test Data
-    
-    var players1 = [Player]()
-    var players2 = [Player]()
-    
+    var game = Game()
     
     // MARK: View life-cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("PLAYERS 1 IN UPDATE POINTS VC: \(players1)")
-        print("PLAYERS 2 IN UPDATE POINTS VC: \(players2)")
+        printAllData()
         
-        createTeams()
-        configureFormAppearance()
-        
-        startIndex1 = 1
-        startIndex2 = self.players1.count + 2
+        customizeFormAppearance()
         
         form +++ Section() { Section in
             Section.tag = "MainSection"
@@ -53,7 +36,7 @@ class UpdatePointsViewController: FormViewController {
             }
             
         <<< UpdateTeamRow() { row in
-            row.teamName = teamName1
+            row.teamName = team1.name
             row.tag = "UpdateTeamRow1"
             self.addTeam1()
         }.onCellSelection({ (cell, row) in
@@ -63,7 +46,7 @@ class UpdatePointsViewController: FormViewController {
         addTeam1()
         
          form.last! <<< UpdateTeamRow() { row in
-                row.teamName = teamName2
+                row.teamName = team2.name
                 row.tag = "UpdateTeamRow2"
         }.onCellSelection({ (cell, row) in
             row.value = !row.value!
@@ -73,37 +56,38 @@ class UpdatePointsViewController: FormViewController {
         
     }
     
+    
     // MARK: Custom table functions
     
-    func configureFormAppearance() {
+    func customizeFormAppearance() {
         self.tableView?.separatorStyle = .None
         
     }
     
-    func loadForm() {
-        customizeFormAppearance()
-    }
+    // Test data
     
-    
-    // Temporary functions
-    func createTeams() {
-        team1.name = "Wake Forest University"
-        team1.players = players1
+    func printAllData() {
         
-        team2.name = "Duke"
-        team2.players = players2
+        print("\nGAME INFO:-\n")
+        print("CATEGORY: \(self.game.category)")
+        print("TEAM 1: \(game.team1.name)")
+        print("TEAM 1 PLAYERS: \(game.team1.players)")
+        print("STARTING VALUE: \(game.startingValue)")
+        print("VENUE: \(game.venue)")
         
     }
     
     
     // MARK: Data loading
     
+    // Function to add 1st team
+    
     func addTeam1() {
         
         if let mainSection = self.form.sectionByTag("MainSection") {
-            if team1.players != nil {
+            if team1.players.count > 0 {
                 var index = 1
-                for player in team1.players! {
+                for player in team1.players {
                     let newRow = UpdatePlayerPointsRow() { row in
                         row.name = player.name
                         row.pointValue = player.pointValue
@@ -121,12 +105,14 @@ class UpdatePointsViewController: FormViewController {
         }
     }
     
+    // Function to add 2nd team
+    
     func addTeam2() {
         
         if let mainSection = self.form.sectionByTag("MainSection") {
-            if team1.players != nil {
+            if team1.players.count > 0 {
                 var index = 1
-                for player in team2.players! {
+                for player in team2.players {
                     let newRow = UpdatePlayerPointsRow() { row in
                         row.name = player.name
                         row.pointValue = player.pointValue
@@ -145,11 +131,9 @@ class UpdatePointsViewController: FormViewController {
         
     }
     
-    func configureForm() {
-        
-    }
+    // MARK: IBAction methods
     
-    func customizeFormAppearance() {
+    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
         
     }
     
