@@ -114,7 +114,9 @@ class CreateGameFormViewController: FormViewController {
             }.cellSetup({ (cell, row) in
 
             }).onChange({ (row) in
-                self.game.team1.name = row.value!
+                if row.value != nil {
+                    self.game.team1.name = row.value!
+                }
             })
             
             
@@ -203,7 +205,7 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "StartingValueRow"
             }.onChange({ (row) in
                 if row.value != nil {
-                    self.game.startingValue = row.value
+                    self.game.startingValue = row.value!
                 }
             })
             
@@ -225,7 +227,7 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "Venue"
             }.onChange({ (row) in
                 if row.value != nil {
-                    self.game.venue = row.value
+                    self.game.venue = row.value!
                 }
             })
             
@@ -287,19 +289,13 @@ class CreateGameFormViewController: FormViewController {
             let title = "Error"
             let message = "Team #1 Has no player(s). Please add players to the game."
             self.showAlert(title, message: message)
-        } else {
-            self.game.team1.players = playersForTeam1
-        }
-        
-        if game.team1.players.isEmpty {
+        } else if game.team2.players.isEmpty {
             let title = "Error"
             let message = "Team #2 Has no player(s). Please add players to the game."
             self.showAlert(title, message: message)
         } else {
-            self.game.team2.players = playersForTeam2
+            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
         }
-        
-        self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
 
     }
     

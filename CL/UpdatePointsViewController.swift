@@ -72,6 +72,8 @@ class UpdatePointsViewController: FormViewController {
         print("CATEGORY: \(self.game.category)")
         print("TEAM 1: \(game.team1.name)")
         print("TEAM 1 PLAYERS: \(game.team1.players)")
+        print("TEAM 2: \(game.team2.name)")
+        print("TEAM 2 PLAYERS: \(game.team2.players)")
         print("STARTING VALUE: \(game.startingValue)")
         print("VENUE: \(game.venue)")
         
