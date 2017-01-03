@@ -70,7 +70,7 @@ class LiveViewController: UIViewController {
                 // self.setLiveTeamViewState()
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    if let mainVC = self.parentViewController as? MainViewController2 {
+                    if let mainVC = self.parentViewController as? MainViewController {
                         mainVC.checkInbutton.hide()
                     }
                 })
@@ -86,7 +86,7 @@ class LiveViewController: UIViewController {
                 // self.setLiveTeamViewState()
                 
                 dispatch_async(dispatch_get_main_queue(), { 
-                    if let mainVC = self.parentViewController as? MainViewController2 {
+                    if let mainVC = self.parentViewController as? MainViewController {
                         mainVC.checkInbutton.show()
                     }
                 })
@@ -108,7 +108,7 @@ class LiveViewController: UIViewController {
     }
     
     func setLiveTeamViewState() {
-        if let mainVC = self.parentViewController as? MainViewController2 {
+        if let mainVC = self.parentViewController as? MainViewController {
             mainVC.liveTeamViewIsActive = self.liveTeamViewIsActive
          }
     }

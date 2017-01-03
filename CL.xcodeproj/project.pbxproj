@@ -32,7 +32,7 @@
 		C00FE4311E0CD65F002E56D5 /* PlayersAddedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FE4301E0CD65F002E56D5 /* PlayersAddedTableViewController.swift */; };
 		C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FE44A1E0D9BD4002E56D5 /* AddPlayerInputCell.swift */; };
 		C00FE44D1E0D9BD4002E56D5 /* AddPlayerInputCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00FE44B1E0D9BD4002E56D5 /* AddPlayerInputCell.xib */; };
-		C048B88D1DEA7CD500CB6F72 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */; };
+		C0353A641E1C4B2600F7F767 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0353A631E1C4B2600F7F767 /* MainViewController.swift */; };
 		C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CCB1E0B03CF00A03B57 /* AddPlayerCell.swift */; };
 		C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0638CCD1E0B041C00A03B57 /* AddPlayerCell.xib */; };
 		C0638CD91E0B11B100A03B57 /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CD71E0B11B100A03B57 /* CoordinateCell.swift */; };
@@ -66,7 +66,6 @@
 		C0C3E2CF1DEB957900B4978B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2CE1DEB957900B4978B /* Constants.swift */; };
 		C0C3E2D31DEBE09C00B4978B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C3E2D21DEBE09C00B4978B /* Extensions.swift */; };
 		C0C637E51E0F39B1007A86D4 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C637E41E0F39B1007A86D4 /* LiveViewController.swift */; };
-		C0C637E71E0F6D09007A86D4 /* MainViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C637E61E0F6D09007A86D4 /* MainViewController2.swift */; };
 		C0C637E91E0F7880007A86D4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C637E81E0F7880007A86D4 /* ProfileViewController.swift */; };
 		C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */; };
 		C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */; };
@@ -108,7 +107,7 @@
 		C00FE4301E0CD65F002E56D5 /* PlayersAddedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayersAddedTableViewController.swift; sourceTree = "<group>"; };
 		C00FE44A1E0D9BD4002E56D5 /* AddPlayerInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerInputCell.swift; sourceTree = "<group>"; };
 		C00FE44B1E0D9BD4002E56D5 /* AddPlayerInputCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerInputCell.xib; sourceTree = "<group>"; };
-		C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		C0353A631E1C4B2600F7F767 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C0638CCB1E0B03CF00A03B57 /* AddPlayerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
 		C0638CCD1E0B041C00A03B57 /* AddPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPlayerCell.xib; sourceTree = "<group>"; };
 		C0638CD71E0B11B100A03B57 /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
@@ -143,7 +142,6 @@
 		C0C3E2CE1DEB957900B4978B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0C3E2D21DEBE09C00B4978B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C0C637E41E0F39B1007A86D4 /* LiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
-		C0C637E61E0F6D09007A86D4 /* MainViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController2.swift; sourceTree = "<group>"; };
 		C0C637E81E0F7880007A86D4 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */,
-				C048B88C1DEA7CD500CB6F72 /* MainViewController.swift */,
 				C003A3C81DF46B93008158C7 /* LiveLeaderboardController.swift */,
 				C003A4001DF55232008158C7 /* GameViewController.swift */,
 				C087EF081DF5E52300BA3EA2 /* GameMatchupViewController.swift */,
@@ -300,8 +297,8 @@
 				C009A02A1DF9EFAC0096CF06 /* CreateGameFormViewController.swift */,
 				C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */,
 				C0C637E41E0F39B1007A86D4 /* LiveViewController.swift */,
-				C0C637E61E0F6D09007A86D4 /* MainViewController2.swift */,
 				C0C637E81E0F7880007A86D4 /* ProfileViewController.swift */,
+				C0353A631E1C4B2600F7F767 /* MainViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -760,7 +757,6 @@
 				C0C3E29F1DEA99D100B4978B /* LoginViewController.swift in Sources */,
 				C003A3DC1DF4A8B4008158C7 /* GameInfoCell.swift in Sources */,
 				C009A02B1DF9EFAC0096CF06 /* CreateGameFormViewController.swift in Sources */,
-				C048B88D1DEA7CD500CB6F72 /* MainViewController.swift in Sources */,
 				C003A3DF1DF4AD96008158C7 /* LeaderboardCell.swift in Sources */,
 				C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */,
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
@@ -787,7 +783,7 @@
 				C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */,
 				C003A3C91DF46B93008158C7 /* LiveLeaderboardController.swift in Sources */,
 				C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */,
-				C0C637E71E0F6D09007A86D4 /* MainViewController2.swift in Sources */,
+				C0353A641E1C4B2600F7F767 /* MainViewController.swift in Sources */,
 				C0C3E2B21DEB50E200B4978B /* Player.swift in Sources */,
 				C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */,
 				C00346E71E02C3170000A335 /* ArrayExtension.swift in Sources */,

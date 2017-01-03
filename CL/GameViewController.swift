@@ -52,7 +52,7 @@ class GameViewController: UIViewController {
     }
     
     func setGameRosterViewState() {
-        if let mainVC = self.parentViewController as? MainViewController2 {
+        if let mainVC = self.parentViewController as? MainViewController {
             mainVC.gameRosterViewIsActive = self.gameRosterViewIsActive
         }
     }
@@ -66,7 +66,7 @@ class GameViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = false
                 
-                if let mainVC = self.parentViewController as? MainViewController2 {
+                if let mainVC = self.parentViewController as? MainViewController {
                     mainVC.cancelButton.hide()
                 }
             }
@@ -77,7 +77,7 @@ class GameViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = true
                 
-                if let mainVC = self.parentViewController as? MainViewController2 {
+                if let mainVC = self.parentViewController as? MainViewController {
                     mainVC.cancelButton.show()
                 }
             }

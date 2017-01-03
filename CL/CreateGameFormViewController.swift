@@ -36,6 +36,7 @@ class CreateGameFormViewController: FormViewController {
     var gameVenue: String!
     var gameRegistrationEnd: NSDate!
     
+    
     // MARK: View lifecycle
     
     override func viewDidLoad() {

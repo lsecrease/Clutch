@@ -103,12 +103,12 @@
                     <navigationItem key="navigationItem" id="vQS-u4-i3i"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <segue destination="KvL-JV-Kbd" kind="show" identifier="loginToMain" id="MEL-nI-Dfu"/>
+                        <segue destination="KvL-JV-Kbd" kind="show" identifier="loginToMain" id="kNf-7p-Xut"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1537.5" y="-862.5"/>
+            <point key="canvasLocation" x="1509.5" y="-862.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ufp-HH-lhe">
@@ -717,10 +717,10 @@
             </objects>
             <point key="canvasLocation" x="1109.5" y="-74.5"/>
         </scene>
-        <!--Main View Controller2-->
+        <!--Main View Controller-->
         <scene sceneID="JYo-o1-BUb">
             <objects>
-                <viewController id="KvL-JV-Kbd" customClass="MainViewController2" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KvL-JV-Kbd" customClass="MainViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Up-jy-HlX"/>
                         <viewControllerLayoutGuide type="bottom" id="M5i-0v-SKW"/>
@@ -750,7 +750,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="cancelButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="bjj-GQ-HcF"/>
+                                                            <action selector="cancelButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="7Vg-rS-Mat"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -776,6 +776,10 @@
                                                         <state key="normal" title="Check In">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="cancelButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="c55-O1-R4J"/>
+                                                            <action selector="checkInButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="u3t-jC-dHf"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -842,7 +846,7 @@
                                                     </attributedString>
                                                 </state>
                                                 <connections>
-                                                    <action selector="profileButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="ZMw-y1-1QJ"/>
+                                                    <action selector="profileButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="W3M-ME-wer"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -883,7 +887,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Game"/>
                                                 <connections>
-                                                    <action selector="gameViewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="9Bz-DV-paF"/>
+                                                    <action selector="gameViewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="KhW-9a-PfR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -924,7 +928,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Live"/>
                                                 <connections>
-                                                    <action selector="liveviewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="PtH-Dc-LJi"/>
+                                                    <action selector="liveviewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="Ffo-8V-9zv"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1019,17 +1023,17 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="cancelButton" destination="u4d-6a-LWC" id="VhE-6g-pRS"/>
-                        <outlet property="checkInbutton" destination="2d6-VE-YhR" id="IDr-Hf-1EF"/>
-                        <outlet property="gameButton" destination="nw7-Dm-3yG" id="SIj-qD-eHe"/>
-                        <outlet property="gameContainerView" destination="hqL-Rz-Rta" id="tT1-Pg-3Me"/>
-                        <outlet property="gameUnderlineLabel" destination="Z2w-9A-xhI" id="QV5-fs-NgU"/>
-                        <outlet property="liveButton" destination="OIF-o4-8Tx" id="9bZ-SX-pQK"/>
-                        <outlet property="liveContainerView" destination="olI-sZ-QDp" id="YY2-rA-EbB"/>
-                        <outlet property="liveUnderlineLabel" destination="QMY-6a-1HQ" id="ftl-yx-7JB"/>
-                        <outlet property="profileButton" destination="joO-l1-gnW" id="3PJ-Tp-KEE"/>
-                        <outlet property="profileContainerView" destination="Dnf-pO-hG8" id="i7r-Yi-vsI"/>
-                        <outlet property="profileUnderlineLabel" destination="vh6-al-j5c" id="Wkz-Y5-ePV"/>
+                        <outlet property="cancelButton" destination="u4d-6a-LWC" id="Wus-L7-Q3B"/>
+                        <outlet property="checkInbutton" destination="2d6-VE-YhR" id="gYY-8q-Sl4"/>
+                        <outlet property="gameButton" destination="nw7-Dm-3yG" id="Rxl-ZZ-8uG"/>
+                        <outlet property="gameContainerView" destination="hqL-Rz-Rta" id="tda-Yh-hl8"/>
+                        <outlet property="gameUnderlineLabel" destination="Z2w-9A-xhI" id="TqN-fK-Pxa"/>
+                        <outlet property="liveButton" destination="OIF-o4-8Tx" id="MCn-9W-bIW"/>
+                        <outlet property="liveContainerView" destination="olI-sZ-QDp" id="Lmf-N7-6Zs"/>
+                        <outlet property="liveUnderlineLabel" destination="QMY-6a-1HQ" id="1OO-hj-6Yk"/>
+                        <outlet property="profileButton" destination="joO-l1-gnW" id="f5F-Ca-UfB"/>
+                        <outlet property="profileContainerView" destination="Dnf-pO-hG8" id="KCM-r5-jsG"/>
+                        <outlet property="profileUnderlineLabel" destination="vh6-al-j5c" id="vpz-19-kc2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sHE-0G-PJ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
