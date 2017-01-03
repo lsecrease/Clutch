@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - GameViewController
+
 class GameViewController: UIViewController {
     
     @IBOutlet weak var gameMatchupView: UIView!
@@ -89,6 +91,9 @@ class GameViewController: UIViewController {
     
 
 }
+
+
+// MARK: - UICollectionView DataSource and Delegate methods
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     

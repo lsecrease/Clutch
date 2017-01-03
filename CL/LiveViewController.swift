@@ -113,12 +113,11 @@ class LiveViewController: UIViewController {
          }
     }
     
-    func hideOrShowCheckIn() {
-        
-    }
-    
 
 }
+
+
+// MARK: - UiCollectionView DataSource and Delegate functions
 
 extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -164,6 +163,8 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     
 }
 
+
+// MARK:- UICollectionView Delegate Flow Layout
 
 extension LiveViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
