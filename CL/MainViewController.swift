@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     
     // MARK: Main IBOutlets
     
+    
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var liveButton: UIButton!
@@ -179,9 +180,6 @@ class MainViewController: UIViewController {
         profileUnderlineLabel.show()
         currentView = profileView
         
-        // Register Collection view cells
-        registerCells()
-        
         // Set active views
         liveTeamViewIsActive = true
         gameRosterViewIsActive = false
@@ -207,13 +205,6 @@ class MainViewController: UIViewController {
     
     // MARK: Utility functions
     
-    func registerCells() {
-        
-    }
-    
-    func registerHeadersForCollectionCells() {
-
-    }
     
     func swapViews(fromView fromView: UIView, toView: UIView) {
         fromView.alpha = 1

@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if FBSDKAccessToken.currentAccessToken() != nil {
-            // Movie to next screen
+            // Move to next screen
         }
         
     }
@@ -32,36 +32,27 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: Segues
-    
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "loginToMain" {
-//            if let mainVC = segue.destinationViewController as? MainViewController2 {
-//                mainVC.transitioningDelegate = slideRightTransiton
-//            }
-//        }
-//    }
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
         
-//        // Call FB Login Manager
-//        let fbLoginManager = FBSDKLoginManager()
-//        
-//        //
-//        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
-//            
-//            if error != nil {
-//                return
-//            } else {
-//                let fbLoginResult: FBSDKLoginManagerLoginResult = result
-//                
-//                if fbLoginResult.isCancelled {
-//                    return
-//                } else if (fbLoginResult.grantedPermissions.contains("email")) {
-//                    self.getFBUserData()
-//                }
-//            }
-//        }
+        // Call FB Login Manager
+        let fbLoginManager = FBSDKLoginManager()
+        
+        //
+        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
+            
+            if error != nil {
+                return
+            } else {
+                let fbLoginResult: FBSDKLoginManagerLoginResult = result
+                
+                if fbLoginResult.isCancelled {
+                    return
+                } else if (fbLoginResult.grantedPermissions.contains("email")) {
+                    self.getFBUserData()
+                }
+            }
+        }
         
         self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
     }

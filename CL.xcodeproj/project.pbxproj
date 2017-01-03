@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F3BBA2DCA2897E8505876FA /* Pods_CL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0692B644F1BA5E4A421C4A28 /* Pods_CL.framework */; };
-		C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346DC1E02BE6E0000A335 /* CreateGameTableViewController.swift */; };
 		C00346E71E02C3170000A335 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E31E02C3170000A335 /* ArrayExtension.swift */; };
 		C00346E81E02C3170000A335 /* ExpandableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E41E02C3170000A335 /* ExpandableTableViewController.swift */; };
 		C00346E91E02C3170000A335 /* ExpandableTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346E51E02C3170000A335 /* ExpandableTableViewDelegate.swift */; };
@@ -85,7 +84,6 @@
 		0692B644F1BA5E4A421C4A28 /* Pods_CL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		445CC88550A91715E63D6D22 /* Pods-CL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CL/Pods-CL.debug.xcconfig"; sourceTree = "<group>"; };
 		A024F937322D8D8CBA8A0159 /* Pods-CL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CL.release.xcconfig"; path = "Pods/Target Support Files/Pods-CL/Pods-CL.release.xcconfig"; sourceTree = "<group>"; };
-		C00346DC1E02BE6E0000A335 /* CreateGameTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameTableViewController.swift; sourceTree = "<group>"; };
 		C00346E31E02C3170000A335 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		C00346E41E02C3170000A335 /* ExpandableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewController.swift; sourceTree = "<group>"; };
 		C00346E51E02C3170000A335 /* ExpandableTableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableTableViewDelegate.swift; sourceTree = "<group>"; };
@@ -202,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				C00346E61E02C3170000A335 /* ExpandableTableViewController */,
-				C00346DC1E02BE6E0000A335 /* CreateGameTableViewController.swift */,
 				C00FE4301E0CD65F002E56D5 /* PlayersAddedTableViewController.swift */,
 			);
 			name = "Table View Controllers";
@@ -769,7 +766,6 @@
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
-				C00346DD1E02BE6E0000A335 /* CreateGameTableViewController.swift in Sources */,
 				C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
 				C00A073B1DF738C70032C39A /* Roster.swift in Sources */,

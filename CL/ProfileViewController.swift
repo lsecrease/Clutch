@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setFacebookProfilePic()
 
     }
 
@@ -41,6 +43,20 @@ class ProfileViewController: UIViewController {
         profileImageView.cornerRadius = imgWidth / 2.0
         
     }
+    
+    
+    
+    func setFacebookProfilePic() {
+        if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
+            let url = NSURL(string: picURL),
+            let data = NSData(contentsOfURL: url),
+            let profilePic = UIImage(data: data) {
+            
+            profileImageView.image = profilePic
+            
+        }
+    }
+
     
     func adjustConstraintsForSmallerScreenSizes(){
         
