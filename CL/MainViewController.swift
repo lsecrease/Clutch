@@ -78,8 +78,8 @@ class MainViewController: UIViewController {
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestAlwaysAuthorization()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -87,11 +87,6 @@ class MainViewController: UIViewController {
         
         // Position GAME views
         gameRosterViewCenterX.constant += self.view.bounds.width
-        
-//        let locationManager = CLLocationManager()
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.requestWhenInUseAuthorization()
         
     }
     

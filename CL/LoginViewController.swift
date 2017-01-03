@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
         
         if FBSDKAccessToken.currentAccessToken() != nil {
             // Move to next screen
+            
+            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
         }
         
     }
@@ -35,24 +37,24 @@ class LoginViewController: UIViewController {
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
         
-        // Call FB Login Manager
-        let fbLoginManager = FBSDKLoginManager()
-        
-        //
-        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
-            
-            if error != nil {
-                return
-            } else {
-                let fbLoginResult: FBSDKLoginManagerLoginResult = result
-                
-                if fbLoginResult.isCancelled {
-                    return
-                } else if (fbLoginResult.grantedPermissions.contains("email")) {
-                    self.getFBUserData()
-                }
-            }
-        }
+//        // Call FB Login Manager
+//        let fbLoginManager = FBSDKLoginManager()
+//        
+//        //
+//        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
+//            
+//            if error != nil {
+//                return
+//            } else {
+//                let fbLoginResult: FBSDKLoginManagerLoginResult = result
+//                
+//                if fbLoginResult.isCancelled {
+//                    return
+//                } else if (fbLoginResult.grantedPermissions.contains("email")) {
+//                    self.getFBUserData()
+//                }
+//            }
+//        }
         
         self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
     }
