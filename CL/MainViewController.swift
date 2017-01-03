@@ -9,35 +9,57 @@
 import UIKit
 import CoreLocation
 
+// MARK: - ManinViewController
+
 class MainViewController: UIViewController {
+    
+    // MARK: IBOutlets
+    
+    // Container Views
     
     @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var gameContainerView: UIView!
     @IBOutlet weak var liveContainerView: UIView!
     
+    
+    // Segment Buttons
+    
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var liveButton: UIButton!
+    
+    // Labels (to show selection)
     
     @IBOutlet weak var profileUnderlineLabel: UILabel!
     @IBOutlet weak var gameUnderlineLabel: UILabel!
     @IBOutlet weak var liveUnderlineLabel: UILabel!
     
+    
+    // Navbar buttons
+    
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    
+    
+    // Boolean view properties
     
     var gameRosterViewIsActive: Bool!
     var liveTeamViewIsActive: Bool!
     
+    
+    // Location
+    
     var locationManager: CLLocationManager!
     
-    // MARK: View
+    
+    // MARK: View life-cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
         
+        // Core location setup
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -45,6 +67,8 @@ class MainViewController: UIViewController {
         
     }
     
+    
+    // MARK: Custom UI functions
     
     func configureViews() {
         
@@ -57,13 +81,6 @@ class MainViewController: UIViewController {
         
         gameContainerView.hide()
         liveContainerView.hide()
-    }
-    
-    func setupCoreLocation() {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
     }
     
     
