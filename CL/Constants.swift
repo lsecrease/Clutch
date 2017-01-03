@@ -10,8 +10,6 @@ import Foundation
 
 // MARK: Google Maps API
 
-let googleMapsApiKey = "AIzaSyCxC81a581HfLi0VKknBcVhzKcJu2A4dO4"
-
 // MARK: - NSUserDefaults
 
 let avatarKey = "avatar"

@@ -18,6 +18,8 @@ class CreateGameFormViewController: FormViewController {
     
     let categories = ["MLB", "MLS", "NCAA Basketball", "NCAA Football", "NBA", "NFL", "NHL"]
     
+    var game = Game()
+    
     var gameCategory: String!
     var hideRows2 = true
     
@@ -54,6 +56,15 @@ class CreateGameFormViewController: FormViewController {
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showUpdatePointsVC" {
+            if let updatePointsVC = segue.destinationViewController as? UpdatePointsViewController {
+                updatePointsVC.players1 = self.playersForTeam1
+                updatePointsVC.players2 = self.playersForTeam2
+            }
+        }
+    }
+    
     
     // MARK: Eureka Form
     
@@ -86,7 +97,13 @@ class CreateGameFormViewController: FormViewController {
                 row.cell.height = { 65 }
                 row.cell.detailTextLabel?.textColor = UIColor.blackColor()
             }.onChange({ (picker) in
-                picker.hidden = Condition.Predicate(NSPredicate(format: "$RowName != nil"))
+                
+                if picker.value != nil {
+                    self.game.category = picker.value
+                }
+
+                picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
+                
             })
             
             
@@ -98,6 +115,14 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "Team1"
             }.cellSetup({ (cell, row) in
                 row.disabled = true
+            }).onChange({ (row) in
+                
+                if row.value != nil {
+                    self.game.team1?.name = row.value
+                    print("TEAM!: ")
+                    print(self.game.team1?.name)
+                }
+                
             })
             
             
@@ -135,7 +160,13 @@ class CreateGameFormViewController: FormViewController {
                 $0.title = "Team 2"
                 $0.placeholder = "Input"
                 $0.tag = "Team2"
-            }
+            }.onChange({ (row) in
+                
+                if row.value != nil {
+                    self.game.team2?.name = row.value
+                }
+                
+            })
             
             
             // 5
@@ -148,7 +179,11 @@ class CreateGameFormViewController: FormViewController {
                     cell.titleLabel.text = "Add Player to Team 2"
                     
                 }).onCellSelection({ (cell, row) in
-                    row.value = !row.value!
+                    
+                    if row.value != nil {
+                        row.value = !row.value!
+                    }
+                    
                 })
             
             // 6
@@ -166,6 +201,7 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         self.playerForTeam2 = row.value!
                     }
+                    
                 })
             
             // 7
@@ -173,14 +209,22 @@ class CreateGameFormViewController: FormViewController {
             <<< IntRow() {
                 $0.title = "Participant starting value"
                 $0.placeholder = "Input"
-                $0.tag = "StartingValue"
-            }
+                $0.tag = "StartingValueRow"
+            }.onChange({ (row) in
+                if row.value != nil {
+                    self.game.startingValue = row.value
+                }
+            })
             
             // 8
 
-            <<< CoordinateRow() { row in
-                
-            }
+            <<< CoordinateRow() {
+                $0.tag = "CoordinateRow"
+            }.onChange({ (row) in
+                if row.value != nil {
+                    // Get coordinates
+                }
+            })
             
             // 9
             
@@ -188,7 +232,11 @@ class CreateGameFormViewController: FormViewController {
                 $0.title = "Venue Name"
                 $0.placeholder = "Input"
                 $0.tag = "Venue"
-            }
+            }.onChange({ (row) in
+                if row.value != nil {
+                    self.game.venue = row.value
+                }
+            })
             
             // 10
         
@@ -197,10 +245,14 @@ class CreateGameFormViewController: FormViewController {
                 $0.value = NSDate()
                 $0.tag = "EndRegistrationDate"
         
-        } // End of form
+            } // END OF FORM
         
-        }
         
+        
+        
+        } // END OF 'VIEWDIDLOAD'
+    
+    
         func customizeFormAppearance() {
             // Customize table view
             
@@ -244,7 +296,32 @@ class CreateGameFormViewController: FormViewController {
         print("\nTEAM 2:")
         print(playersForTeam2)
         
+        if playersForTeam1.isEmpty {
+            let title = "Error"
+            let message = "Team #1 Has no player(s). Please add players to the game."
+            self.showAlert(title, message: message)
+        } else {
+            self.game.team1?.players = playersForTeam1
+        }
+        
+        if playersForTeam2.isEmpty {
+            let title = "Error"
+            let message = "Team #2 Has no player(s). Please add players to the game."
+            self.showAlert(title, message: message)
+        } else {
+            self.game.team2?.players = playersForTeam2
+        }
+        
         self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     func addPlayerToTeam1() {

@@ -34,13 +34,13 @@ class LoginViewController: UIViewController {
     
     // MARK: Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "loginToMain" {
-            if let mainVC = segue.destinationViewController as? MainViewController2 {
-                mainVC.transitioningDelegate = slideRightTransiton
-            }
-        }
-    }
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        if segue.identifier == "loginToMain" {
+//            if let mainVC = segue.destinationViewController as? MainViewController2 {
+//                mainVC.transitioningDelegate = slideRightTransiton
+//            }
+//        }
+//    }
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
         

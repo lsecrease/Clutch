@@ -28,23 +28,17 @@ class UpdatePointsViewController: FormViewController {
     
     // MARK: Test Data
     
-    let players1: [Player] = [
-        Player(name: "Michael Jordan", number: "23", pointValue: 1000),
-        Player(name: "Scottie Pippen", number: "33", pointValue: 650),
-        Player(name: "Dennis Rodman", number: "91", pointValue: 600)
-    ]
-    
-    let players2: [Player] = [
-        Player(name: "Lebron James", number: "6", pointValue: 1000),
-        Player(name: "Dwayne Wade", number: "3", pointValue: 700),
-        Player(name: "Chris Andersen", number: "11", pointValue: 650)
-    ]
+    var players1 = [Player]()
+    var players2 = [Player]()
     
     
     // MARK: View life-cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("PLAYERS 1 IN UPDATE POINTS VC: \(players1)")
+        print("PLAYERS 2 IN UPDATE POINTS VC: \(players2)")
         
         createTeams()
         configureFormAppearance()
