@@ -12,22 +12,14 @@ public struct Player: Equatable {
     
     var name: String
     var number: String
-    // var teamName: String
-    var pointValue: Int
-    // var cost: Int
+    var pointValue: Float
+    var score: Float?
     
-//    init(number: String, name: String, teamName: String, pointValue: Int, cost: Int) {
-//        self.number = number
-//        self.name = name
-//        self.teamName = teamName
-//        self.pointValue = pointValue
-//        self.cost = cost
-//    }
-    
-    init(name: String, number: String, pointValue: Int) {
+    init(name: String, number: String, pointValue: Float, score: Float?) {
         self.name = name
         self.number = number
         self.pointValue = pointValue
+        self.score = score
     }
     
 }

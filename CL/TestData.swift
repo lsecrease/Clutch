@@ -11,19 +11,12 @@ import Foundation
 // Players 
 
 let players: [Player] = [
-//    Player(number: "2", name: "Devin Thomas", teamName: "Wake Forest", pointValue: 41, cost: 10000),
-//    Player(number: "11", name: "Greg McClinton", teamName: "Wake Forest", pointValue: 39, cost: 8700),
-//    Player(number: "2", name: "Chase Jeter", teamName: "Duke", pointValue: 37, cost: 7000),
-//    Player(number: "5", name: "Luke Kennard", teamName: "Duke", pointValue: 34, cost: 5000),
-//    Player(number: "4", name: "Doral Moore", teamName: "Wake Forest", pointValue: 32, cost: 4900),
-//    Player(number: "3", name: "Grayson Allen", teamName: "Duke", pointValue: 29, cost: 4700)
-    
-    Player(name: "Devin Thomas", number: "2", pointValue: 41),
-    Player(name: "Greg McClinton", number: "11", pointValue: 39),
-    Player(name: "Chase Jeter", number: "2", pointValue: 37),
-    Player(name: "Luke Kennard", number: "5", pointValue: 34),
-    Player(name: "Doral Moore", number: "4", pointValue: 32),
-    Player(name: "Grayson Allen", number: "3", pointValue: 29)
+    Player(name: "Devin Thomas", number: "2", pointValue: 41, score: 5),
+    Player(name: "Greg McClinton", number: "11", pointValue: 39, score: 11),
+    Player(name: "Chase Jeter", number: "2", pointValue: 37, score: 3),
+    Player(name: "Luke Kennard", number: "5", pointValue: 34, score: 25),
+    Player(name: "Doral Moore", number: "4", pointValue: 32, score: 4),
+    Player(name: "Grayson Allen", number: "3", pointValue: 29, score: 17)
     
 ]
 

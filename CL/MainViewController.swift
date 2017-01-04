@@ -16,42 +16,34 @@ class MainViewController: UIViewController {
     // MARK: IBOutlets
     
     // Container Views
-    
     @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var gameContainerView: UIView!
     @IBOutlet weak var liveContainerView: UIView!
     
     
     // Segment Buttons
-    
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var gameButton: UIButton!
     @IBOutlet weak var liveButton: UIButton!
     
     // Labels (to show selection)
-    
     @IBOutlet weak var profileUnderlineLabel: UILabel!
     @IBOutlet weak var gameUnderlineLabel: UILabel!
     @IBOutlet weak var liveUnderlineLabel: UILabel!
     
-    
     // Navbar buttons
-    
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
     
     // Boolean view properties
-    
     var gameRosterViewIsActive: Bool!
     var liveTeamViewIsActive: Bool!
     
     
     // Location and Geotification
-    
     var locationManager: CLLocationManager!
-    var geotifications = [Geotification]()
-    
+    let radius = 300.0
     
     // MARK: View life-cycle
     
@@ -63,54 +55,60 @@ class MainViewController: UIViewController {
         // Core location setup
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.requestAlwaysAuthorization()
+        
+        setupGeofencing()
+        
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+            switch CLLocationManager.authorizationStatus() {
+            case .NotDetermined:
+                locationManager.requestAlwaysAuthorization()
+            case .Denied:
+                showAlertWithMessage("Error", message: "Location Services not enabled")
+            case .AuthorizedAlways:
+                locationManager.startUpdatingLocation()
+            default:
+                break
+            }
+        }
         
     }
     
     
     // MARK: Geofencing functions
     
-    func loadAllGeotifications() {
+    func setupGeofencing() {
         
-    }
-    
-    func region(withGeotification geotification: Geotification) -> CLCircularRegion {
-        let region = CLCircularRegion(center: geotification.coordinate, radius: geotification.radius, identifier: geotification.identifier)
-        region.notifyOnEntry = (geotification.eventType == .OnEntry)
-        region.notifyOnExit = !region.notifyOnEntry
-        return region
-    }
-    
-    // ****** TEST BELOW USING 'IF...ELSE'
-    
-    func startMonitoring(geotification: Geotification) {
-        
-        // Show error message if device is incapable of monitoring region entry/exit
-        if !CLLocationManager .isMonitoringAvailableForClass(CLCircularRegion) {
-            showAlertWithMessage("Error", message: "Geofencing is not supported on this device.")
+        // Per Apple Guidelines, check if device is capable of monitoring regions
+
+        if !CLLocationManager.isMonitoringAvailableForClass(CLRegion) {
+            let message = "Your device is not capable of monitoring regions for geofencing"
+            showAlertWithMessage("Error", message: message)
             return
         }
         
-        // Show warning if location services are disabled
+        
+        // Check if location services are enabled
+        
         if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
-            let message = "You are currently unable to receive check-in notifications. Please enable location services for this app."
-            showAlertWithMessage("Warning", message: message)
+            let message = "Can't deetermine location. Please enable location services in settings"
+            showAlertWithMessage("", message: message)
         }
         
-        // Start monitoring for region
-        let region = self.region(withGeotification: geotification)
+        let coordinate = CLLocationCoordinate2D(latitude: 37.701029, longitude: -121.773526)
+        let name = "Some place"
+
+        let region = CLCircularRegion(center: coordinate, radius: radius, identifier: name)
+        
         locationManager.startMonitoringForRegion(region)
-    }
-    
-    func stopMonitoring(geotification: Geotification) {
-        for region in locationManager.monitoredRegions {
-            guard let circularRegion = region as? CLCircularRegion where
-                circularRegion.identifier == geotification.identifier else { return }
-            
-            locationManager.stopMonitoringForRegion(circularRegion)
-            
-        }
+        
     }
     
     // MARK: Custom UI functions
@@ -138,42 +136,48 @@ class MainViewController: UIViewController {
     
     // MARK: IBAction methods
     
-    @IBAction func profileButtonPressed(sender: UIButton) {
-        profileUnderlineLabel.show()
-        gameUnderlineLabel.hide()
-        liveUnderlineLabel.hide()
+    @IBAction func segmentButtonPressed(sender: UIButton) {
         
-        liveContainerView.hide()
-        gameContainerView.hide()
-        profileContainerView.show()
+        // TO DO: Create Custom button/ button view class to handle appearance changes
         
-        updateBarButtons()
-    }
-    
-    @IBAction func gameViewButtonPressed(sender: UIButton) {
-        profileUnderlineLabel.hide()
-        gameUnderlineLabel.show()
-        liveUnderlineLabel.hide()
-        
-        profileContainerView.hide()
-        liveContainerView.hide()
-        gameContainerView.show()
-        
-        updateBarButtons()
-        
-    }
-    
-    @IBAction func liveviewButtonPressed(sender: UIButton) {
-        profileUnderlineLabel.hide()
-        gameUnderlineLabel.hide()
-        liveUnderlineLabel.show()
-        
-        gameContainerView.hide()
-        profileContainerView.hide()
-        liveContainerView.show()
-        
-        updateBarButtons()
-        
+        switch sender {
+        case profileButton:
+            profileUnderlineLabel.show()
+            gameUnderlineLabel.hide()
+            liveUnderlineLabel.hide()
+            
+            liveContainerView.hide()
+            gameContainerView.hide()
+            profileContainerView.show()
+            
+            updateBarButtons()
+
+        case gameButton:
+            
+            profileUnderlineLabel.hide()
+            gameUnderlineLabel.show()
+            liveUnderlineLabel.hide()
+            
+            profileContainerView.hide()
+            liveContainerView.hide()
+            gameContainerView.show()
+            
+            updateBarButtons()
+
+        case liveButton:
+            profileUnderlineLabel.hide()
+            gameUnderlineLabel.hide()
+            liveUnderlineLabel.show()
+            
+            gameContainerView.hide()
+            profileContainerView.hide()
+            liveContainerView.show()
+            
+            updateBarButtons()
+
+        default:
+            break
+        }
     }
     
     @IBAction func cancelButtonPressed(sender: UIButton) {
@@ -223,6 +227,19 @@ extension MainViewController: CLLocationManagerDelegate {
         }
     }
     
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            print("YOU'VE ENTERED: \(region.identifier)")
+            
+            
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        // print("YOU'VE EXITED THE REGION")
+        
+    }
+    
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
         print("Monitoring failed for region with identifier: \(region!.identifier)")
     }
@@ -231,15 +248,6 @@ extension MainViewController: CLLocationManagerDelegate {
         print("Location Manager failed with error: \(error)")
     }
     
-    func addGeotificationViewController(controller: AddGeotificationViewController, didAddCoordinate coordinate: CLLocationCoordinate2D, radius:Double, identifier: String, note: String, eventType: EventType) {
-        
-        controller.dismissViewControllerAnimated(true, completion: nil)
-        
-        let clampedRadius = min(radius, locationManager.maximumRegionMonitoringDistance)
-        let geotification = Geotification(coordinate: coordinate, radius: radius, identifier: identifier, note: note, eventType: eventType)
-        
-        
-    }
     
 }
 

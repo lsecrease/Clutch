@@ -846,7 +846,7 @@
                                                     </attributedString>
                                                 </state>
                                                 <connections>
-                                                    <action selector="profileButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="W3M-ME-wer"/>
+                                                    <action selector="segmentButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="KEK-eN-x7D"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -887,7 +887,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Game"/>
                                                 <connections>
-                                                    <action selector="gameViewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="KhW-9a-PfR"/>
+                                                    <action selector="segmentButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="wCj-KU-JzZ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -928,7 +928,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Live"/>
                                                 <connections>
-                                                    <action selector="liveviewButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="Ffo-8V-9zv"/>
+                                                    <action selector="segmentButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="dcQ-wh-zHS"/>
                                                 </connections>
                                             </button>
                                         </subviews>

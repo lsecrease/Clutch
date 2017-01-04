@@ -21,7 +21,6 @@
 		C009A02B1DF9EFAC0096CF06 /* CreateGameFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C009A02A1DF9EFAC0096CF06 /* CreateGameFormViewController.swift */; };
 		C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A07361DF725190032C39A /* GameRosterCell.swift */; };
 		C00A07391DF725190032C39A /* GameRosterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00A07371DF725190032C39A /* GameRosterCell.xib */; };
-		C00A073B1DF738C70032C39A /* Roster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A073A1DF738C70032C39A /* Roster.swift */; };
 		C00A07411DF74B8D0032C39A /* GameInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */; };
 		C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */; };
 		C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00FE44A1E0D9BD4002E56D5 /* AddPlayerInputCell.swift */; };
@@ -34,8 +33,6 @@
 		C0638CDC1E0B12A300A03B57 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CDB1E0B12A300A03B57 /* Coordinates.swift */; };
 		C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE31E0B221200A03B57 /* LocationRow.swift */; };
 		C0638CE61E0B28AC00A03B57 /* UpdatePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */; };
-		C06DDDED1E1D1E49002FF66E /* GameLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06DDDEC1E1D1E49002FF66E /* GameLocations.swift */; };
-		C06DDDEF1E1D1FA2002FF66E /* AddGeotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06DDDEE1E1D1FA2002FF66E /* AddGeotificationViewController.swift */; };
 		C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */; };
 		C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0859E371E174B3E00341F1C /* GoogleService-Info.plist */; };
 		C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0859E3A1E175C5900341F1C /* DeviceType.swift */; };
@@ -65,7 +62,6 @@
 		C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */; };
 		C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */; };
 		C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BE1E0EBBE80033A072 /* Game.swift */; };
-		C0D6C7851E1C7F9600B1A879 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6C7841E1C7F9600B1A879 /* Geotification.swift */; };
 		C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */; };
 		C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */; };
 		C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E302601DEA4FD00007988B /* AppDelegate.swift */; };
@@ -92,7 +88,6 @@
 		C009A02A1DF9EFAC0096CF06 /* CreateGameFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameFormViewController.swift; sourceTree = "<group>"; };
 		C00A07361DF725190032C39A /* GameRosterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameRosterCell.swift; sourceTree = "<group>"; };
 		C00A07371DF725190032C39A /* GameRosterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameRosterCell.xib; sourceTree = "<group>"; };
-		C00A073A1DF738C70032C39A /* Roster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roster.swift; sourceTree = "<group>"; };
 		C00A07401DF74B8D0032C39A /* GameInfoHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInfoHeaderView.swift; sourceTree = "<group>"; };
 		C00A07421DF74BA20032C39A /* GameInfoHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameInfoHeaderView.xib; sourceTree = "<group>"; };
 		C00FE44A1E0D9BD4002E56D5 /* AddPlayerInputCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPlayerInputCell.swift; sourceTree = "<group>"; };
@@ -105,8 +100,6 @@
 		C0638CDB1E0B12A300A03B57 /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		C0638CE31E0B221200A03B57 /* LocationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
 		C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePointsViewController.swift; sourceTree = "<group>"; };
-		C06DDDEC1E1D1E49002FF66E /* GameLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLocations.swift; sourceTree = "<group>"; };
-		C06DDDEE1E1D1FA2002FF66E /* AddGeotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGeotificationViewController.swift; sourceTree = "<group>"; };
 		C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideRightTransitionManager.swift; sourceTree = "<group>"; };
 		C0859E371E174B3E00341F1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0859E3A1E175C5900341F1C /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceType.swift; sourceTree = "<group>"; };
@@ -119,6 +112,7 @@
 		C08B5ACA1E1636D3000C8328 /* UpdateTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateTeamCell.xib; sourceTree = "<group>"; };
 		C08B5AD31E1642AA000C8328 /* UpdatePlayerPointsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePlayerPointsCell.swift; sourceTree = "<group>"; };
 		C08B5AD41E1642AA000C8328 /* UpdatePlayerPointsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdatePlayerPointsCell.xib; sourceTree = "<group>"; };
+		C0A49DEC1E1D65E8005F9AB9 /* TestLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestLocations.gpx; sourceTree = "<group>"; };
 		C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddOrRemoveButton.swift; sourceTree = "<group>"; };
 		C0B756A91E1AE44B007DF3E1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C0C3E29E1DEA99D100B4978B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -137,7 +131,6 @@
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
 		C0CDD2BE1E0EBBE80033A072 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		C0D6C7841E1C7F9600B1A879 /* Geotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
 		C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,7 +268,6 @@
 				C0C637E41E0F39B1007A86D4 /* LiveViewController.swift */,
 				C009A02A1DF9EFAC0096CF06 /* CreateGameFormViewController.swift */,
 				C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */,
-				C06DDDEE1E1D1FA2002FF66E /* AddGeotificationViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -422,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				C0C3E2B51DEB57AD00B4978B /* TestData.swift */,
+				C0A49DEC1E1D65E8005F9AB9 /* TestLocations.gpx */,
 			);
 			name = "Test Data";
 			sourceTree = "<group>";
@@ -434,11 +427,8 @@
 				C003A3D21DF471E2008158C7 /* User.swift */,
 				C003A3D41DF47212008158C7 /* RankedUser.swift */,
 				C087EF0A1DF5E58D00BA3EA2 /* GameMatchup.swift */,
-				C00A073A1DF738C70032C39A /* Roster.swift */,
 				C0638CDB1E0B12A300A03B57 /* Coordinates.swift */,
 				C0CDD2BE1E0EBBE80033A072 /* Game.swift */,
-				C0D6C7841E1C7F9600B1A879 /* Geotification.swift */,
-				C06DDDEC1E1D1E49002FF66E /* GameLocations.swift */,
 			);
 			name = "Classes and Structs";
 			sourceTree = "<group>";
@@ -737,14 +727,11 @@
 				C009A02B1DF9EFAC0096CF06 /* CreateGameFormViewController.swift in Sources */,
 				C003A3DF1DF4AD96008158C7 /* LeaderboardCell.swift in Sources */,
 				C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */,
-				C06DDDED1E1D1E49002FF66E /* GameLocations.swift in Sources */,
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
-				C0D6C7851E1C7F9600B1A879 /* Geotification.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
 				C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,
-				C00A073B1DF738C70032C39A /* Roster.swift in Sources */,
 				C003A3D51DF47212008158C7 /* RankedUser.swift in Sources */,
 				C087EF0B1DF5E58D00BA3EA2 /* GameMatchup.swift in Sources */,
 				C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */,
@@ -765,7 +752,6 @@
 				C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */,
 				C0C3E2D31DEBE09C00B4978B /* Extensions.swift in Sources */,
 				C0638CDC1E0B12A300A03B57 /* Coordinates.swift in Sources */,
-				C06DDDEF1E1D1FA2002FF66E /* AddGeotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

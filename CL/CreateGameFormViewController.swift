@@ -245,35 +245,41 @@ class CreateGameFormViewController: FormViewController {
         } // END OF 'VIEWDIDLOAD'
     
     
-        // MARK: Form Appearance Customization
-    
-        func customizeFormAppearance() {
-            // Customize table view
-            
-            self.tableView?.sectionHeaderHeight = 0
-            self.tableView?.separatorStyle = .None
-            
-            // Customize cell appearance
-            
-            TextRow.defaultCellUpdate = { cell, row in
-                cell.textLabel!.font = defaultFont
-                cell.textField.font = defaultFont
-                cell.textField.spellCheckingType = .No
-                cell.height = { 65 }
-            }
-            
-            IntRow.defaultCellUpdate = { cell, row in
-                cell.textLabel!.font = defaultFont
-                cell.textField.font = defaultFont
-                cell.height = { 65 }
-            }
-            
-            DateTimeInlineRow.defaultCellUpdate = { cell, row in
-                cell.textLabel!.font = defaultFont
-                cell.height = { 65 }
-            }
-            
+    // MARK: Form Appearance Customization
+
+    func customizeFormAppearance() {
+        // Customize table view
+        
+        self.tableView?.sectionHeaderHeight = 0
+        self.tableView?.separatorStyle = .None
+        
+        // Customize cell appearance
+        
+        TextRow.defaultCellUpdate = { cell, row in
+            cell.textLabel!.font = defaultFont
+            cell.textField.font = defaultFont
+            cell.textField.spellCheckingType = .No
+            cell.height = { 65 }
         }
+        
+        IntRow.defaultCellUpdate = { cell, row in
+            cell.textLabel!.font = defaultFont
+            cell.textField.font = defaultFont
+            cell.height = { 65 }
+        }
+        
+        DateTimeInlineRow.defaultCellUpdate = { cell, row in
+            cell.textLabel!.font = defaultFont
+            cell.height = { 65 }
+        }
+        
+    }
+    
+    // Remove input accessory view
+    
+    override func inputAccessoryViewForRow(row: BaseRow) -> UIView? {
+        return nil
+    }
     
     
     // MARK: IBAction methods

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 import Firebase
 import FBSDKCoreKit
 
@@ -16,10 +17,19 @@ import FBSDKCoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let locationManager = CLLocationManager()
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // MARK: CoreLocation
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        
         
         // MARK: Firebase
         
@@ -65,7 +75,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
+    // MARK: CLRegion
     
+    func handleEvent(forRegion region: CLRegion!) {
+        print("Geofence triggered!")
+    }
     
 
     // MARK: - Core Data stack
@@ -132,4 +146,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+
+extension AppDelegate: CLLocationManagerDelegate {
+    
+//    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+//        if region is CLCircularRegion {
+//            handleEvent(forRegion: region)
+//            
+//            print("YOU'VE ENTERED THE REGION")
+//
+//        }
+//    }
+//    
+//    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+//        if region is CLCircularRegion {
+//            handleEvent(forRegion: region)
+//        }
+//    }
+    
+}
+
+
 
