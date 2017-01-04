@@ -63,6 +63,7 @@
 		C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */; };
 		C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */; };
 		C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BE1E0EBBE80033A072 /* Game.swift */; };
+		C0D6C7851E1C7F9600B1A879 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D6C7841E1C7F9600B1A879 /* Geotification.swift */; };
 		C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */; };
 		C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */; };
 		C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E302601DEA4FD00007988B /* AppDelegate.swift */; };
@@ -132,6 +133,7 @@
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
 		C0CDD2BE1E0EBBE80033A072 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		C0D6C7841E1C7F9600B1A879 /* Geotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
 		C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
 		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -430,6 +432,7 @@
 				C00A073A1DF738C70032C39A /* Roster.swift */,
 				C0638CDB1E0B12A300A03B57 /* Coordinates.swift */,
 				C0CDD2BE1E0EBBE80033A072 /* Game.swift */,
+				C0D6C7841E1C7F9600B1A879 /* Geotification.swift */,
 			);
 			name = "Classes and Structs";
 			sourceTree = "<group>";
@@ -730,6 +733,7 @@
 				C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */,
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
+				C0D6C7851E1C7F9600B1A879 /* Geotification.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,
 				C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */,
 				C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */,

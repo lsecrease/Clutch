@@ -151,7 +151,6 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.usernameLabel.text = user.username
             cell.pointsLabel.text = "\(user.points)" + " pts"
             return cell
-
         }
         
     }
