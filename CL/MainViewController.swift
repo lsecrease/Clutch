@@ -47,9 +47,10 @@ class MainViewController: UIViewController {
     var liveTeamViewIsActive: Bool!
     
     
-    // Location
+    // Location and Geotification
     
     var locationManager: CLLocationManager!
+    var geotifications = [Geotification]()
     
     
     // MARK: View life-cycle
@@ -67,8 +68,50 @@ class MainViewController: UIViewController {
         
     }
     
-    // MARK
     
+    // MARK: Geofencing functions
+    
+    func loadAllGeotifications() {
+        
+    }
+    
+    func region(withGeotification geotification: Geotification) -> CLCircularRegion {
+        let region = CLCircularRegion(center: geotification.coordinate, radius: geotification.radius, identifier: geotification.identifier)
+        region.notifyOnEntry = (geotification.eventType == .OnEntry)
+        region.notifyOnExit = !region.notifyOnEntry
+        return region
+    }
+    
+    // ****** TEST BELOW USING 'IF...ELSE'
+    
+    func startMonitoring(geotification: Geotification) {
+        
+        // Show error message if device is incapable of monitoring region entry/exit
+        if !CLLocationManager .isMonitoringAvailableForClass(CLCircularRegion) {
+            showAlertWithMessage("Error", message: "Geofencing is not supported on this device.")
+            return
+        }
+        
+        // Show warning if location services are disabled
+        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+            let message = "You are currently unable to receive check-in notifications. Please enable location services for this app."
+            showAlertWithMessage("Warning", message: message)
+        }
+        
+        // Start monitoring for region
+        let region = self.region(withGeotification: geotification)
+        locationManager.startMonitoringForRegion(region)
+    }
+    
+    func stopMonitoring(geotification: Geotification) {
+        for region in locationManager.monitoredRegions {
+            guard let circularRegion = region as? CLCircularRegion where
+                circularRegion.identifier == geotification.identifier else { return }
+            
+            locationManager.stopMonitoringForRegion(circularRegion)
+            
+        }
+    }
     
     // MARK: Custom UI functions
     
@@ -83,6 +126,13 @@ class MainViewController: UIViewController {
         
         gameContainerView.hide()
         liveContainerView.hide()
+    }
+    
+    func showAlertWithMessage(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(okAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     
@@ -171,6 +221,24 @@ extension MainViewController: CLLocationManagerDelegate {
         default:
             break
         }
+    }
+    
+    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+        print("Monitoring failed for region with identifier: \(region!.identifier)")
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location Manager failed with error: \(error)")
+    }
+    
+    func addGeotificationViewController(controller: AddGeotificationViewController, didAddCoordinate coordinate: CLLocationCoordinate2D, radius:Double, identifier: String, note: String, eventType: EventType) {
+        
+        controller.dismissViewControllerAnimated(true, completion: nil)
+        
+        let clampedRadius = min(radius, locationManager.maximumRegionMonitoringDistance)
+        let geotification = Geotification(coordinate: coordinate, radius: radius, identifier: identifier, note: note, eventType: eventType)
+        
+        
     }
     
 }
