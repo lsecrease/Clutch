@@ -1198,7 +1198,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ah2-rC-sFi" userLabel="Button container">
                                                                                     <rect key="frame" x="72" y="0.0" width="48" height="62"/>
                                                                                     <subviews>
-                                                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRu-mL-A7l" customClass="AddOrRemoveButton" customModule="CL" customModuleProvider="target">
+                                                                                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRu-mL-A7l" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
                                                                                             <rect key="frame" x="8" y="2" width="30" height="30"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="30" id="IvP-32-LRb"/>
@@ -1255,7 +1255,7 @@
                                                         </constraints>
                                                         <size key="customSize" width="357" height="65"/>
                                                         <connections>
-                                                            <outlet property="button" destination="FRu-mL-A7l" id="t3z-22-BvS"/>
+                                                            <outlet property="button" destination="FRu-mL-A7l" id="qU2-OE-eo7"/>
                                                             <outlet property="costLabel" destination="ZiK-sL-qs1" id="Z2a-Ij-HQF"/>
                                                             <outlet property="numberLabel" destination="Urq-lc-ohk" id="66b-Hq-2Zu"/>
                                                             <outlet property="playerNameLabel" destination="zY7-zC-jtJ" id="1mG-Qf-Fr6"/>

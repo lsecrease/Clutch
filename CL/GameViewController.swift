@@ -125,6 +125,12 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         case gameMatchupCollectionView:
             self.slideGameViews(direction: .Left)
+        case gameRosterCollectionView:
+            if let cell = gameRosterCollectionView.cellForItemAtIndexPath(indexPath) as? GameRosterCell {
+                cell.willAddPlayer = !cell.willAddPlayer
+                
+                
+            }
         default:
             break
         }

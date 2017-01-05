@@ -14,13 +14,14 @@ class GameRosterCell: UICollectionViewCell {
     @IBOutlet weak var playerNameLabel: UILabel!
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var costLabel: UILabel!
-    @IBOutlet weak var button: AddOrRemoveButton!
+    @IBOutlet weak var button: RotatingButton!
     
     var padding: CGFloat = 3.0
     
     let startImage = UIImage(named: "add")
     let endImage = UIImage(named: "close")
     
+    var willAddPlayer = true
     
     var addedToRoster = false
     
@@ -57,29 +58,31 @@ class GameRosterCell: UICollectionViewCell {
         
     }
     
-    func turnButtonForward() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.button.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
-            
-            if self.endImage != nil {
-                self.button.setImage(self.endImage, forState: .Normal)
-            }
-            
-            self.layoutSubviews()
-        })
-    }
     
-    func turnButtonBack() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.button.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
-            
-            if self.startImage != nil {
-                self.button.setImage(self.startImage, forState: .Normal)
-                self.layoutSubviews()
-            }
-            
-        })
-    }
+    
+//    func turnButtonForward() {
+//        UIView.animateWithDuration(0.2, animations: {
+//            self.button.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
+//            
+//            if self.endImage != nil {
+//                self.button.setImage(self.endImage, forState: .Normal)
+//            }
+//            
+//            self.layoutSubviews()
+//        })
+//    }
+//    
+//    func turnButtonBack() {
+//        UIView.animateWithDuration(0.2, animations: {
+//            self.button.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
+//            
+//            if self.startImage != nil {
+//                self.button.setImage(self.startImage, forState: .Normal)
+//                self.layoutSubviews()
+//            }
+//            
+//        })
+//    }
 
     
 

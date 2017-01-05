@@ -101,7 +101,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haM-LT-XQn" userLabel="Button container">
                                         <rect key="frame" x="72" y="0.0" width="48" height="65"/>
                                         <subviews>
-                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ej8-D6-NyC" customClass="AddOrRemoveButton" customModule="CL" customModuleProvider="target">
+                                            <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ej8-D6-NyC" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
                                                 <rect key="frame" x="8" y="5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="aHp-0G-Umz"/>
@@ -158,7 +158,7 @@
             </constraints>
             <size key="customSize" width="357" height="65"/>
             <connections>
-                <outlet property="button" destination="Ej8-D6-NyC" id="Fra-un-ndH"/>
+                <outlet property="button" destination="Ej8-D6-NyC" id="v6e-Fg-WB5"/>
                 <outlet property="costLabel" destination="dnQ-Ht-EWX" id="BTy-JA-zwq"/>
                 <outlet property="numberLabel" destination="veH-sX-t6b" id="TAV-JT-6fL"/>
                 <outlet property="playerNameLabel" destination="vfs-Ml-CoE" id="7B7-AO-2no"/>

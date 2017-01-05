@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-public class UpdatePlayerPointsCell: Cell<Int>, CellType {
+public class UpdatePlayerPointsCell: Cell<Float>, CellType {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var pointLabel: UILabel!
@@ -31,14 +31,14 @@ public class UpdatePlayerPointsCell: Cell<Int>, CellType {
     @IBAction func stepperPressed(sender: UIStepper) {
         
         pointLabel.text = "\(Int(sender.value)) pts"
-        self.row.value = Int(sender.value)
+        self.row.value = Float(sender.value)
         
         print("NEW VALUE: \(sender.value)")
     }
     
 }
 
-final class UpdatePlayerPointsRow: Row<Int, UpdatePlayerPointsCell>, RowType {
+final class UpdatePlayerPointsRow: Row<Float, UpdatePlayerPointsCell>, RowType {
     
     var name: String = "" {
         didSet {
@@ -46,7 +46,7 @@ final class UpdatePlayerPointsRow: Row<Int, UpdatePlayerPointsCell>, RowType {
         }
     }
     
-    var pointValue: Int = 0 {
+    var pointValue: Float = 0 {
         didSet {
             self.cell.pointLabel.text = "\(pointValue) pts"
             self.cell.stepper.value = Double(pointValue)

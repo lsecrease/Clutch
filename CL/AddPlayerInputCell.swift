@@ -39,9 +39,9 @@ public class AddPlayerInputCell: Cell<Player>, CellType {
         
         if let name = nameField.text,
             let number = numberField.text,
-            let pointValue = Int(valueField.text!) {
+            let pointValue = Float(valueField.text!) {
             
-            self.row.value = Player(name: name, number: number, pointValue: pointValue)
+            self.row.value = Player(name: name, number: number, pointValue: pointValue, score: 50.0)
             
             nameField.text = ""
             numberField.text = ""

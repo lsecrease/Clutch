@@ -102,9 +102,10 @@ class MainViewController: UIViewController {
             showAlertWithMessage("", message: message)
         }
         
+        // Create a circular region for monitoring
+        
         let coordinate = CLLocationCoordinate2D(latitude: 37.701029, longitude: -121.773526)
         let name = "Some place"
-
         let region = CLCircularRegion(center: coordinate, radius: radius, identifier: name)
         
         locationManager.startMonitoringForRegion(region)
@@ -121,7 +122,6 @@ class MainViewController: UIViewController {
         // Set active views
         // liveTeamViewIsActive = true
         gameRosterViewIsActive = false
-        
         gameContainerView.hide()
         liveContainerView.hide()
     }

@@ -132,7 +132,6 @@ class CreateGameFormViewController: FormViewController {
             // 3
             
             <<< AddPlayerInputRow() {
-                
                 $0.tag = "AddPlayerInputRow1"
                 $0.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
