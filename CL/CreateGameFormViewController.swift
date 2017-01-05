@@ -105,7 +105,6 @@ class CreateGameFormViewController: FormViewController {
 
             })
             
-            
             // 1
             
             <<< TextRow() {

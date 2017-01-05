@@ -23,20 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+                
         
-        // MARK: CoreLocation
+        // CoreLocation
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         
         
-        // MARK: Firebase
+        // Firebase
         
         FIRApp.configure()
         
         
-        // MARK: Facebook
+        // Facebook
        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -75,7 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    // MARK: CLRegion
+    
+    // MARK: - CLRegion
     
     func handleEvent(forRegion region: CLRegion!) {
         print("Geofence triggered!")
@@ -150,20 +152,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: CLLocationManagerDelegate {
     
-//    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
-//        if region is CLCircularRegion {
-//            handleEvent(forRegion: region)
-//            
-//            print("YOU'VE ENTERED THE REGION")
-//
-//        }
-//    }
-//    
-//    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-//        if region is CLCircularRegion {
-//            handleEvent(forRegion: region)
-//        }
-//    }
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleEvent(forRegion: region)
+            
+            print("YOU'VE ENTERED THE REGION")
+
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        if region is CLCircularRegion {
+            handleEvent(forRegion: region)
+        }
+    }
     
 }
 

@@ -112,9 +112,16 @@ class MainViewController: UIViewController {
         
     }
     
+    // MARK: Status Bar
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     // MARK: Custom UI functions
     
     func configureViews() {
+        
         
         // Indicate current view
         profileUnderlineLabel.show()
