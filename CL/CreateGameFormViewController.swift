@@ -406,13 +406,62 @@ class CreateGameFormViewController: FormViewController {
     
     // MARK: UITableView Delegate functions
     
-    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        var actions = [UITableViewRowAction]()
+        let noActions = [UITableViewRowAction]()
+        
+        // Delete Action
+        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
+            // Run code to delete player
+            print("Delete action clicked")
+        }
+        
+        // Edit Action
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (action, indexPath) in
+            // Run code to edit player info
+            print("Edit action clicked")
+        }
+        
+        editAction.backgroundColor = UIColor.orangeColor()
+        
+        // Add to array
+        actions.append(deleteAction)
+        actions.append(editAction)
+        
+        // Set for player rows
+        if game.team1.players.count > 0 {
+            if let teamRow1 = self.form.rowByTag("Team1") as? TextRow,
+                let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
+                if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
+                    return actions
+                }
+
+            }
+        }
+
+        if game.team2.players.count > 0 {
+            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow,
+                let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
+                if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
+                    return actions
+                }
+                
+            }
+        }
+        
+        // Return nothing otherwise
+        return noActions
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        //Make only player rows editable
         
         if game.team1.players.count > 0 {
             if let teamRow1 = self.form.rowByTag("Team1") as? TextRow,
                 let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
                 if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
-                    return UITableViewCellEditingStyle.Delete
+                    return true
                 }
                 
             }
@@ -422,24 +471,16 @@ class CreateGameFormViewController: FormViewController {
             if let teamRow2 = self.form.rowByTag("Team2") as? TextRow,
                 let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
                 if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
-                    return UITableViewCellEditingStyle.Delete
+                    return true
                 }
                 
             }
         }
         
-        return UITableViewCellEditingStyle.None
+        return false
 
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            
-        }
-    }
-    
-    
-
     
 }
 
