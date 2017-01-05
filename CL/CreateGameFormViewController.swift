@@ -30,12 +30,14 @@ class CreateGameFormViewController: FormViewController {
     var playerForTeam2: Player!
     var playersForTeam2 = [Player]()
     
+    // Form properties
     var participantStartingValue: Int!
     var gameLatitude: Float!
     var gameLongitude: Float!
     var gameVenue: String!
     var gameRegistrationEnd: NSDate!
-    
+    var team1IsVisible = false
+    var team2IsVisible = false
     
     // MARK: View lifecycle
     
@@ -126,6 +128,10 @@ class CreateGameFormViewController: FormViewController {
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
                     row.value = !row.value!
+                    
+                    print("TEAM 1 PLAYERS ARE SHOWING = \(row.value)")
+                    print("TOTAL # OF ROWS IN TABLE = \(self.form.allRows.count)")
+
                 })
             
             // 3
@@ -143,6 +149,8 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
                     }
+                    
+
                 })
             
             // 4
@@ -176,6 +184,8 @@ class CreateGameFormViewController: FormViewController {
                         row.value = !row.value!
                     }
                     
+                    print("TEAM 2 PLAYERS ARE SHOWING = \(row.value)")
+                    print("TOTAL # OF ROWS IN TABLE = \(self.form.allRows.count)")
                 })
             
             // 6
@@ -279,27 +289,20 @@ class CreateGameFormViewController: FormViewController {
         return nil
     }
     
-    
-    // MARK: IBAction methods
-    
-    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        // self.dismissViewControllerAnimated(true, completion: nil)
+    func checkTeamVisibility() {
         
-        print("CANCEL BUTTON PRESSED")
-    }
-    
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+        // This function checks if the player rows for teams are visible
+        // using boolean values.
         
-        if game.team1.players.isEmpty {
-            let title = "Error"
-            let message = "Team #1 Has no player(s). Please add players to the game."
-            self.showAlert(title, message: message)
-        } else if game.team2.players.isEmpty {
-            let title = "Error"
-            let message = "Team #2 Has no player(s). Please add players to the game."
-            self.showAlert(title, message: message)
-        } else {
-            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+        
+        if game.team2.players.count > 0 {
+            if let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
+                if addPlayerRow2.value == true {
+                    self.team2IsVisible = true
+                } else {
+                    self.team2IsVisible = false
+                }
+            }
         }
 
     }
@@ -318,9 +321,6 @@ class CreateGameFormViewController: FormViewController {
             
             self.game.team1.players += [playerForTeam1]
             
-            print(self.game.team1.players)
-            
-            
             if var mainSection = self.form.sectionByTag("MainSection") {
                 var index: Int!
                 
@@ -331,6 +331,7 @@ class CreateGameFormViewController: FormViewController {
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
                     row.cell.nameLabel.text = playerForTeam1.name
+                    row.tag = "PlayerForTeam1"
                     row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
                         return row.value ?? true == true
@@ -361,6 +362,7 @@ class CreateGameFormViewController: FormViewController {
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
                     row.cell.nameLabel.text = playerForTeam2.name
+                    row.tag = "PlayerForTeam2"
                     row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
                         return row.value ?? true == true
@@ -376,10 +378,70 @@ class CreateGameFormViewController: FormViewController {
     }
 
     
-    func storePlayersForTeam1() {
+    // MARK: IBAction methods
+    
+    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+        // self.dismissViewControllerAnimated(true, completion: nil)
+        
+        print("CANCEL BUTTON PRESSED")
+    }
+    
+    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+        
+        if game.team1.players.isEmpty {
+            let title = "Error"
+            let message = "Team #1 Has no player(s). Please add players to the game."
+            self.showAlert(title, message: message)
+        } else if game.team2.players.isEmpty {
+            let title = "Error"
+            let message = "Team #2 Has no player(s). Please add players to the game."
+            self.showAlert(title, message: message)
+        } else {
+            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+        }
+        
+    }
+
+    
+    
+    // MARK: UITableView Delegate functions
+    
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        
+        if game.team1.players.count > 0 {
+            if let teamRow1 = self.form.rowByTag("Team1") as? TextRow,
+                let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
+                if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
+                    return UITableViewCellEditingStyle.Delete
+                }
+                
+            }
+        }
+        
+        if game.team2.players.count > 0 {
+            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow,
+                let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
+                if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
+                    return UITableViewCellEditingStyle.Delete
+                }
+                
+            }
+        }
+        
+        return UITableViewCellEditingStyle.None
 
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.Delete {
+            
+        }
+    }
+    
+    
+
+    
 }
+
 
 

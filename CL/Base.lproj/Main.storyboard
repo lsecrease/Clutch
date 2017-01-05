@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V0K-jc-GPo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5FE-Tw-jnJ">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -736,8 +736,7 @@
                                 </constraints>
                                 <color key="barTintColor" red="0.29904851319999998" green="0.46762090919999999" blue="0.97483378649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem id="PMW-Yx-EPu">
-                                        <nil key="title"/>
+                                    <navigationItem title="App" id="PMW-Yx-EPu">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="beD-Uk-IXo">
                                             <view key="customView" clipsSubviews="YES" contentMode="scaleToFill" id="0QM-fl-Ttp">
                                                 <rect key="frame" x="16" y="18" width="83" height="48"/>
@@ -986,20 +985,9 @@
                                     <segue destination="yia-ea-5mt" kind="embed" id="yd6-fA-Hyf"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1C0-Gx-2cw">
-                                <rect key="frame" x="154" y="18" width="67" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="67" id="AR7-Pl-RTZ"/>
-                                    <constraint firstAttribute="height" constant="28" id="OMk-Ou-qWF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="1C0-Gx-2cw" firstAttribute="centerX" secondItem="YmV-9X-w8O" secondAttribute="centerX" id="4RD-XP-A1M"/>
                             <constraint firstAttribute="trailing" secondItem="olI-sZ-QDp" secondAttribute="trailing" id="BUm-nA-4DB"/>
                             <constraint firstItem="hqL-Rz-Rta" firstAttribute="height" secondItem="k26-rh-D1O" secondAttribute="height" constant="-99" id="C8r-L1-TiS"/>
                             <constraint firstAttribute="trailing" secondItem="41c-Ca-2Mu" secondAttribute="trailing" id="DrA-MC-ViN"/>
@@ -1017,7 +1005,6 @@
                             <constraint firstItem="M5i-0v-SKW" firstAttribute="top" secondItem="olI-sZ-QDp" secondAttribute="bottom" id="cuU-ec-pNO"/>
                             <constraint firstItem="Dnf-pO-hG8" firstAttribute="height" secondItem="k26-rh-D1O" secondAttribute="height" constant="-99" id="fqV-C6-yYU"/>
                             <constraint firstItem="41c-Ca-2Mu" firstAttribute="leading" secondItem="k26-rh-D1O" secondAttribute="leading" id="haE-xy-7ow"/>
-                            <constraint firstItem="1C0-Gx-2cw" firstAttribute="centerY" secondItem="YmV-9X-w8O" secondAttribute="centerY" id="x0f-bO-P1i"/>
                             <constraint firstAttribute="trailing" secondItem="Dnf-pO-hG8" secondAttribute="trailing" id="xJw-ee-xLJ"/>
                         </constraints>
                     </view>

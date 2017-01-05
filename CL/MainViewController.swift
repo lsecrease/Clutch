@@ -118,9 +118,19 @@ class MainViewController: UIViewController {
         return .LightContent
     }
     
+    
+    
     // MARK: Custom UI functions
     
     func configureViews() {
+        
+        // Navbar title
+        if let barFont = UIFont(name: "Symbol", size: 26.0) {
+            UINavigationBar.appearance().titleTextAttributes = [
+                NSForegroundColorAttributeName: UIColor.whiteColor(),
+                NSFontAttributeName: barFont
+            ]
+        }
         
         
         // Indicate current view
