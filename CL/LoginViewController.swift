@@ -23,10 +23,11 @@ class LoginViewController: UIViewController {
         if FBSDKAccessToken.currentAccessToken() != nil {
             // Move to next screen
             
-            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+            self.showLoadingIndicator()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.showLoadingIndicator()
                 self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+                self.hideLoadingIndicator()
+
             })
 
         }
@@ -45,40 +46,47 @@ class LoginViewController: UIViewController {
         // Call FB Login Manager
         let fbLoginManager = FBSDKLoginManager()
         
-        //
+        // Login to Facebook
+        
         fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
             
             if error != nil {
                 return
             } else {
                 let fbLoginResult: FBSDKLoginManagerLoginResult = result
-                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
-                
-                // Connect to Firebase using the Facebook token
-                
-                FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
-                    if error != nil {
-                        print(error?.localizedDescription)
-                    } else {
-                        self.isSignedInToFirebase = true
-                    }
-                })
                 
                 if fbLoginResult.isCancelled {
                     return
                 } else if (fbLoginResult.grantedPermissions.contains("email")) {
                     self.getFBUserData()
                     
+                    self.showLoadingIndicator()
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.showLoadingIndicator()
                         self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+                        self.hideLoadingIndicator()
                     })
 
                 }
+                
+                self.loginTofirebaseWithFacebookToken()
             }
         }
         
-        // self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+    }
+    
+    func loginTofirebaseWithFacebookToken() {
+        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+        
+        FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
+            if error != nil {
+                print("COULD NOT LOGIN TO FIREBASE WITH THSE CREDENTIALS")
+                print(error?.localizedDescription)
+                
+            } else {
+                self.isSignedInToFirebase = true
+            }
+        })
+
     }
     
     
@@ -104,19 +112,6 @@ class LoginViewController: UIViewController {
                     // Email
                     if let email = result["email"] as? String {
                         defaults.setObject(email, forKey: emailKey)
-                        
-                        FIRAuth.auth()?.createUserWithEmail(email, password: "", completion: { (user, error) in
-                            self.hideLoadingIndicator()
-                            
-                            if error != nil {
-                                print(error!.localizedDescription)
-                                
-                                let errorMessage = "COULD NOT ADD USER. " + error!.localizedDescription
-                                print(errorMessage)
-                            } else {
-                                print("USER \(email) ADDED TO DATABASE SUCCESSFULLY.")
-                            }
-                        })
                     }
                     
                     // Avatar

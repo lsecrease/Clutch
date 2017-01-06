@@ -32,9 +32,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // CoreLocation
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.authorizationStatus() != .AuthorizedAlways ||
+            CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
+            
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestAlwaysAuthorization()
+            
+        }
         
         
         // Facebook
