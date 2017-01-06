@@ -15,6 +15,13 @@ import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    override init() {
+        
+        // Firebase configuration
+        
+        FIRApp.configure()
+    }
 
     var window: UIWindow?
     
@@ -22,19 +29,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        
         
         // CoreLocation
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        
-        
-        // Firebase
-        
-        FIRApp.configure()
         
         
         // Facebook
@@ -78,10 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    // MARK: - CLRegion
+    // MARK: - Geofencing
     
     func handleEvent(forRegion region: CLRegion!) {
-        print("Geofence triggered!")
+        // print("Geofence triggered!")
     }
     
 

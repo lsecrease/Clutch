@@ -138,7 +138,7 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
             // Access the first player's info
             let player = players[indexPath.row]
             let cell = liveTeamCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLiveTeam, forIndexPath: indexPath) as! LiveTeamCell
-            cell.playerNumberLabel.text = player.number
+            cell.playerNumberLabel.text = "\(player.number)"
             cell.playerNameLabel.text = player.name
             //            cell.teamNameLabel.text = player.teamName
             cell.playerPointLabel.text = "\(player.pointValue)"

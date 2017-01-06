@@ -9,6 +9,7 @@
 
 import UIKit
 import Eureka
+import FirebaseDatabase
 import CoreLocation
 
 
@@ -38,6 +39,12 @@ class CreateGameFormViewController: FormViewController {
     var gameRegistrationEnd: NSDate!
     var team1IsVisible = false
     var team2IsVisible = false
+    
+    
+    // Firebase Database Reference
+    
+    
+    
     
     // MARK: View lifecycle
     
@@ -89,7 +96,7 @@ class CreateGameFormViewController: FormViewController {
             
             // Add rows 
             
-            // 0
+            // Category
             
             <<< PickerInlineRow<String>("Category Row") { (row : PickerInlineRow<String>) -> Void in
                 row.options = categories
@@ -107,7 +114,7 @@ class CreateGameFormViewController: FormViewController {
 
             })
             
-            // 1
+            // Team 1
             
             <<< TextRow() {
                 $0.title = "Team 1"
@@ -122,19 +129,18 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // 2
-
+            // Team 1
+            
             <<< AddPlayerRow() { row in
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
-                    row.value = !row.value!
                     
-                    print("TEAM 1 PLAYERS ARE SHOWING = \(row.value)")
-                    print("TOTAL # OF ROWS IN TABLE = \(self.form.allRows.count)")
+                    row.value = !row.value!
 
                 })
             
-            // 3
+            
+            // Add Player to Team 1
             
             <<< AddPlayerInputRow() {
                 $0.tag = "AddPlayerInputRow1"
@@ -149,12 +155,12 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
                     }
-                    
 
                 })
             
-            // 4
-
+            
+            // Team 2
+            
             <<< TextRow() {
                 $0.title = "Team 2"
                 $0.placeholder = "Input"
@@ -163,15 +169,13 @@ class CreateGameFormViewController: FormViewController {
                 
                 if row.value != nil {
                     self.game.team2.name = row.value!
-                    
                 }
                 
             })
             
             
-            // 5
+            // Add Player to Team 2
 
-            // *** SECOND ROW TO ADD PLAYERS ***
             <<< AddPlayerRow() { row in
                 row.tag = "AddPlayerRow2"
                 
@@ -183,9 +187,7 @@ class CreateGameFormViewController: FormViewController {
                     if row.value != nil {
                         row.value = !row.value!
                     }
-                    
-                    print("TEAM 2 PLAYERS ARE SHOWING = \(row.value)")
-                    print("TOTAL # OF ROWS IN TABLE = \(self.form.allRows.count)")
+
                 })
             
             // 6
@@ -248,7 +250,6 @@ class CreateGameFormViewController: FormViewController {
                 $0.tag = "EndRegistrationDate"
         
             } // END OF FORM
-        
         
         } // END OF 'VIEWDIDLOAD'
     
@@ -376,7 +377,35 @@ class CreateGameFormViewController: FormViewController {
         playerForTeam2 = nil
 
     }
+    
+    
+    // MARK: Row Editing
+    
+    func allowEditingForPlayerRow(row playerForTeamRow: PlayerForTeamRow) {
+        
+        var inputRow = AddPlayerInputRow()
+        var player = Player()
+        
+        print("INDEXPATH.ROW: \(playerForTeamRow.indexPath()!.row)")
+        
+        if playerForTeamRow.indexPath()!.row < self.form.rowByTag("AddPlayerInputRow1")?.indexPath()!.row {
+            inputRow = self.form.rowByTag("AddPlayerInputRow1") as! AddPlayerInputRow
+            player = game.team1.players[playerForTeamRow.indexPath()!.row - 2]
+        } else {
+            inputRow = self.form.rowByTag("AddPlayerInputRow2") as! AddPlayerInputRow
+            // player = game.team2.players[playerForTeamRow.indexPath()!.row]
+        }
+        
+        inputRow.cell.nameField.text = player.name
+        inputRow.cell.numberField.text = "\(player.number)"
+        inputRow.cell.pointValueField.text = "\(player.pointValue)"
 
+    }
+    
+    func deletePlayerRowAtIndexPath(indexPath: NSIndexPath) {
+        
+    }
+    
     
     // MARK: IBAction methods
     
@@ -401,7 +430,6 @@ class CreateGameFormViewController: FormViewController {
         }
         
     }
-
     
     
     // MARK: UITableView Delegate functions
@@ -409,24 +437,30 @@ class CreateGameFormViewController: FormViewController {
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction]()
         let noActions = [UITableViewRowAction]()
-        
+    
         // Delete Action
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
             // Run code to delete player
-            print("Delete action clicked")
+            print("Delete button clicked")
+        
         }
         
         // Edit Action
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (action, indexPath) in
             // Run code to edit player info
-            print("Edit action clicked")
+            print("Edit button clicked")
+            
+            if let playerForTeamRow = self.form.allRows[indexPath.row] as? PlayerForTeamRow {
+                self.allowEditingForPlayerRow(row: playerForTeamRow)
+            }
+            
         }
         
         editAction.backgroundColor = UIColor.orangeColor()
         
         // Add to array
         actions.append(deleteAction)
-        actions.append(editAction)
+        // actions.append(editAction)
         
         // Set for player rows
         if game.team1.players.count > 0 {
@@ -463,7 +497,6 @@ class CreateGameFormViewController: FormViewController {
                 if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
                     return true
                 }
-                
             }
         }
         
@@ -473,7 +506,6 @@ class CreateGameFormViewController: FormViewController {
                 if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
                     return true
                 }
-                
             }
         }
         

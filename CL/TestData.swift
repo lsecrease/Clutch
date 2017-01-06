@@ -11,12 +11,12 @@ import Foundation
 // Players 
 
 let players: [Player] = [
-    Player(name: "Devin Thomas", number: "2", pointValue: 41, score: 5),
-    Player(name: "Greg McClinton", number: "11", pointValue: 39, score: 11),
-    Player(name: "Chase Jeter", number: "2", pointValue: 37, score: 3),
-    Player(name: "Luke Kennard", number: "5", pointValue: 34, score: 25),
-    Player(name: "Doral Moore", number: "4", pointValue: 32, score: 4),
-    Player(name: "Grayson Allen", number: "3", pointValue: 29, score: 17)
+    Player(name: "Devin Thomas", number: 2, pointValue: 41, score: 5),
+    Player(name: "Greg McClinton", number: 11, pointValue: 39, score: 11),
+    Player(name: "Chase Jeter", number: 2, pointValue: 37, score: 3),
+    Player(name: "Luke Kennard", number: 5, pointValue: 34, score: 25),
+    Player(name: "Doral Moore", number: 4, pointValue: 32, score: 4),
+    Player(name: "Grayson Allen", number: 3, pointValue: 29, score: 17)
     
 ]
 

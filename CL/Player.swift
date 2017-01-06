@@ -10,12 +10,14 @@ import Foundation
 
 public struct Player: Equatable {
     
-    var name: String
-    var number: String
-    var pointValue: Float
-    var score: Float?
+    var name = String()
+    var number = Int()
+    var pointValue = Float()
+    var score = Float()
     
-    init(name: String, number: String, pointValue: Float, score: Float?) {
+    init() {}
+    
+    init(name: String, number: Int, pointValue: Float, score: Float) {
         self.name = name
         self.number = number
         self.pointValue = pointValue

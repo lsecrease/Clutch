@@ -25,9 +25,9 @@ class GameRosterCell: UICollectionViewCell {
     
     var addedToRoster = false
     
-    var number: String = "" {
+    var number: Int = 0 {
         didSet {
-            numberLabel.text = number
+            numberLabel.text = "\(number)"
         }
     }
     

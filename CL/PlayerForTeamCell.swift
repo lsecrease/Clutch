@@ -46,12 +46,13 @@ public final class PlayerForTeamRow: Row<Player, PlayerForTeamCell>, RowType {
             self.cell.nameLabel.text = name
         }
     }
-    
-    var playerValue: String = "" {
+            
+    var pointValue: Float = 0 {
         didSet {
-            self.cell.valueLabel.text = "$\(value)"
+            self.cell.valueLabel.text = "$\(pointValue))"
         }
     }
+    
 
     
     required public init(tag: String?) {

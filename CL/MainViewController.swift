@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreLocation
+import FirebaseCore
+import FirebaseDatabase
+
 
 // MARK: - ManinViewController
 
@@ -35,6 +38,8 @@ class MainViewController: UIViewController {
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    // Firebase
+    var isSignedIn = true
     
     // Boolean view properties
     var gameRosterViewIsActive: Bool!
@@ -62,6 +67,11 @@ class MainViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -82,42 +92,11 @@ class MainViewController: UIViewController {
     }
     
     
-    // MARK: Geofencing functions
-    
-    func setupGeofencing() {
-        
-        // Per Apple Guidelines, check if device is capable of monitoring regions
-
-        if !CLLocationManager.isMonitoringAvailableForClass(CLRegion) {
-            let message = "Your device is not capable of monitoring regions for geofencing"
-            showAlertWithMessage("Error", message: message)
-            return
-        }
-        
-        
-        // Check if location services are enabled
-        
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
-            let message = "Can't deetermine location. Please enable location services in settings"
-            showAlertWithMessage("", message: message)
-        }
-        
-        // Create a circular region for monitoring
-        
-        let coordinate = CLLocationCoordinate2D(latitude: 37.701029, longitude: -121.773526)
-        let name = "Some place"
-        let region = CLCircularRegion(center: coordinate, radius: radius, identifier: name)
-        
-        locationManager.startMonitoringForRegion(region)
-        
-    }
-    
     // MARK: Status Bar
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-    
     
     
     // MARK: Custom UI functions
@@ -148,6 +127,50 @@ class MainViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
         alert.addAction(okAction)
         self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Firebase Database
+    
+    func connectToDatabase() {
+        
+        if isSignedIn {
+            connectToDatabase()
+        }
+        
+    }
+    
+    func getGameData() {
+        
+    }
+    
+    // MARK: Geofencing functions
+    
+    func setupGeofencing() {
+        
+        // Per Apple Guidelines, check if device is capable of monitoring regions
+        
+        if !CLLocationManager.isMonitoringAvailableForClass(CLRegion) {
+            let message = "Your device is not capable of monitoring regions for geofencing"
+            showAlertWithMessage("Error", message: message)
+            return
+        }
+        
+        
+        // Check if location services are enabled
+        
+        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+            let message = "Can't deetermine location. Please enable location services in settings"
+            showAlertWithMessage("", message: message)
+        }
+        
+        // Create a circular region for monitoring
+        
+        let coordinate = CLLocationCoordinate2D(latitude: 37.701029, longitude: -121.773526)
+        let name = "Some place"
+        let region = CLCircularRegion(center: coordinate, radius: radius, identifier: name)
+        
+        locationManager.startMonitoringForRegion(region)
+        
     }
     
     
@@ -246,15 +269,14 @@ extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
-            print("YOU'VE ENTERED: \(region.identifier)")
-            
             
         }
     }
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
-        // print("YOU'VE EXITED THE REGION")
-        
+        if region is CLCircularRegion {
+            
+        }        
     }
     
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {

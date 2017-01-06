@@ -14,7 +14,7 @@ public class AddPlayerInputCell: Cell<Player>, CellType {
         
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var numberField: UITextField!
-    @IBOutlet weak var valueField: UITextField!
+    @IBOutlet weak var pointValueField: UITextField!
     @IBOutlet weak var addPlayerButton: DesignableButton!
     @IBOutlet weak var topSeparator: UIView!
     
@@ -38,14 +38,14 @@ public class AddPlayerInputCell: Cell<Player>, CellType {
     @IBAction func addPlayerButtonPressed(sender: DesignableButton) {
         
         if let name = nameField.text,
-            let number = numberField.text,
-            let pointValue = Float(valueField.text!) {
+            let number = Int(numberField.text!),
+            let pointValue = Float(pointValueField.text!) {
             
-            self.row.value = Player(name: name, number: number, pointValue: pointValue, score: 50.0)
+            self.row.value = Player(name: name, number: number, pointValue: pointValue, score: 0.0)
             
             nameField.text = ""
             numberField.text = ""
-            valueField.text = ""
+            pointValueField.text = ""
             print(self.row.value!)
         }
         

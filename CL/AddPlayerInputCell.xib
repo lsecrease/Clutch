@@ -12,7 +12,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qRN-tN-HtF" id="7qG-UG-OtM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7AC-fW-6pE" userLabel="Input View">
@@ -228,7 +228,7 @@
                 <outlet property="addPlayerButton" destination="3O0-2Y-59d" id="TT4-J5-j0k"/>
                 <outlet property="nameField" destination="KVU-Ex-Eku" id="nGP-5C-cQu"/>
                 <outlet property="numberField" destination="Xps-St-TuL" id="7r4-E0-jHh"/>
-                <outlet property="valueField" destination="I3I-Fs-tpv" id="VYu-jd-jXG"/>
+                <outlet property="pointValueField" destination="I3I-Fs-tpv" id="0Bm-Aq-C1M"/>
             </connections>
             <point key="canvasLocation" x="290.5" y="266"/>
         </tableViewCell>
