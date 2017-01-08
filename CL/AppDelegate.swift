@@ -6,40 +6,40 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import UIKit
 import CoreData
 import CoreLocation
 import Firebase
 import FBSDKCoreKit
+import UIKit
 
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    override init() {
-        
-        // Firebase configuration
-        
-        FIRApp.configure()
-    }
-
     var window: UIWindow?
     
     let locationManager = CLLocationManager()
+    
+    override init() {
+        
+        // Firebase configuration
+
+        FIRApp.configure()
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         // CoreLocation
         
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways ||
-            CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
-            
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.requestAlwaysAuthorization()
-            
-        }
+//        if CLLocationManager.authorizationStatus() != .AuthorizedAlways ||
+//            CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
+//            
+//            locationManager.delegate = self
+//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//            locationManager.requestAlwaysAuthorization()
+//            
+//        }
         
         
         // Facebook
@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let handled: Bool = FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         
         return handled
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

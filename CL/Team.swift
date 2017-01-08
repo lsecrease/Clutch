@@ -11,7 +11,13 @@ import Foundation
 
 class Team {
     
-    var name: String!
+    var name = String()
     var players = [Player]()
     
+    init() {}
+    
+    init(name: String, players: [Player]) {
+        self.name = name
+        self.players = players
+    }
 }

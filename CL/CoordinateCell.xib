@@ -38,6 +38,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidEndEditing:" destination="Hjz-EL-TM0" eventType="editingDidEnd" id="nj7-5F-P80"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P17-ts-aE4" userLabel="Line">
                                         <rect key="frame" x="0.0" y="39" width="164" height="1"/>
@@ -80,6 +83,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidEndEditing:" destination="Hjz-EL-TM0" eventType="editingDidEnd" id="2f1-8C-niy"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpf-yj-uz7" userLabel="Line">
                                         <rect key="frame" x="0.0" y="39" width="164" height="1"/>

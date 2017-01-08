@@ -11,20 +11,32 @@ import Foundation
 
 class Game {
     
-    var gameID: String?
-    var category: String?
+//    var gameID: String?
+//    var category: String?
+//    var team1 = Team()
+//    var team2 = Team()
+//    var startingValue: Int?
+//    var latitude: Float?
+//    var longitude: Float?
+//    var venue: String?
+//    var endRegistration: NSDate?
+//    var participants: [String]?
+    
+    var gameID = String()
+    var category = String()
     var team1 = Team()
     var team2 = Team()
-    var startingValue: Int?
-    var latitude: Float?
-    var longitude: Float?
-    var venue: String?
-    var endRegistration: NSDate?
-    var participants: [String]?
+    var startingValue = Int()
+    var latitude = Float()
+    var longitude = Float()
+    var venue = String()
+    var endRegistration = NSDate()
+    var participants = [String]()
+
     
     init() {}
     
-    init(gameID: String?, category: String?, team1: Team, team2: Team, startingValue: Int?, latitude: Float?, longitude: Float?, venue: String?, endRegistration: NSDate?, participants: [String]?) {
+    init(gameID: String, category: String, team1: Team, team2: Team, startingValue: Int, latitude: Float, longitude: Float, venue: String, endRegistration: NSDate, participants: [String]) {
         self.gameID = gameID
         self.category = category
         self.team1 = team1

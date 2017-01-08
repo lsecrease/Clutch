@@ -10,10 +10,10 @@ import Foundation
 
 public struct Coordinates: Equatable {
     
-    var latitude: String?
-    var longitude: String?
+    var latitude = Float()
+    var longitude = Float()
     
-    init(latitude: String?, longitude: String?) {
+    init(latitude: Float, longitude: Float) {
         self.latitude = latitude
         self.longitude = longitude
     }

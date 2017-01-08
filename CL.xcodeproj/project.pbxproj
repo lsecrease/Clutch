@@ -518,11 +518,11 @@
 		C0E3025F1DEA4FD00007988B /* CL */ = {
 			isa = PBXGroup;
 			children = (
-				C0859E361E174B2900341F1C /* Property Lists */,
 				C0E302751DEA4FDD0007988B /* Models */,
 				C0E302761DEA4FE60007988B /* Views */,
 				C0E302771DEA4FED0007988B /* Controllers */,
 				C0C3E2D01DEBE08200B4978B /* Utility */,
+				C0859E361E174B2900341F1C /* Property Lists */,
 				C0C3E2C41DEB7D9D00B4978B /* Supporting Files */,
 				C0E302601DEA4FD00007988B /* AppDelegate.swift */,
 				C0E302671DEA4FD00007988B /* CL.xcdatamodeld */,

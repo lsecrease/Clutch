@@ -6,11 +6,15 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
+import Firebase
 import UIKit
+
 
 // MARK: - GameViewController
 
 class GameViewController: UIViewController {
+    
+    // MARK: IBOutlets
     
     @IBOutlet weak var gameMatchupView: UIView!
     @IBOutlet weak var gameMatchupCollectionView: UICollectionView!
@@ -25,7 +29,6 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         registerCells()
-        
         
         // Set center constraints
         // Note: MUST be set in viewDidLoad for proper alignment.
@@ -88,7 +91,6 @@ class GameViewController: UIViewController {
         setGameRosterViewState()
         
     }
-    
 
 }
 

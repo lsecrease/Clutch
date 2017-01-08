@@ -7,10 +7,10 @@
 //
 
 
-import UIKit
-import Eureka
-import FirebaseDatabase
 import CoreLocation
+import Eureka
+import Firebase
+import UIKit
 
 
 // MARK: - CreateGameFormViewController
@@ -41,10 +41,10 @@ class CreateGameFormViewController: FormViewController {
     var team2IsVisible = false
     
     
-    // Firebase Database Reference
+    // MARK: Firebase Datbase Reference
     
-    
-    
+    var gameRef = FIRDatabase.database().reference()
+    var isConnectedToDatabase = false
     
     // MARK: View lifecycle
     
@@ -71,6 +71,20 @@ class CreateGameFormViewController: FormViewController {
                 
             }
         }
+    }
+    
+    // MARK: Firebase functions
+    
+    func configureDatabase() {
+
+    }
+    
+    func configureStorage() {
+        
+    }
+    
+    func sendGameData(data: [String : String]) {
+
     }
     
     
@@ -109,7 +123,8 @@ class CreateGameFormViewController: FormViewController {
                 picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
                 
                 if picker.value != nil {
-                    self.game.category = picker.value
+                    self.game.category = picker.value!
+                    print("CATEGORY: \(self.game.category)")
                 }
 
             })
@@ -135,6 +150,7 @@ class CreateGameFormViewController: FormViewController {
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
                     
+                    // Toggle true/false to display inputrow below
                     row.value = !row.value!
 
                 })
@@ -228,6 +244,23 @@ class CreateGameFormViewController: FormViewController {
                 if row.value != nil {
                     // Get coordinates
                 }
+                
+                if let latString = row.cell.latitudeField.text,
+                    let lat = Float(latString) {
+                    
+                    print("LATSTRING: \(latString)")
+
+                    self.game.latitude = lat
+                }
+                
+                if let lonString = row.cell.longitudeField.text,
+                    let lon = Float(lonString) {
+                    
+                    print("LONSTRING: \(lonString)")
+
+                    self.game.latitude = lon
+                }
+            
             })
             
             // 9
@@ -248,10 +281,10 @@ class CreateGameFormViewController: FormViewController {
                 $0.title = "End Registration"
                 $0.value = NSDate()
                 $0.tag = "EndRegistrationDate"
-        
-            } // END OF FORM
-        
-        } // END OF 'VIEWDIDLOAD'
+            }.onChange({ (dateInlineRow) in
+                self.game.endRegistration = dateInlineRow.value!
+            })
+        }
     
     
     // MARK: Form Appearance Customization
@@ -308,6 +341,22 @@ class CreateGameFormViewController: FormViewController {
 
     }
     
+    func printAllValues() {
+        print("CATEGORY: \(self.game.category)")
+        print("TEAM 1: \(self.game.team1.name)")
+        print("TEAM 1 PLAYERS: \(self.game.team1.players)")
+        print("TEAM 2: \(self.game.team2.name)")
+        print("TEAM 2 PLAYERS: \(self.game.team2.players)")
+        print("PARTICIPANT STARTING VALUE: \(self.game.startingValue)")
+        print("LATITUDE: \(self.game.latitude)")
+        print("LONGITUDE: \(self.game.longitude)")
+        print("VENUE: \(self.game.venue)")
+        print("END REGISTRATION: \(self.game.endRegistration)")
+        
+    }
+    
+    
+    
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
@@ -332,7 +381,6 @@ class CreateGameFormViewController: FormViewController {
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
                     row.cell.nameLabel.text = playerForTeam1.name
-                    row.tag = "PlayerForTeam1"
                     row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
                         return row.value ?? true == true
@@ -363,7 +411,6 @@ class CreateGameFormViewController: FormViewController {
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
                     row.cell.nameLabel.text = playerForTeam2.name
-                    row.tag = "PlayerForTeam2"
                     row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
                         return row.value ?? true == true
@@ -426,8 +473,10 @@ class CreateGameFormViewController: FormViewController {
             let message = "Team #2 Has no player(s). Please add players to the game."
             self.showAlert(title, message: message)
         } else {
-            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+            // self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
         }
+        
+        printAllValues()
         
     }
     

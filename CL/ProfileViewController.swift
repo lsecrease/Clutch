@@ -6,8 +6,10 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import UIKit
+import Firebase
 import Spring
+import UIKit
+
 
 class ProfileViewController: UIViewController {
     
@@ -21,16 +23,24 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileImageViewHeight: NSLayoutConstraint!
     @IBOutlet weak var profileImageViewWidth: NSLayoutConstraint!
 
+    var profileImage = UIImage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // setFacebookProfilePic()
+        
+        // profileImageView.image = profileImage
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        setFacebookProfilePic()
+        // profileImageView.image = profileImage
+
+        
+        // setFacebookProfilePic()
 
     }
 
@@ -57,8 +67,12 @@ class ProfileViewController: UIViewController {
             let data = NSData(contentsOfURL: url),
             let profilePic = UIImage(data: data) {
             
+            print(picURL)
+            
             profileImageView.image = profilePic
             
+        } else {
+            print("COULD NOT SET PROFILE PIC")
         }
     }
 

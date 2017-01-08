@@ -6,8 +6,9 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import UIKit
 import Eureka
+import UIKit
+
 
 // MARK: - UpdatePointsViewController
 

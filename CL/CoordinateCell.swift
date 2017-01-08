@@ -12,6 +12,10 @@ import Eureka
 
 public class CoordinateCell: Cell<Coordinates>, CellType {
     
+    var latitudeAdded = false
+    var longitudeAdded = false
+    
+
     @IBOutlet weak var latitudeField: UITextField!
     @IBOutlet weak var longitudeField: UITextField!
 
@@ -20,6 +24,32 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
         
         selectionStyle = .None
         height = { 65 }
+        
+    }
+    
+    @IBAction func textFieldDidEndEditing(sender: UITextField) {
+        switch sender {
+        case latitudeField:
+            if let latString = self.latitudeField.text {
+                print("LAT STRING:")
+                print(latString)
+                print("LAT STRING AS FLOAT:")
+                print(Float(latString)!)
+                
+            }
+            
+        case longitudeField:
+            if let lonString = self.longitudeField.text {
+                print("LON STRING:")
+                print(lonString)
+                print("LON STRING AS FLOAT:")
+                print(Float(lonString)!)
+            }
+            
+        default:
+            break
+            
+        }
         
     }
     

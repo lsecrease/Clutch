@@ -20,6 +20,11 @@ let players: [Player] = [
     
 ]
 
+let ChicagoBulls: [Player] = [
+    Player(name: "Michael Jordan", number: 23, pointValue: 1000, score: 0),
+    Player(name: "Scottie Pippen", number: 33, pointValue: 750, score: 0),
+    Player(name: "Dennis Rodman", number: 11, pointValue: 600, score: 0)
+]
 
 
 // Ranked Users
@@ -45,4 +50,15 @@ let GameMatchups: [GameMatchup] = [
     GameMatchup(homeTeam: "Marquette", awayTeam: "Vanderbilt", venue: "Comcast Arena", date: "Thurs, September 23", time: "9;30pm"),
     GameMatchup(homeTeam: "Marshall", awayTeam: "Notre Dame", venue: "Comcast Arena", date: "Fri, September 24", time: "7:30pm"),
     GameMatchup(homeTeam: "Towson", awayTeam: "George Mason", venue: "Comcast Arena", date: "Wed, September 29", time: "4:00pm")
+]
+
+// Teams
+
+let team1 = Team(name: "Chicago Bulls", players: ChicagoBulls)
+
+// Games
+
+let Games: [Game] = [
+
+
 ]

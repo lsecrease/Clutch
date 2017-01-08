@@ -6,10 +6,14 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
-import UIKit
 import Firebase
-import FirebaseAuth
 import SwiftLoader
+import UIKit
+
+enum UserType {
+    case Regular, Admin
+}
+
 
 class LoginViewController: UIViewController {
     
@@ -21,13 +25,16 @@ class LoginViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if FBSDKAccessToken.currentAccessToken() != nil {
-            // Move to next screen
             
+            self.getFBUserData()
+            
+            loginToFirebaseWithFacebookToken()
+            
+            // Move to next screen
             self.showLoadingIndicator()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
                 self.hideLoadingIndicator()
-
             })
 
         }
@@ -37,53 +44,62 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
     
+    
+    // IBAction functions
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
         
-        // Call FB Login Manager
-        let fbLoginManager = FBSDKLoginManager()
+//        // Call FB Login Manager
+//        let fbLoginManager = FBSDKLoginManager()
+//        
+//        // Login to Facebook
+//        
+//        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
+//            
+//            if error != nil {
+//                return
+//            } else {
+//                let fbLoginResult: FBSDKLoginManagerLoginResult = result
+//                
+//                if fbLoginResult.isCancelled {
+//                    return
+//                } else if (fbLoginResult.grantedPermissions.contains("email")) {
+//                    self.getFBUserData()
+//                    
+//                    self.showLoadingIndicator()
+//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+//                        self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+//                        self.hideLoadingIndicator()
+//                    })
+//
+//                }
+//                
+//                self.loginToFirebaseWithFacebookToken()
+//            }
+//        }
         
-        // Login to Facebook
-        
-        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
-            
-            if error != nil {
-                return
-            } else {
-                let fbLoginResult: FBSDKLoginManagerLoginResult = result
-                
-                if fbLoginResult.isCancelled {
-                    return
-                } else if (fbLoginResult.grantedPermissions.contains("email")) {
-                    self.getFBUserData()
-                    
-                    self.showLoadingIndicator()
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
-                        self.hideLoadingIndicator()
-                    })
-
-                }
-                
-                self.loginTofirebaseWithFacebookToken()
-            }
-        }
+        self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
         
     }
     
-    func loginTofirebaseWithFacebookToken() {
-        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(FBSDKAccessToken.currentAccessToken().tokenString)
+    // MARK: Firebase functions
+    
+    func loginToFirebaseWithFacebookToken() {
+        let accessToken = FBSDKAccessToken.currentAccessToken()
+        guard let tokenString = accessToken.tokenString else { return }
+        
+        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(tokenString)
         
         FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
             if error != nil {
                 print("COULD NOT LOGIN TO FIREBASE WITH THSE CREDENTIALS")
                 print(error?.localizedDescription)
-                
+                print(error)
             } else {
                 self.isSignedInToFirebase = true
+                print("SIGNED IN TO FIREBASE: \(self.isSignedInToFirebase)")
             }
         })
 
@@ -98,6 +114,9 @@ class LoginViewController: UIViewController {
             let parameters = ["fields" : "id, name, email, picture.type(large)"]
             FBSDKGraphRequest(graphPath: "/me", parameters: parameters).startWithCompletionHandler({ (connection, result, error) in
                 if error != nil {
+                    
+                    print("Could not get facebook parameters")
+                    print(error.localizedDescription)
                     return
                 } else {
                     
@@ -121,6 +140,9 @@ class LoginViewController: UIViewController {
                         let fbImageURL = NSString(string: urlString)
                         defaults.setObject(fbImageURL, forKey: avatarURLKey)
                         
+                        print("GOT PROFILE PICTURE")
+                        
+
                     }
                     
                     defaults.synchronize()
