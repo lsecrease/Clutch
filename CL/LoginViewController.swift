@@ -18,6 +18,7 @@ enum UserType {
 class LoginViewController: UIViewController {
     
     var isSignedInToFirebase = false
+    var userIsAdmin = true
     
     let slideRightTransiton = SlideRightTransitionManager()
 
@@ -33,7 +34,11 @@ class LoginViewController: UIViewController {
             // Move to next screen
             self.showLoadingIndicator()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+                if self.userIsAdmin {
+                    self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
+                } else {
+                    self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+                }
                 self.hideLoadingIndicator()
             })
 
@@ -80,7 +85,11 @@ class LoginViewController: UIViewController {
 //            }
 //        }
         
-        self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+        if self.userIsAdmin {
+            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
+        } else {
+            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+        }
         
     }
     

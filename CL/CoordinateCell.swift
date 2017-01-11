@@ -35,7 +35,7 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
                 print(latString)
                 print("LAT STRING AS FLOAT:")
                 print(Float(latString)!)
-                
+                self.row.value?.latitude = Float(latString)!
             }
             
         case longitudeField:
@@ -44,6 +44,7 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
                 print(lonString)
                 print("LON STRING AS FLOAT:")
                 print(Float(lonString)!)
+                self.row.value?.longitude = Float(lonString)!
             }
             
         default:

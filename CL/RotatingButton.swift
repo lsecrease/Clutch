@@ -12,21 +12,39 @@ class RotatingButton: UIButton {
     
     var isRotated: Bool = false
     
-    func turnBack(finalImage: UIImage?) {
+//    func turnBack(finalImage: UIImage?, padding: CGFloat) {
+//        UIView.animateWithDuration(0.2, animations: {
+//            self.transform = CGAffineTransformMakeRotation(-45 * (CGFloat(M_PI) / 180.0))
+//            
+//            if finalImage != nil {
+//                self.setImage(finalImage!, forState: .Normal)
+//                self.layoutSubviews()
+//            }
+//            
+//        })
+//    }
+    
+    func turnBack(finalImage: UIImage?, padding: CGFloat) {
         UIView.animateWithDuration(0.2, animations: {
             self.transform = CGAffineTransformMakeRotation(-45 * (CGFloat(M_PI) / 180.0))
             
+            self.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+            
             if finalImage != nil {
                 self.setImage(finalImage!, forState: .Normal)
+                self.layoutSubviews()
             }
             
-            self.layoutSubviews()
         })
     }
+
     
-    func turnForward(finalImage: UIImage?) {
+    func turnForward(finalImage: UIImage?, padding: CGFloat) {
         UIView.animateWithDuration(0.2, animations: {
             self.transform = CGAffineTransformMakeRotation((CGFloat(M_PI) / 180.0))
+            
+            self.imageEdgeInsets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+
             
             if finalImage != nil {
                 self.setImage(finalImage, forState: .Normal)

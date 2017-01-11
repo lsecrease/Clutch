@@ -6,6 +6,7 @@
 //  Copyright © 2016 iwritecode. All rights reserved.
 //
 
+import Firebase
 import Eureka
 import UIKit
 
@@ -20,6 +21,10 @@ class UpdatePointsViewController: FormViewController {
     var team2 = Team()
     
     var game = Game()
+    
+    // Firebase
+    var teamRef1 = FIRDatabaseReference()
+    var teamRef2 = FIRDatabaseReference()
     
     // MARK: View life-cycle
     
@@ -100,6 +105,8 @@ class UpdatePointsViewController: FormViewController {
                         })
 
                     }
+                    
+                    
                     form.last! <<< newRow
                     index += 1
                 }

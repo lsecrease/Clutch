@@ -26,6 +26,8 @@ public class UpdatePlayerPointsCell: Cell<Float>, CellType {
     
     override public func setup() {
         super.setup()
+        
+        selectionStyle = .None
     }
     
     @IBAction func stepperPressed(sender: UIStepper) {
@@ -48,7 +50,7 @@ final class UpdatePlayerPointsRow: Row<Float, UpdatePlayerPointsCell>, RowType {
     
     var pointValue: Float = 0 {
         didSet {
-            self.cell.pointLabel.text = "\(pointValue) pts"
+            self.cell.pointLabel.text = "\(Int(pointValue)) pts"
             self.cell.stepper.value = Double(pointValue)
         }
         

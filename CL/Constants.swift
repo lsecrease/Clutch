@@ -26,6 +26,8 @@ struct Constants {
     
     struct Segues {
         static let loginToMain = "loginToMain"
+        static let loginToAdmin = "loginToAdmin"
+        static let showUpdatePointsVC = "showUpdatePointsVC"
     }
     
 }

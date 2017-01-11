@@ -31,10 +31,10 @@
                             <action selector="stepperPressed:" destination="5Dg-Gr-TzX" eventType="valueChanged" id="Vh3-yF-Z2S"/>
                         </connections>
                     </stepper>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 pts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="aop-Wm-Foc">
-                        <rect key="frame" x="206" y="12" width="57" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 pts" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="aop-Wm-Foc">
+                        <rect key="frame" x="181" y="12" width="77" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="57" id="69s-zi-nur"/>
+                            <constraint firstAttribute="width" constant="77" id="69s-zi-nur"/>
                             <constraint firstAttribute="height" constant="21" id="8cn-mz-fTg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -47,7 +47,7 @@
                     <constraint firstAttribute="trailingMargin" secondItem="62Q-BF-itX" secondAttribute="trailing" constant="5" id="4dW-0H-ebe"/>
                     <constraint firstItem="iJ9-Z5-SQ2" firstAttribute="centerY" secondItem="U2S-LC-7dJ" secondAttribute="centerY" id="MXF-ux-2GL"/>
                     <constraint firstAttribute="leadingMargin" secondItem="iJ9-Z5-SQ2" secondAttribute="leading" constant="-7" id="jOT-9a-21k"/>
-                    <constraint firstItem="62Q-BF-itX" firstAttribute="leading" secondItem="aop-Wm-Foc" secondAttribute="trailing" constant="5" id="rBr-0G-8hb"/>
+                    <constraint firstItem="62Q-BF-itX" firstAttribute="leading" secondItem="aop-Wm-Foc" secondAttribute="trailing" constant="10" id="rBr-0G-8hb"/>
                     <constraint firstItem="aop-Wm-Foc" firstAttribute="centerY" secondItem="U2S-LC-7dJ" secondAttribute="centerY" id="vlE-S6-xqr"/>
                 </constraints>
             </tableViewCellContentView>

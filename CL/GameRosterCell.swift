@@ -19,9 +19,18 @@ class GameRosterCell: UICollectionViewCell {
     var padding: CGFloat = 3.0
     
     let startImage = UIImage(named: "add")
-    let endImage = UIImage(named: "close")
+    let endImage = UIImage(named: "delete")
     
-    var willAddPlayer = true
+    var willAddPlayer = true {
+        didSet {
+            if willAddPlayer {
+                button.turnForward(endImage, padding: 0)
+            } else {
+                button.turnBack(startImage, padding: 1)
+            }
+        }
+    }
+    
     
     var addedToRoster = false
     
@@ -67,7 +76,6 @@ class GameRosterCell: UICollectionViewCell {
             if self.endImage != nil {
                 self.button.setImage(self.endImage, forState: .Normal)
             }
-            
             self.layoutSubviews()
         })
     }
@@ -78,9 +86,9 @@ class GameRosterCell: UICollectionViewCell {
             
             if self.startImage != nil {
                 self.button.setImage(self.startImage, forState: .Normal)
-                self.layoutSubviews()
             }
-            
+            self.layoutSubviews()
+
         })
     }
 

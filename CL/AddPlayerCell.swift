@@ -64,10 +64,10 @@ final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
         
         if self.value == true {
             let finalImage = UIImage(named: "cancel")
-            self.cell.addButton.turnBack(finalImage)
+            self.cell.addButton.turnBack(finalImage, padding: 0)
         } else {
             let finalImage = UIImage(named: "plus")
-            self.cell.addButton.turnForward(finalImage)
+            self.cell.addButton.turnForward(finalImage, padding: 0)
         }
         
     }
