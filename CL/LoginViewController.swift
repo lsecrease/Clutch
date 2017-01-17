@@ -18,7 +18,7 @@ enum UserType {
 class LoginViewController: UIViewController {
     
     var isSignedInToFirebase = false
-    var userIsAdmin = true
+    var userIsAdmin = false
     
     let slideRightTransiton = SlideRightTransitionManager()
 

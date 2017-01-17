@@ -107,8 +107,6 @@ class GameViewController: UIViewController {
     func teamButton2Pressed() {
         print("TEAM 2 BUTTON PRESSED!")
     }
-    
-    
 
 }
 
@@ -170,13 +168,8 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         if kind == UICollectionElementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath) as! GameInfoHeaderView
-            
             headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), forControlEvents: .TouchUpInside)
-            
             headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), forControlEvents: .TouchUpInside)
-            
-            // headerView.delegate = self
-            
             return headerView
         } else {
             

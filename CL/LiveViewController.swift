@@ -101,6 +101,8 @@ class LiveViewController: UIViewController {
                 for child in snapshot.children {
                     self.matchups += [(team1: child.value["team1"] as! Team, team2: child.value["team2"] as! Team)]
                 }
+                print("MATCHUPS:-")
+                print(self.matchups)
             }
         })
     

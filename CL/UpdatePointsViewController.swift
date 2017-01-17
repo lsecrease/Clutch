@@ -70,9 +70,9 @@ class UpdatePointsViewController: FormViewController {
         self.tableView?.backgroundColor = UIColor.whiteColor()
     }
     
-    // Test data
     
-    func printAllData() {
+    // Test data
+        func printAllData() {
         
         print("\nGAME INFO:-\n")
         print("CATEGORY: \(self.game.category)")
