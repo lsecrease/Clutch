@@ -24,6 +24,9 @@ class LiveViewController: UIViewController {
     
     @IBOutlet weak var leaderboardButton: UIButton!
     @IBOutlet weak var myTeamButton: UIButton!
+    
+    var teamRef1 = FIRDatabaseReference()
+    var teamRef2 = FIRDatabaseReference()
 
     // Cell Identifiers
     let idCellLeaderboard = "idCellLeaderboard"
@@ -59,6 +62,20 @@ class LiveViewController: UIViewController {
 
     }
     
+    func loadData() {
+        
+    }
+    
+    func team1ButtonPressed() {
+
+    }
+    
+    func team2ButtonPressed() {
+
+    }
+
+    
+    /// MARK: IBActions
     
     @IBAction func bottomTabButtonPressed(sender: UIButton) {
         switch sender {
@@ -157,7 +174,12 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
+        let headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath) as! GameInfoHeaderView
+        
+        headerView.teamButton1.addTarget(self, action: #selector(team1ButtonPressed), forControlEvents: .TouchUpInside)
+        headerView.teamButton2.addTarget(self, action: #selector(team2ButtonPressed), forControlEvents: .TouchUpInside)
+
+        
         return headerView
     }
     

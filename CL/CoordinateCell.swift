@@ -28,29 +28,29 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
     }
     
     @IBAction func textFieldDidEndEditing(sender: UITextField) {
-        switch sender {
-        case latitudeField:
-            if let latString = self.latitudeField.text {
-                print("LAT STRING:")
-                print(latString)
-                print("LAT STRING AS FLOAT:")
-                print(Float(latString)!)
-                self.row.value?.latitude = Float(latString)!
-            }
-            
-        case longitudeField:
-            if let lonString = self.longitudeField.text {
-                print("LON STRING:")
-                print(lonString)
-                print("LON STRING AS FLOAT:")
-                print(Float(lonString)!)
-                self.row.value?.longitude = Float(lonString)!
-            }
-            
-        default:
-            break
-            
-        }
+//        switch sender {
+//        case latitudeField:
+//            if let latString = self.latitudeField.text {
+//                print("LAT STRING:")
+//                print(latString)
+//                print("LAT STRING AS FLOAT:")
+//                print(Float(latString)!)
+//                self.row.value?.latitude = Float(latString)!
+//            }
+//            
+//        case longitudeField:
+//            if let lonString = self.longitudeField.text {
+//                print("LON STRING:")
+//                print(lonString)
+//                print("LON STRING AS FLOAT:")
+//                print(Float(lonString)!)
+//                self.row.value?.longitude = Float(lonString)!
+//            }
+//            
+//        default:
+//            break
+//            
+//        }
         
     }
     

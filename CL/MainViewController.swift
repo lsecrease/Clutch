@@ -66,55 +66,34 @@ class MainViewController: UIViewController {
         
         if let profileVC = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController {
             
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), { Void in
-                if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
-                    let url = NSURL(string: picURL),
-                    let data = NSData(contentsOfURL: url),
-                    let profilePic = UIImage(data: data) {
-                    
-                    print(picURL)
-                    dispatch_async(dispatch_get_main_queue(), { Void in
-                        // profileVC.profileImage = UIImage(data: data)!
-                        profileVC.profileImage = profilePic
-                    })
-                    
-                } else {
-                    print("COULD NOT SET PROFILE PIC")
-                }
-                
-                
-            })
+//            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), { Void in
+//                if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
+//                    let url = NSURL(string: picURL),
+//                    let data = NSData(contentsOfURL: url),
+//                    let profilePic = UIImage(data: data) {
+//                    
+//                    print(picURL)
+//                    dispatch_async(dispatch_get_main_queue(), { Void in
+//                        // profileVC.profileImage = UIImage(data: data)!
+//                        profileVC.profileImage = profilePic
+//                    })
+//                    
+//                } else {
+//                    print("COULD NOT SET PROFILE PIC - MAIN VC")
+//                }
+//                
+//                
+//            })
             
         }
+        
+        
 
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if let profileVC = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController {
-            
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), { Void in
-                if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
-                    let url = NSURL(string: picURL),
-                    let data = NSData(contentsOfURL: url),
-                    let profilePic = UIImage(data: data) {
-                    
-                    print(picURL)
-                    dispatch_async(dispatch_get_main_queue(), { Void in
-                        // profileVC.profileImage = UIImage(data: data)!
-                        profileVC.profileImage = profilePic
-                    })
-                    
-                } else {
-                    print("COULD NOT SET PROFILE PIC")
-                }
-                
-                
-            })
-            
-        }
         
         
     }

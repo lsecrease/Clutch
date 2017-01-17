@@ -14,17 +14,23 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    // MARK: IBOutlets
+    // MARK: Game properties
     
+    var game = Game()
+    var gameRosterViewIsActive = false
+
+    
+    // MARK: IBOutlets
+        
     @IBOutlet weak var gameMatchupView: UIView!
     @IBOutlet weak var gameMatchupCollectionView: UICollectionView!
     @IBOutlet weak var gameRosterCollectionView: UICollectionView!
     @IBOutlet weak var gameMatchupViewCenterX: NSLayoutConstraint!
     @IBOutlet weak var gameRosterViewCenterX: NSLayoutConstraint!
+
     
-    var gameRosterViewIsActive = false
-
-
+    // MARK: View lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -91,6 +97,17 @@ class GameViewController: UIViewController {
         setGameRosterViewState()
         
     }
+    
+    
+    func teamButton1Pressed() {
+        print("TEAM 1 BUTTON PRESSED!")
+    }
+    
+    func teamButton2Pressed() {
+        print("TEAM 2 BUTTON PRESSED!")
+    }
+    
+    
 
 }
 
@@ -151,7 +168,14 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath)
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath) as! GameInfoHeaderView
+            
+            headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), forControlEvents: .TouchUpInside)
+            
+            headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), forControlEvents: .TouchUpInside)
+            
+            // headerView.delegate = self
+            
             return headerView
         } else {
             
@@ -160,8 +184,13 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
     }
+    
+    
 
 }
+
+
+// MARK: - UICollectionView Delegate Flow Layout
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -170,4 +199,8 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: cellWidth, height: cellHeight)
     }
 }
+
+
+
+
 

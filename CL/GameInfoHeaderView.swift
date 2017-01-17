@@ -8,23 +8,34 @@
 
 import UIKit
 
-class GameInfoHeaderView: UIView {
 
-    @IBOutlet weak var awayTeamLabel: UILabel!
-    @IBOutlet weak var homeTeamLabel: UILabel!
+class GameInfoHeaderView: UICollectionReusableView {
+    
+    
+    // MARK: IBOutlets
+
+    @IBOutlet weak var teamLabel1: UILabel!
+    @IBOutlet weak var teamLabel2: UILabel!
     @IBOutlet weak var venueLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var teamButton1: UIButton!
+    @IBOutlet weak var teamButton2: UIButton!
     
-    var awayTeam: String = "" {
+    
+    // MARK: Variables and constants
+    
+    // var delegate: GameInfoHeaderViewDelegate?
+    
+    var team1: String = "" {
         didSet {
-            awayTeamLabel.text = awayTeam
+            teamLabel1.text = team1
         }
     }
     
-    var homeTeam: String = "" {
+    var team2: String = "" {
         didSet {
-            homeTeamLabel.text = homeTeam
+            teamLabel2.text = team2
         }
     }
     
@@ -48,6 +59,16 @@ class GameInfoHeaderView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
+    }
+    
+    @IBAction func buttonPressed() {
+    
+        teamButtonpressed()
+    }
+    
+    func teamButtonpressed() {
         
     }
     

@@ -159,7 +159,8 @@ class CreateGameFormViewController: FormViewController {
                 picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
                 
                 if picker.value != nil && picker.value != "Select" {
-                    self.game.category = picker.value!
+                    // self.game.category = picker.value!
+                    self.game.category = self.categoryDict[picker.value!]!
                 }
             })
             
@@ -198,12 +199,10 @@ class CreateGameFormViewController: FormViewController {
                 }.cellSetup({ (cell, row) in
                     cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam1), forControlEvents: .TouchUpInside)
                 }).onChange({ (row) in
-                    
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
                         // self.game.team1.players += [row.value!]
                     }
-
                 })
             
             
@@ -253,7 +252,7 @@ class CreateGameFormViewController: FormViewController {
                     
                     if row.value != nil {
                         self.playerForTeam2 = row.value!
-                        self.game.team2.players += [row.value!]
+                        // self.game.team2.players += [row.value!]
                     }
                     
                 })
@@ -680,7 +679,7 @@ class CreateGameFormViewController: FormViewController {
             }
         }
         
-        // Return nothing otherwise
+        // Return no actions for other rows
         return noActions
     }
     
@@ -723,8 +722,9 @@ class CreateGameFormViewController: FormViewController {
         createGameButton.layer.borderColor = createGameButton.tintColor.CGColor
         createGameButton.layer.cornerRadius = 5.0
         createGameButton.setTitle("Create Game", forState: .Normal)
+        createGameButton.setTitleColor(createGameButton.tintColor, forState: .Normal)
+        createGameButton.titleLabel?.font = UIFont(name: "System", size: 12.0)
         createGameButton.titleLabel?.tintColor = createGameButton.tintColor
-        createGameButton.titleLabel?.textColor = UIColor.blackColor()
         createGameButton.titleLabel?.text = "Create Game"
         createGameButton.addTarget(self, action: #selector(self.createGame), forControlEvents: .TouchUpInside)
         

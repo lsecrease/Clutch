@@ -32,6 +32,44 @@ class ProfileViewController: UIViewController {
         
         // profileImageView.image = profileImage
         
+        if FBSDKAccessToken.currentAccessToken() != nil {
+            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+            graphRequest.startWithCompletionHandler({
+                (connection, result, error) -> Void in
+                if ((error) != nil)
+                {
+                    print("Error: \(error)")
+                }
+                else if error == nil
+                {
+                    let facebookID: NSString = (result.valueForKey("id")
+                        as? NSString)!
+                    
+                    let pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
+                    
+                    self.fullNameLabel.text = (result.valueForKey("name")             as? String)!
+                    
+                    let URLRequest = NSURL(string: pictureURL)
+                    let URLRequestNeeded = NSURLRequest(URL: URLRequest!)
+                    
+                    NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?, error: NSError?) -> Void in
+                        
+                        if error == nil {
+                            let picture = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(), { 
+                                self.profileImageView.image = picture
+                            })
+                            self.profileImageView.image = picture
+                        }
+                        else {
+                            print("Error: \(error!.localizedDescription)")
+                        }
+                    })
+
+                }
+            })
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,7 +78,7 @@ class ProfileViewController: UIViewController {
         // profileImageView.image = profileImage
 
         
-        // setFacebookProfilePic()
+        setFacebookProfilePic()
 
     }
 
@@ -72,7 +110,7 @@ class ProfileViewController: UIViewController {
             profileImageView.image = profilePic
             
         } else {
-            print("COULD NOT SET PROFILE PIC")
+            print("COULD NOT SET PROFILE PIC - Profile VC")
         }
     }
 

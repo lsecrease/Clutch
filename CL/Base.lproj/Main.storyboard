@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V0K-jc-GPo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="V0K-jc-GPo">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -145,7 +145,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7QO-1W-Vuh" userLabel="Live Team View">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="568"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oWt-fi-i4r">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="oWt-fi-i4r" userLabel="Live Team Collection View 1">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="520"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="njc-pd-FFc">
@@ -165,7 +165,7 @@
                                                 </view>
                                             </collectionViewCell>
                                         </cells>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Atb-9e-36r">
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Atb-9e-36r" customClass="GameInfoHeaderView" customModule="CL" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -185,6 +185,9 @@
                                                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3PE-Mm-0tM" userLabel="Team Button 1">
+                                                                    <rect key="frame" x="0.0" y="4" width="102" height="35"/>
+                                                                </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYW-6U-4Qu" userLabel="Splitter">
                                                                     <rect key="frame" x="104" y="9" width="5" height="26"/>
                                                                     <constraints>
@@ -201,18 +204,29 @@
                                                                     <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1CK-Uw-CyM" userLabel="Team Button 2">
+                                                                    <rect key="frame" x="113" y="4" width="107" height="35"/>
+                                                                </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailing" secondItem="b2I-oQ-GnH" secondAttribute="trailing" constant="10" id="4tk-gM-7Ft"/>
+                                                                <constraint firstItem="3PE-Mm-0tM" firstAttribute="trailing" secondItem="d1s-0y-DV2" secondAttribute="trailing" id="6Z9-JS-1xP"/>
                                                                 <constraint firstItem="b2I-oQ-GnH" firstAttribute="leading" secondItem="hYW-6U-4Qu" secondAttribute="trailing" constant="4" id="FI6-ip-t5S"/>
+                                                                <constraint firstItem="1CK-Uw-CyM" firstAttribute="top" secondItem="b2I-oQ-GnH" secondAttribute="top" id="MwX-2l-Cyg"/>
+                                                                <constraint firstItem="3PE-Mm-0tM" firstAttribute="leading" secondItem="d1s-0y-DV2" secondAttribute="leading" id="TiD-uF-KVP"/>
+                                                                <constraint firstItem="3PE-Mm-0tM" firstAttribute="height" secondItem="YRB-GN-ymN" secondAttribute="height" multiplier="0.7" id="UH8-vj-sTS"/>
                                                                 <constraint firstItem="b2I-oQ-GnH" firstAttribute="top" secondItem="YRB-GN-ymN" secondAttribute="top" constant="4" id="UTa-UL-22T"/>
+                                                                <constraint firstItem="3PE-Mm-0tM" firstAttribute="top" secondItem="d1s-0y-DV2" secondAttribute="top" id="fjG-Wl-1mE"/>
                                                                 <constraint firstItem="d1s-0y-DV2" firstAttribute="top" secondItem="YRB-GN-ymN" secondAttribute="top" constant="4" id="gip-rh-EGg"/>
                                                                 <constraint firstItem="b2I-oQ-GnH" firstAttribute="height" secondItem="YRB-GN-ymN" secondAttribute="height" multiplier="0.7" id="ivu-Bg-Kym"/>
                                                                 <constraint firstItem="d1s-0y-DV2" firstAttribute="height" secondItem="YRB-GN-ymN" secondAttribute="height" multiplier="0.7" id="k8z-q8-Kx8"/>
+                                                                <constraint firstItem="1CK-Uw-CyM" firstAttribute="trailing" secondItem="b2I-oQ-GnH" secondAttribute="trailing" id="tsl-hO-6rl"/>
+                                                                <constraint firstItem="1CK-Uw-CyM" firstAttribute="leading" secondItem="b2I-oQ-GnH" secondAttribute="leading" id="uYF-Y4-aBf"/>
                                                                 <constraint firstItem="hYW-6U-4Qu" firstAttribute="centerY" secondItem="d1s-0y-DV2" secondAttribute="centerY" id="ud4-y4-whO"/>
                                                                 <constraint firstItem="hYW-6U-4Qu" firstAttribute="leading" secondItem="d1s-0y-DV2" secondAttribute="trailing" constant="2" id="vEt-lN-1D9"/>
                                                                 <constraint firstItem="d1s-0y-DV2" firstAttribute="leading" secondItem="YRB-GN-ymN" secondAttribute="leading" id="x2d-2H-oPB"/>
+                                                                <constraint firstItem="1CK-Uw-CyM" firstAttribute="height" secondItem="YRB-GN-ymN" secondAttribute="height" multiplier="0.7" id="ybK-p8-s5O"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i0v-AH-I4D" userLabel="Venue Container">
@@ -276,6 +290,10 @@
                                                 <constraint firstItem="23K-XO-gCI" firstAttribute="top" secondItem="Atb-9e-36r" secondAttribute="top" id="tck-nC-1pH"/>
                                                 <constraint firstAttribute="trailing" secondItem="23K-XO-gCI" secondAttribute="trailing" constant="7" id="yO9-BU-5YD"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="teamButton1" destination="3PE-Mm-0tM" id="zWO-4B-fnR"/>
+                                                <outlet property="teamButton2" destination="1CK-Uw-CyM" id="4fD-0R-If9"/>
+                                            </connections>
                                         </collectionReusableView>
                                         <connections>
                                             <outlet property="dataSource" destination="yia-ea-5mt" id="Oal-PP-0Vd"/>
@@ -1251,7 +1269,7 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Noi-sx-xcN">
+                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Noi-sx-xcN" customClass="GameInfoHeaderView" customModule="CL" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -1271,6 +1289,13 @@
                                                                             <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEp-c7-bmT" userLabel="Team Button 1">
+                                                                            <rect key="frame" x="0.0" y="4" width="102" height="35"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="102" id="pnK-0o-kRx"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="21r-6y-DT2" userLabel="Splitter">
                                                                             <rect key="frame" x="104" y="9" width="5" height="26"/>
                                                                             <constraints>
@@ -1287,15 +1312,29 @@
                                                                             <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a53-dS-5hj" userLabel="Team Button 2">
+                                                                            <rect key="frame" x="113" y="4" width="107" height="35"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="107" id="k45-Ak-RvZ"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        </button>
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <constraints>
+                                                                        <constraint firstItem="VEp-c7-bmT" firstAttribute="top" secondItem="K3E-9u-8d2" secondAttribute="top" constant="4" id="3cU-La-sAW"/>
                                                                         <constraint firstItem="6jU-xZ-Egr" firstAttribute="leading" secondItem="K3E-9u-8d2" secondAttribute="leading" id="BCd-3R-9bf"/>
                                                                         <constraint firstItem="Cli-4b-uLv" firstAttribute="height" secondItem="K3E-9u-8d2" secondAttribute="height" multiplier="0.7" id="E9g-Tv-q1Z"/>
+                                                                        <constraint firstItem="a53-dS-5hj" firstAttribute="top" secondItem="K3E-9u-8d2" secondAttribute="top" constant="4" id="LXV-Ig-PL0"/>
                                                                         <constraint firstItem="21r-6y-DT2" firstAttribute="centerY" secondItem="6jU-xZ-Egr" secondAttribute="centerY" id="SlE-Dp-P0d"/>
                                                                         <constraint firstItem="Cli-4b-uLv" firstAttribute="leading" secondItem="21r-6y-DT2" secondAttribute="trailing" constant="4" id="VWc-Gi-NRd"/>
                                                                         <constraint firstItem="6jU-xZ-Egr" firstAttribute="top" secondItem="K3E-9u-8d2" secondAttribute="top" constant="4" id="XJs-sG-Oei"/>
+                                                                        <constraint firstItem="a53-dS-5hj" firstAttribute="height" secondItem="K3E-9u-8d2" secondAttribute="height" multiplier="0.7" id="bP8-K3-ejr"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="a53-dS-5hj" secondAttribute="trailing" constant="10" id="bSK-x0-OTg"/>
                                                                         <constraint firstItem="Cli-4b-uLv" firstAttribute="top" secondItem="K3E-9u-8d2" secondAttribute="top" constant="4" id="g6w-Wi-prW"/>
+                                                                        <constraint firstItem="VEp-c7-bmT" firstAttribute="height" secondItem="K3E-9u-8d2" secondAttribute="height" multiplier="0.7" id="glE-Lo-zd8"/>
+                                                                        <constraint firstItem="a53-dS-5hj" firstAttribute="leading" secondItem="K3E-9u-8d2" secondAttribute="leading" constant="113" id="kNM-ep-D4b"/>
+                                                                        <constraint firstItem="VEp-c7-bmT" firstAttribute="leading" secondItem="K3E-9u-8d2" secondAttribute="leading" id="tVm-0b-la8"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Cli-4b-uLv" secondAttribute="trailing" constant="10" id="tWj-7U-Lro"/>
                                                                         <constraint firstItem="21r-6y-DT2" firstAttribute="leading" secondItem="6jU-xZ-Egr" secondAttribute="trailing" constant="2" id="tpv-IR-5H2"/>
                                                                         <constraint firstItem="6jU-xZ-Egr" firstAttribute="height" secondItem="K3E-9u-8d2" secondAttribute="height" multiplier="0.7" id="vpr-eH-Npo"/>
@@ -1364,6 +1403,10 @@
                                                         <constraint firstItem="wCP-lB-maY" firstAttribute="top" secondItem="Noi-sx-xcN" secondAttribute="top" id="fIs-ia-buz"/>
                                                         <constraint firstItem="wCP-lB-maY" firstAttribute="leading" secondItem="Noi-sx-xcN" secondAttribute="leading" constant="8" id="gU8-kl-kLZ"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outlet property="teamButton1" destination="VEp-c7-bmT" id="d3c-b5-4d7"/>
+                                                        <outlet property="teamButton2" destination="a53-dS-5hj" id="jf4-Hu-wnz"/>
+                                                    </connections>
                                                 </collectionReusableView>
                                                 <connections>
                                                     <outlet property="dataSource" destination="9vd-FI-5mT" id="e07-Xt-wNW"/>
@@ -1527,7 +1570,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileSample" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-ts-nge" customClass="DesignableImageView" customModule="Spring">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileSample" translatesAutoresizingMaskIntoConstraints="NO" id="pCO-ts-nge" customClass="DesignableImageView" customModule="Spring">
                                         <rect key="frame" x="122" y="23" width="130" height="130"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="AKp-H5-Ryp"/>

@@ -18,7 +18,7 @@ enum UserType {
 class LoginViewController: UIViewController {
     
     var isSignedInToFirebase = false
-    var userIsAdmin = true
+    var userIsAdmin = false
     
     let slideRightTransiton = SlideRightTransitionManager()
 
@@ -64,6 +64,8 @@ class LoginViewController: UIViewController {
 //        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
 //            
 //            if error != nil {
+//                print("COULD NOT LOGIN TO FACEBOOK WITH THOSE CREDENTIALS")
+//                
 //                return
 //            } else {
 //                let fbLoginResult: FBSDKLoginManagerLoginResult = result
@@ -75,7 +77,11 @@ class LoginViewController: UIViewController {
 //                    
 //                    self.showLoadingIndicator()
 //                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+//                        if self.userIsAdmin {
+//                            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
+//                        } else {
+//                            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+//                        }
 //                        self.hideLoadingIndicator()
 //                    })
 //
@@ -150,7 +156,6 @@ class LoginViewController: UIViewController {
                         defaults.setObject(fbImageURL, forKey: avatarURLKey)
                         
                         print("GOT PROFILE PICTURE")
-                        
 
                     }
                     
