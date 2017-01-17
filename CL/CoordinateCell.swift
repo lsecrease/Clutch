@@ -54,6 +54,8 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
         
     }
     
+
+    
     
 }
 

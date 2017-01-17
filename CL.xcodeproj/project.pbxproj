@@ -62,8 +62,10 @@
 		C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */; };
 		C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */; };
 		C0CDD2BF1E0EBBE80033A072 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CDD2BE1E0EBBE80033A072 /* Game.swift */; };
-		C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */; };
-		C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */; };
+		C0DB846C1E2CCAAE005D6DF4 /* CreateGameFormFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DB846B1E2CCAAE005D6DF4 /* CreateGameFormFooter.xib */; };
+		C0DB846F1E2CD036005D6DF4 /* CreateGameFormFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB846E1E2CD036005D6DF4 /* CreateGameFormFooter.swift */; };
+		C0DB84711E2CEE57005D6DF4 /* GameFormFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB84701E2CEE57005D6DF4 /* GameFormFooter.swift */; };
+		C0DB84731E2CEFB1005D6DF4 /* GameFormFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0DB84721E2CEFB1005D6DF4 /* GameFormFooter.xib */; };
 		C0E302611DEA4FD00007988B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E302601DEA4FD00007988B /* AppDelegate.swift */; };
 		C0E302661DEA4FD00007988B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E302641DEA4FD00007988B /* Main.storyboard */; };
 		C0E302691DEA4FD00007988B /* CL.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0E302671DEA4FD00007988B /* CL.xcdatamodeld */; };
@@ -131,8 +133,10 @@
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
 		C0CDD2BE1E0EBBE80033A072 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
-		C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LabelCell.xib; sourceTree = "<group>"; };
+		C0DB846B1E2CCAAE005D6DF4 /* CreateGameFormFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateGameFormFooter.xib; sourceTree = "<group>"; };
+		C0DB846E1E2CD036005D6DF4 /* CreateGameFormFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameFormFooter.swift; sourceTree = "<group>"; };
+		C0DB84701E2CEE57005D6DF4 /* GameFormFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameFormFooter.swift; sourceTree = "<group>"; };
+		C0DB84721E2CEFB1005D6DF4 /* GameFormFooter.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameFormFooter.xib; sourceTree = "<group>"; };
 		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E302601DEA4FD00007988B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E302651DEA4FD00007988B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 		C0638CD01E0B049600A03B57 /* Eureka Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				C0DB846D1E2CCDD7005D6DF4 /* CreateGameFormFooter */,
 				C0638CCA1E0B03B500A03B57 /* Add Player Cell */,
 				C00FE4491E0D981C002E56D5 /* Add Player Input Cell */,
 				C0638CD61E0B119600A03B57 /* Coordinate Cell */,
@@ -469,6 +474,17 @@
 			name = "Player For Team Cell";
 			sourceTree = "<group>";
 		};
+		C0DB846D1E2CCDD7005D6DF4 /* CreateGameFormFooter */ = {
+			isa = PBXGroup;
+			children = (
+				C0DB846B1E2CCAAE005D6DF4 /* CreateGameFormFooter.xib */,
+				C0DB846E1E2CD036005D6DF4 /* CreateGameFormFooter.swift */,
+				C0DB84701E2CEE57005D6DF4 /* GameFormFooter.swift */,
+				C0DB84721E2CEFB1005D6DF4 /* GameFormFooter.xib */,
+			);
+			name = CreateGameFormFooter;
+			sourceTree = "<group>";
+		};
 		C0E281921DFF155000BF35D0 /* TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,19 +498,9 @@
 			isa = PBXGroup;
 			children = (
 				C0638CD01E0B049600A03B57 /* Eureka Xibs */,
-				C0E281A01DFF2A0300BF35D0 /* Label Cell */,
 				C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */,
 			);
 			name = "Create Game";
-			sourceTree = "<group>";
-		};
-		C0E281A01DFF2A0300BF35D0 /* Label Cell */ = {
-			isa = PBXGroup;
-			children = (
-				C0E281A11DFF2A4800BF35D0 /* LabelCell.swift */,
-				C0E281A31DFF2AAA00BF35D0 /* LabelCell.xib */,
-			);
-			name = "Label Cell";
 			sourceTree = "<group>";
 		};
 		C0E302541DEA4FD00007988B = {
@@ -637,13 +643,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DB846C1E2CCAAE005D6DF4 /* CreateGameFormFooter.xib in Resources */,
 				C00FE44D1E0D9BD4002E56D5 /* AddPlayerInputCell.xib in Resources */,
 				C0CDD2BD1E0E54AC0033A072 /* PlayerForTeamCell.xib in Resources */,
 				C00A07431DF74BA20032C39A /* GameInfoHeaderView.xib in Resources */,
 				C087EF021DF5E3D200BA3EA2 /* GameMatchupCell.xib in Resources */,
+				C0DB84731E2CEFB1005D6DF4 /* GameFormFooter.xib in Resources */,
 				C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */,
 				C0E3026E1DEA4FD00007988B /* LaunchScreen.storyboard in Resources */,
-				C0E281A41DFF2AAA00BF35D0 /* LabelCell.xib in Resources */,
 				C0638CCE1E0B041C00A03B57 /* AddPlayerCell.xib in Resources */,
 				C0E3026B1DEA4FD00007988B /* Assets.xcassets in Resources */,
 				C0638CDA1E0B11B100A03B57 /* CoordinateCell.xib in Resources */,
@@ -739,11 +746,12 @@
 				C0C3E2CF1DEB957900B4978B /* Constants.swift in Sources */,
 				C0AFE6581DF89D8C00F2A32A /* AddOrRemoveButton.swift in Sources */,
 				C003A3D91DF4A63D008158C7 /* LiveTeamCell.swift in Sources */,
+				C0DB846F1E2CD036005D6DF4 /* CreateGameFormFooter.swift in Sources */,
 				C0C637E51E0F39B1007A86D4 /* LiveViewController.swift in Sources */,
+				C0DB84711E2CEE57005D6DF4 /* GameFormFooter.swift in Sources */,
 				C00346F61E0345CB0000A335 /* RotatingButton.swift in Sources */,
 				C0C3E2B41DEB546E00B4978B /* Team.swift in Sources */,
 				C003A4011DF55232008158C7 /* GameViewController.swift in Sources */,
-				C0E281A21DFF2A4800BF35D0 /* LabelCell.swift in Sources */,
 				C087EF041DF5E3EC00BA3EA2 /* GameMatchupCell.swift in Sources */,
 				C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */,
 				C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */,

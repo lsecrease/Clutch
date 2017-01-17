@@ -18,6 +18,8 @@ import UIKit
 
 class CreateGameFormViewController: FormViewController {
     
+    var createGameButton = UIButton()
+    
     // let categories = ["MLB", "MLS", "NCAA Basketball", "NCAA Football", "NBA", "NFL", "NHL"]
     let categorykeys = ["mlb", "mls", "ncaa-basketball", "ncaa-football", "nba", "nfl", "nhl"]
     
@@ -56,6 +58,8 @@ class CreateGameFormViewController: FormViewController {
     var team1IsVisible = false
     var team2IsVisible = false
     
+    var missingInputs = [String]()
+    
     
     // MARK: Firebase Datbase Reference
     
@@ -71,6 +75,8 @@ class CreateGameFormViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView?.backgroundColor = UIColor.whiteColor()
+        
         categories = [String](categoryDict.keys)
         
         loadForm()
@@ -80,12 +86,21 @@ class CreateGameFormViewController: FormViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-
+        createGameButton.setTitle("Create Game", forState: .Normal)
+        createGameButton.setTitleColor(createGameButton.tintColor, forState: .Normal)
         
 //        teamRef1.child("players").observeEventType(.Value) { (snapshot) in
 //            
 //        }
         
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        self.form.removeAll()
+        self.configureForm()
+
     }
     
     // MARK: Segue
@@ -128,7 +143,26 @@ class CreateGameFormViewController: FormViewController {
             +++ Section {
                 $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
                 $0.header!.height = { 0.5 }
+                
+//                $0.footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.Class)
+//                $0.footer?.height = { 90 }
+                
+//                var footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.Class)
+//                footer.height = { 90 }
+////
+//                footer.onSetupView = { view, _ in
+//                    
+//                    if view.createGameButton != nil {
+//                        view.createGameButton.addTarget(self, action: #selector(self.createGame), forControlEvents: .TouchUpInside)
+//                    }
+//                }
+//                $0.footer = footer
+                
+//                $0.footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.NibFile(name: "GameFormFooter", bundle: nil))
+//                $0.footer?.height = { 90 }
+
                 $0.tag = "MainSection"
+
             }
             
             // Add rows 
@@ -139,31 +173,26 @@ class CreateGameFormViewController: FormViewController {
                 
                 row.options = categories
                 row.title = "Category"
-                row.value = row.options[0]
+                // row.value = row.options[2]
+                row.value = "Select"
                 row.cell.height = { 65 }
                 row.cell.detailTextLabel?.textColor = UIColor.blackColor()
             }.onChange({ (picker) in
-
                 picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
                 
-                if picker.value != nil {
+                if picker.value != nil && picker.value != "Select" {
                     self.game.category = picker.value!
-                    self.game.category = self.categoryDict[picker.value!]!
-                    print("CATEGORY: \(self.game.category)")
                 }
-                
             })
             
             
             // Team 1
             
-            <<< TextRow() {
-                $0.title = "Team 1"
-                $0.placeholder = "Input"
-                $0.tag = "Team1"
-            }.cellSetup({ (cell, row) in
-
-            }).onChange({ (row) in
+            <<< TextRow() { row in
+                row.title = "Team 1"
+                row.placeholder = "Input"
+                row.tag = "Team1"
+            }.onChange({ (row) in
                 if row.value != nil {
                     self.game.team1.name = row.value!
                 }
@@ -184,9 +213,9 @@ class CreateGameFormViewController: FormViewController {
             
             // Add Player to Team 1
             
-            <<< AddPlayerInputRow() {
-                $0.tag = "AddPlayerInputRow1"
-                $0.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
+            <<< AddPlayerInputRow() { row in
+                row.tag = "AddPlayerInputRow1"
+                row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
                         return row.value ?? true == true
                     })
@@ -196,6 +225,7 @@ class CreateGameFormViewController: FormViewController {
                     
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
+                        // self.game.team1.players += [row.value!]
                     }
 
                 })
@@ -203,10 +233,10 @@ class CreateGameFormViewController: FormViewController {
             
             // Team 2
             
-            <<< TextRow() {
-                $0.title = "Team 2"
-                $0.placeholder = "Input"
-                $0.tag = "Team2"
+            <<< TextRow() { row in
+                row.title = "Team 2"
+                row.placeholder = "Input"
+                row.tag = "Team2"
             }.onChange({ (row) in
                 
                 if row.value != nil {
@@ -246,6 +276,7 @@ class CreateGameFormViewController: FormViewController {
                     
                     if row.value != nil {
                         self.playerForTeam2 = row.value!
+                        self.game.team2.players += [row.value!]
                     }
                     
                 })
@@ -266,6 +297,8 @@ class CreateGameFormViewController: FormViewController {
 
             <<< CoordinateRow() {
                 $0.tag = "CoordinateRow"
+                $0.cell.latitudeField.delegate = self
+                $0.cell.longitudeField.delegate = self
             }.onChange({ (row) in
                 if row.value != nil {
                     // Get coordinates
@@ -274,8 +307,6 @@ class CreateGameFormViewController: FormViewController {
                 if let latString = row.cell.latitudeField.text,
                     let lat = Float(latString) {
                     
-                    print("LATSTRING: \(latString)")
-
                     self.game.latitude = lat
                     
                 }
@@ -283,8 +314,6 @@ class CreateGameFormViewController: FormViewController {
                 if let lonString = row.cell.longitudeField.text,
                     let lon = Float(lonString) {
                     
-                    print("LONSTRING: \(lonString)")
-
                     self.game.latitude = lon
                 }
             
@@ -313,6 +342,7 @@ class CreateGameFormViewController: FormViewController {
             })
         }
     
+    
     // MARK: UI Customization
 
     func customizeFormAppearance() {
@@ -321,6 +351,7 @@ class CreateGameFormViewController: FormViewController {
         
         self.tableView?.sectionHeaderHeight = 0
         self.tableView?.separatorStyle = .None
+        self.tableView?.sectionFooterHeight = 90.0
         
         // Cell appearance
         
@@ -345,30 +376,12 @@ class CreateGameFormViewController: FormViewController {
     }
     
     // Remove input accessory view
-    
     override func inputAccessoryViewForRow(row: BaseRow) -> UIView? {
         return nil
     }
     
     
-    func printAllValues() {
-        print("CATEGORY: \(self.game.category)")
-        print("TEAM 1: \(self.game.team1.name)")
-        print("TEAM 1 PLAYERS: \(self.game.team1.players)")
-        print("TEAM 2: \(self.game.team2.name)")
-        print("TEAM 2 PLAYERS: \(self.game.team2.players)")
-        print("PARTICIPANT STARTING VALUE: \(self.game.startingValue)")
-        print("LATITUDE: \(self.game.latitude)")
-        print("LONGITUDE: \(self.game.longitude)")
-        print("VENUE: \(self.game.venue)")
-        print("END REGISTRATION: \(self.game.endRegistration)")
-        
-    }
-    
-    
-    // MARK: Custom UI functions
-    
-    // MARK: - Activity Indicator
+    // MARK: Activity Indicator
     
     func hideLoadingIndicator() {
         SwiftLoader.hide()
@@ -462,8 +475,6 @@ class CreateGameFormViewController: FormViewController {
         var inputRow = AddPlayerInputRow()
         var player = Player()
         
-        print("INDEXPATH.ROW: \(playerForTeamRow.indexPath()!.row)")
-        
         if playerForTeamRow.indexPath()!.row < self.form.rowByTag("AddPlayerInputRow1")?.indexPath()!.row {
             inputRow = self.form.rowByTag("AddPlayerInputRow1") as! AddPlayerInputRow
             player = game.team1.players[playerForTeamRow.indexPath()!.row - 2]
@@ -493,21 +504,20 @@ class CreateGameFormViewController: FormViewController {
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
         
+        createGame()
+
+    }
+    
+    
+    // MARK: Game Creation
+    
+    func createGame() {
+        
+        // Create database references
+        
         gameRef = FIRDatabase.database().reference().child("games").child("category").child(game.category).childByAutoId()
         teamRef1 = gameRef.child("team1")
         teamRef2 = gameRef.child("team2")
-        
-        if game.team1.players.isEmpty {
-            let title = "Error"
-            let message = "Team #1 Has no player(s). Please add players to the game."
-            self.showAlert(title, message: message)
-        } else if game.team2.players.isEmpty {
-            let title = "Error"
-            let message = "Team #2 Has no player(s). Please add players to the game."
-            self.showAlert(title, message: message)
-        } else {
-            // self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
-        }
         
         if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
             if let lat = Float(coordinateRow.cell.latitudeField.text!),
@@ -515,13 +525,94 @@ class CreateGameFormViewController: FormViewController {
                 self.game.latitude = lat
                 self.game.longitude = lon
             }
-            
         }
         
-        // Add game to database
+        // If complete, add game to database. Show missing data otherwise.
         
-        addGameToDatabase()
+        if formIsComplete() {
+            addGameToDatabase()
+            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+        } else {
+            showMissingInputs()
+        }
+
+    }
+    
+    // MARK: Input Checking
+    
+    func formIsComplete() -> Bool {
         
+        if game.category == "" {
+            missingInputs += ["Category"]
+        } else {
+            print("Category is entered: \(game.category)")
+        }
+        
+        if game.team1.name == "" {
+            missingInputs += ["Team 1 name"]
+        } else {
+            print("Team 1 name is entered: \(game.team1.name)")
+        }
+        
+        if game.team1.players.isEmpty {
+            missingInputs += ["Players for Team 1"]
+        } else {
+            print("Team 1 players entered: \(game.team1.players)")
+        }
+        
+        if game.team2.name == "" {
+            missingInputs += ["Team 2 name"]
+        } else {
+            print("Team 2 name is entered: \(game.team2.name)")
+        }
+        
+        if game.team2.players.isEmpty {
+            missingInputs += ["Players for Team 2"]
+        } else {
+            print("Team 2 players entered: \(game.team2.players)")
+        }
+        
+        if game.startingValue as? Int == nil  {
+            missingInputs += ["Participant Starting Value"]
+        } else {
+            print("Starting Value entered: \(game.startingValue)")
+        }
+        
+        if game.latitude as? Float == nil {
+            missingInputs += ["Latitude"]
+        } else {
+            print("Latitude entered: \(game.latitude)")
+        }
+        
+        if self.game.longitude as? Float == nil {
+            missingInputs += ["Longitude"]
+        } else {
+            print("Longitude entered: \(game.longitude)")
+        }
+        
+        if self.game.venue == "" {
+            missingInputs += ["Venue"]
+        } else {
+            print("Venue entered: \(game.venue)")
+        }
+
+        return missingInputs.isEmpty
+    }
+    
+    func showMissingInputs() {
+        var message = "Please enter: "
+        
+        if missingInputs.count > 1 {
+            for i in 0..<missingInputs.count - 1 {
+                message += missingInputs[i] + ", "
+            }
+            message += "and "
+        }
+        
+        message += missingInputs[missingInputs.count - 1] + "."
+        
+        self.showAlert("Incomplete Data", message: message)
+
     }
     
     func addGameToDatabase() {
@@ -537,7 +628,6 @@ class CreateGameFormViewController: FormViewController {
         
         
         // Team 1
-        
         teamRef1.child("teamname").setValue(game.team1.name)
         
         for player in game.team1.players {
@@ -548,9 +638,7 @@ class CreateGameFormViewController: FormViewController {
             playerRef.child("score").setValue(0)
         }
         
-        
         // Team 2
-        
         teamRef2.child("teamname").setValue(game.team2.name)
         
         for player in game.team2.players {
@@ -562,7 +650,6 @@ class CreateGameFormViewController: FormViewController {
         }
         
         // Other game properties
-        
         gameRef.child("latitude").setValue(game.latitude)
         gameRef.child("longitude").setValue(game.longitude)
         gameRef.child("venue").setValue(game.venue)
@@ -609,7 +696,6 @@ class CreateGameFormViewController: FormViewController {
                 if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
                     return actions
                 }
-
             }
         }
 
@@ -619,7 +705,6 @@ class CreateGameFormViewController: FormViewController {
                 if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
                     return actions
                 }
-                
             }
         }
         
@@ -652,6 +737,86 @@ class CreateGameFormViewController: FormViewController {
         
         return false
 
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 90.0))
+        footerView.backgroundColor = UIColor.clearColor()
+        let buttonWidth: CGFloat = 150
+        let buttonHeight: CGFloat = 50.0
+        let margin: CGFloat = 15.0
+        createGameButton = UIButton(frame: CGRect(x: footerView.bounds.width - buttonWidth - margin, y: footerView.bounds.height - buttonHeight - margin, width: 150, height: 35.0))
+        createGameButton.layer.borderWidth = 1.0
+        createGameButton.layer.borderColor = createGameButton.tintColor.CGColor
+        createGameButton.layer.cornerRadius = 5.0
+        createGameButton.setTitle("Create Game", forState: .Normal)
+        createGameButton.titleLabel?.tintColor = createGameButton.tintColor
+        createGameButton.titleLabel?.textColor = UIColor.blackColor()
+        createGameButton.titleLabel?.text = "Create Game"
+        createGameButton.addTarget(self, action: #selector(self.createGame), forControlEvents: .TouchUpInside)
+        
+        footerView.addSubview(createGameButton)
+        
+        return footerView
+    }
+    
+}
+
+// MARK: - UITextField Delegate functions
+
+extension CreateGameFormViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+//        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
+//            if textField.text != nil || textField.text != "" {
+//                if textField == coordinateRow.cell.latitudeField {
+//                    if let lat = coordinateRow.cell.latitudeField.text {
+//                        self.game.latitude = (Float(lat))!
+//                    }
+//                } else if textField == coordinateRow.cell.longitudeField {
+//                    if let lon = coordinateRow.cell.longitudeField.text {
+//                        self.game.longitude = Float(lon)!
+//                    }
+//                }
+//            }
+//        }
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
+            if textField == coordinateRow.cell.latitudeField ||
+                textField == coordinateRow.cell.longitudeField {
+                
+                let existingTextHasDecimal = textField.text?.rangeOfString(".") != nil
+                let existingTextHasMinus = textField.text?.rangeOfString("-") != nil
+                
+                let replacementTextIsDecimal = string.rangeOfString(".") != nil
+                let replacementTextHasMinus = string.rangeOfString("-") != nil
+                
+                if Float(string) != nil || string == "-" || string == "." || string == "" {
+                    
+                    if (existingTextHasDecimal && replacementTextIsDecimal) ||
+                        (existingTextHasMinus && replacementTextHasMinus) {
+                        return false
+                    }
+                    
+                    if string == "-" && range.location != 0 {
+                        return false
+                    }
+                    
+                    return true
+                } else {
+                    return false
+                }
+                
+            }
+        }
+        
+        return true
+        
     }
     
 }
