@@ -62,6 +62,7 @@ class GameViewController: UIViewController {
 
     }
     
+    
     func setGameRosterViewState() {
         if let mainVC = self.parentViewController as? MainViewController {
             mainVC.gameRosterViewIsActive = self.gameRosterViewIsActive
@@ -184,7 +185,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
     }
-    
     
 
 }

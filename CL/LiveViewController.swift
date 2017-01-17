@@ -25,8 +25,16 @@ class LiveViewController: UIViewController {
     @IBOutlet weak var leaderboardButton: UIButton!
     @IBOutlet weak var myTeamButton: UIButton!
     
+
+    var teams = [Team]()
+    // Firebase database references
+    var matchups = [(team1: Team, team2: Team)]()
+    
     var teamRef1 = FIRDatabaseReference()
     var teamRef2 = FIRDatabaseReference()
+    
+    var categoryRef = FIRDatabaseReference()
+    var categoryType: CategoryType?
 
     // Cell Identifiers
     let idCellLeaderboard = "idCellLeaderboard"
@@ -38,6 +46,8 @@ class LiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        categoryType = .NBA
+        getGameDataFor(categoryType!)
         // Do any additional setup after loading the view.
         registerCells()
         
@@ -62,8 +72,38 @@ class LiveViewController: UIViewController {
 
     }
     
-    func loadData() {
+    func getGameDataFor(category: CategoryType) {
+        var categoryName = String()
+        switch category {
+        case .MLB:
+            categoryName = "mlb"
+        case .MLS:
+            categoryName = "mls"
+        case .NCAABasketball:
+            categoryName = "ncaa-basketball"
+        case .NCAAFootball:
+            categoryName = "ncaa-football"
+        case .NBA:
+            categoryName = "nba"
+        case .NFL:
+            categoryName = "nfl"
+        case .NHL:
+            categoryName = "nhl"
+        }
         
+        categoryRef = FIRDatabase.database().reference().child("category").child(categoryName)
+        
+        categoryRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            
+            if snapshot.value is NSNull {
+                return
+            } else {
+                for child in snapshot.children {
+                    self.matchups += [(team1: child.value["team1"] as! Team, team2: child.value["team2"] as! Team)]
+                }
+            }
+        })
+    
     }
     
     func team1ButtonPressed() {
@@ -74,6 +114,14 @@ class LiveViewController: UIViewController {
 
     }
 
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+        alert.addAction(okAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     
     /// MARK: IBActions
     
@@ -119,6 +167,9 @@ class LiveViewController: UIViewController {
         self.setLiveTeamViewState()
     }
     
+    
+    // MARK: Custom functions
+    
     func registerCells() {
         liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
         leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
@@ -130,7 +181,6 @@ class LiveViewController: UIViewController {
             mainVC.liveTeamViewIsActive = self.liveTeamViewIsActive
          }
     }
-    
 
 }
 

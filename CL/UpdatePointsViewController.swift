@@ -67,7 +67,7 @@ class UpdatePointsViewController: FormViewController {
     
     func customizeFormAppearance() {
         self.tableView?.separatorStyle = .None
-        
+        self.tableView?.backgroundColor = UIColor.whiteColor()
     }
     
     // Test data

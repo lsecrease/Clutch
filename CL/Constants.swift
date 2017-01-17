@@ -39,3 +39,7 @@ enum Direction {
 enum RotationDirection {
     case Clockwise, CounterClockwise
 }
+
+enum CategoryType {
+    case MLB, MLS, NCAABasketball, NCAAFootball, NBA, NFL, NHL
+}
