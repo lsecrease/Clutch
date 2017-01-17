@@ -69,7 +69,6 @@ class CreateGameFormViewController: FormViewController {
     
     var isConnectedToDatabase = false
     
-    
     // MARK: View lifecycle
     
     override func viewDidLoad() {
@@ -108,12 +107,10 @@ class CreateGameFormViewController: FormViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showUpdatePointsVC" {
             if let updatePointsVC = segue.destinationViewController as? UpdatePointsViewController {
-
                 updatePointsVC.team1 = self.game.team1
                 updatePointsVC.team2 = self.game.team2
                 updatePointsVC.teamRef1 = self.teamRef1
                 updatePointsVC.teamRef2 = self.teamRef2
-                
             }
         }
     }
@@ -123,8 +120,7 @@ class CreateGameFormViewController: FormViewController {
     deinit {
         
     }
-    
-    
+
     
     // MARK: Eureka Form
     
@@ -139,33 +135,15 @@ class CreateGameFormViewController: FormViewController {
         
         form
             
-            // Add section and remove section header and footer by setting its height to 0.5
-            +++ Section {
-                $0.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
-                $0.header!.height = { 0.5 }
-                
-//                $0.footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.Class)
-//                $0.footer?.height = { 90 }
-                
-//                var footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.Class)
-//                footer.height = { 90 }
-////
-//                footer.onSetupView = { view, _ in
-//                    
-//                    if view.createGameButton != nil {
-//                        view.createGameButton.addTarget(self, action: #selector(self.createGame), forControlEvents: .TouchUpInside)
-//                    }
-//                }
-//                $0.footer = footer
-                
-//                $0.footer = HeaderFooterView<GameFormFooter>(HeaderFooterProvider.NibFile(name: "GameFormFooter", bundle: nil))
-//                $0.footer?.height = { 90 }
-
-                $0.tag = "MainSection"
-
+            // ADD & CONFIGURE SECTION
+            
+            +++ Section { Section in
+                Section.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+                Section.header!.height = { 0.5 }
+                Section.tag = "MainSection"
             }
             
-            // Add rows 
+            // ADD ROWS
             
             // Category
             
@@ -186,7 +164,7 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // Team 1
+            // Team 1 name
             
             <<< TextRow() { row in
                 row.title = "Team 1"
@@ -199,19 +177,17 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // Team 1
+            // Add Player to Team 1 (Expanding row)
             
             <<< AddPlayerRow() { row in
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
-                    
-                    // Toggle true/false to display inputrow below
+                    // Toggle true/false to display input row below
                     row.value = !row.value!
-
                 })
             
             
-            // Add Player to Team 1
+            // Add Player to Team 1 (Input row)
             
             <<< AddPlayerInputRow() { row in
                 row.tag = "AddPlayerInputRow1"
@@ -231,7 +207,7 @@ class CreateGameFormViewController: FormViewController {
                 })
             
             
-            // Team 2
+            // Team 2 name
             
             <<< TextRow() { row in
                 row.title = "Team 2"
@@ -246,7 +222,7 @@ class CreateGameFormViewController: FormViewController {
             })
             
             
-            // Add Player to Team 2
+            // Add Player to Team 2 (expanding row)
 
             <<< AddPlayerRow() { row in
                 row.tag = "AddPlayerRow2"
@@ -262,11 +238,12 @@ class CreateGameFormViewController: FormViewController {
 
                 })
             
-            // 6
             
-            <<< AddPlayerInputRow() {
-                $0.tag = "AddPlayerInputRow2"
-                $0.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
+            // Add Player to Team 2 (Input row)
+            
+            <<< AddPlayerInputRow() { row in
+                row.tag = "AddPlayerInputRow2"
+                row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
                         return row.value ?? true == true
                     })
@@ -281,62 +258,57 @@ class CreateGameFormViewController: FormViewController {
                     
                 })
             
-            // 7
             
-            <<< IntRow() {
-                $0.title = "Participant starting value"
-                $0.placeholder = "Input"
-                $0.tag = "StartingValueRow"
+            // Participant Starting Value
+            
+            <<< IntRow() { row in
+                row.title = "Participant starting value"
+                row.placeholder = "Input"
+                row.tag = "StartingValueRow"
             }.onChange({ (row) in
                 if row.value != nil {
                     self.game.startingValue = row.value!
                 }
             })
             
-            // 8
-
-            <<< CoordinateRow() {
-                $0.tag = "CoordinateRow"
-                $0.cell.latitudeField.delegate = self
-                $0.cell.longitudeField.delegate = self
+            
+            // Latitude and Longitude
+            
+            <<< CoordinateRow() { row in
+                row.tag = "CoordinateRow"
+                row.cell.latitudeField.delegate = self
+                row.cell.longitudeField.delegate = self
             }.onChange({ (row) in
-                if row.value != nil {
-                    // Get coordinates
-                }
-                
                 if let latString = row.cell.latitudeField.text,
                     let lat = Float(latString) {
-                    
                     self.game.latitude = lat
-                    
                 }
                 
                 if let lonString = row.cell.longitudeField.text,
                     let lon = Float(lonString) {
-                    
                     self.game.latitude = lon
                 }
-            
             })
             
-            // 9
             
-            <<< TextRow() {
-                $0.title = "Venue Name"
-                $0.placeholder = "Input"
-                $0.tag = "Venue"
+            // Venue
+            
+            <<< TextRow() { row in
+                row.title = "Venue Name"
+                row.placeholder = "Input"
+                row.tag = "Venue"
             }.onChange({ (row) in
                 if row.value != nil {
                     self.game.venue = row.value!
                 }
             })
             
-            // 10
+            // End Registration
         
-            <<< DateTimeInlineRow() {
-                $0.title = "End Registration"
-                $0.value = NSDate()
-                $0.tag = "EndRegistrationDate"
+            <<< DateTimeInlineRow() { row in
+                row.title = "End Registration"
+                row.value = NSDate()
+                row.tag = "EndRegistrationDate"
             }.onChange({ (dateInlineRow) in
                 self.game.endRegistration = dateInlineRow.value!
             })
