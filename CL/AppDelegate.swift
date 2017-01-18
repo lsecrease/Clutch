@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     override init() {
         
-        // Firebase configuration
+        // MARK: Firebase configuration
 
         FIRApp.configure()
     }
@@ -30,21 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // CoreLocation
-        
-//        if CLLocationManager.authorizationStatus() != .AuthorizedAlways ||
-//            CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
-//            
-//            locationManager.delegate = self
-//            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//            locationManager.requestAlwaysAuthorization()
-//            
-//        }
-        
-        
-        // Facebook
+        // MARK: Facebook
        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        
+        // MARK: Push notifications
+
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+        application.registerForRemoteNotifications()
+        
+        // Add observer for InstancID token refresh callback
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefereshNotification(_:)), name: kFIRInstanceIDTokenRefreshNotification, object: nil)
         
         return true
     }
@@ -75,12 +73,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
+        connectToFCM()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    
+    // MARK: Push Notification Methods
+    
+    func registerForPushNotifications(application: UIApplication) {
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+        application.registerUserNotificationSettings(notificationSettings)
+        application.registerForRemoteNotifications()
+    }
+    
+    func tokenRefereshNotification(notification: NSNotification) {
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token: \(refreshedToken)")
+        }
+        
+        // Connect to FCM in case connection failed beforre getting token
+        connectToFCM()
+    }
+    
+    func connectToFCM() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if error != nil {
+                print("Could not connect to FCM: \(error?.localizedDescription)")
+            } else {
+                print("Connected to FCM successfuly")
+            }
+        }
+    }
+    
+    // MARK: - Push Notification Delegate Methods
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        print("Registered push notification settings...")
+    }
+
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        
+        // Set APNS token (.Unknown type is used to allow for either production or debugging
+        // build. Should set type to .Prod once dev is complete.
+        
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: .Unknown)
+        
+        print("Registered device for push notifications with TOKEN: \(deviceToken)")
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print(error.localizedDescription)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+        print("Received notification with user info: \(userInfo)")
     }
     
     

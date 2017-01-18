@@ -56,46 +56,46 @@ class LoginViewController: UIViewController {
     
     @IBAction func fbLoginButtonPressed(sender: UIButton) {
         
-//        // Call FB Login Manager
-//        let fbLoginManager = FBSDKLoginManager()
-//        
-//        // Login to Facebook
-//        
-//        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
-//            
-//            if error != nil {
-//                print("COULD NOT LOGIN TO FACEBOOK WITH THOSE CREDENTIALS")
-//                
-//                return
-//            } else {
-//                let fbLoginResult: FBSDKLoginManagerLoginResult = result
-//                
-//                if fbLoginResult.isCancelled {
-//                    return
-//                } else if (fbLoginResult.grantedPermissions.contains("email")) {
-//                    self.getFBUserData()
-//                    
-//                    self.showLoadingIndicator()
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        if self.userIsAdmin {
-//                            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
-//                        } else {
-//                            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
-//                        }
-//                        self.hideLoadingIndicator()
-//                    })
-//
-//                }
-//                
-//                self.loginToFirebaseWithFacebookToken()
-//            }
-//        }
+        // Call FB Login Manager
+        let fbLoginManager = FBSDKLoginManager()
         
-        if self.userIsAdmin {
-            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
-        } else {
-            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+        // Login to Facebook
+        
+        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
+            
+            if error != nil {
+                print("COULD NOT LOGIN TO FACEBOOK WITH THOSE CREDENTIALS")
+                
+                return
+            } else {
+                let fbLoginResult: FBSDKLoginManagerLoginResult = result
+                
+                if fbLoginResult.isCancelled {
+                    return
+                } else if (fbLoginResult.grantedPermissions.contains("email")) {
+                    self.getFBUserData()
+                    
+                    self.showLoadingIndicator()
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        if self.userIsAdmin {
+                            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
+                        } else {
+                            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+                        }
+                        self.hideLoadingIndicator()
+                    })
+
+                }
+                
+                self.loginToFirebaseWithFacebookToken()
+            }
         }
+        
+//        if self.userIsAdmin {
+//            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
+//        } else {
+//            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+//        }
         
     }
     
