@@ -133,7 +133,7 @@
         <!--Live View Controller-->
         <scene sceneID="s7g-jG-tpV">
             <objects>
-                <viewController id="yia-ea-5mt" customClass="LiveViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LiveViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yia-ea-5mt" customClass="LiveViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0tG-Yc-P7i"/>
                         <viewControllerLayoutGuide type="bottom" id="LKJ-aR-AaX"/>
@@ -1049,7 +1049,7 @@
         <!--Game View Controller-->
         <scene sceneID="3Mn-p1-wju">
             <objects>
-                <viewController id="9vd-FI-5mT" customClass="GameViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vd-FI-5mT" customClass="GameViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IBf-0V-8gl"/>
                         <viewControllerLayoutGuide type="bottom" id="v75-If-e76"/>

@@ -149,6 +149,14 @@ class MainViewController: UIViewController {
     
     // MARK: Firebase Database functions
     
+    func passGameDataToOtherVCs(games: [Game]) {
+        
+        if let gameVC = self.storyboard?.instantiateViewControllerWithIdentifier("GameViewController") as? GameViewController {
+            gameVC.games = games
+        }
+        
+    }
+    
     func getGameDataFor(category: CategoryType) {
         var categoryName = String()
         switch category {
@@ -194,6 +202,9 @@ class MainViewController: UIViewController {
                             
                             if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
                                 
+                                print(team1.allKeys)
+
+                                
                                 if let teamname = team1.valueForKey("teamname") as? String {
                                     gameData.team1.name = teamname
                                 }
@@ -213,7 +224,6 @@ class MainViewController: UIViewController {
                                         }
                                     }
                                     
-                                    print("PLAYER KEYS: \(playerKeys)")
                                 }
                             }
                             
@@ -221,15 +231,19 @@ class MainViewController: UIViewController {
                             // GET TEAM 2 INFO
                             if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
                                 
+                                
+                                // Works
                                 if let teamname = team2.valueForKey("teamname") as? String {
                                     gameData.team2.name = teamname
                                 }
                                 
-                                if let players = team2.valueForKey("players") as? NSMutableDictionary {
+                                // Doesn't work
+
+                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
                                     
                                     var playerKeys = [String]()
                                     
-                                    for player in players {
+                                    for player in players2 {
                                         playerKeys.append(player.key as! String)
                                         
                                         if let playerInfo = player.value as? NSDictionary {
@@ -241,17 +255,12 @@ class MainViewController: UIViewController {
                                         }
                                     }
                                     
-                                    print("GAME DATA TEAM 2: \(gameData.team2.players)")
-                                    print(gameData.team2.players)
-                                    
-                                } else {
-                                    print("COULD NOT RETRIEVE PLAYER FROM TEAM 2")
-
+                                } else if let players2 = team2.valueForKey("players") as? NSDictionary {
+                                    print("GOT DATA AS DICTIONARY")
                                 }
                                 
+                                
                             }
-
-                            // let team2 = currentGame.valueForKey("team2") as! NSMutableDictionary
                             
                             self.games.append(gameData)
                         }
@@ -271,6 +280,8 @@ class MainViewController: UIViewController {
 //                        print(game.team2.players)
 //                        print("\n")
 //                    }
+                    
+                    self.passGameDataToOtherVCs(self.games)
 
                 } else {
                     print("Could not map data")

@@ -613,7 +613,7 @@ class CreateGameFormViewController: FormViewController {
         teamRef2.child("teamname").setValue(game.team2.name)
         
         for player in game.team2.players {
-            let playerRef = teamRef2.childByAutoId()
+            let playerRef = teamRef2.child("players").childByAutoId()
             playerRef.child("name").setValue(player.name)
             playerRef.child("number").setValue(player.number)
             playerRef.child("point-value").setValue(player.pointValue)

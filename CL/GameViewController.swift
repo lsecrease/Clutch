@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
     // MARK: Game properties
     
     var game = Game()
+    var games = [Game]()
     var gameRosterViewIsActive = false
 
     
@@ -40,6 +41,23 @@ class GameViewController: UIViewController {
         // Note: MUST be set in viewDidLoad for proper alignment.
         gameMatchupViewCenterX.constant = self.view.bounds.origin.x
         gameRosterViewCenterX.constant += self.view.bounds.width
+        
+        if let mainVC = self.parentViewController as? MainViewController {
+            self.games = mainVC.games
+        }
+        
+        for game in self.games {
+            print(game.category)
+            print(game.venue)
+            print(game.gameID)
+            print(game.latitude)
+            print(game.longitude)
+            print(game.team1.name)
+            print(game.team1.players)
+            print(game.team2.name)
+            print(game.team2.players)
+            print("\n")
+        }
 
     }
     
