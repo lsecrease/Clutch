@@ -11,17 +11,6 @@ import Foundation
 
 class Game {
     
-//    var gameID: String?
-//    var category: String?
-//    var team1 = Team()
-//    var team2 = Team()
-//    var startingValue: Int?
-//    var latitude: Float?
-//    var longitude: Float?
-//    var venue: String?
-//    var endRegistration: NSDate?
-//    var participants: [String]?
-    
     var gameID = String()
     var category = String()
     var team1 = Team()
