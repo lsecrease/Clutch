@@ -25,6 +25,9 @@ class LiveViewController: UIViewController {
     @IBOutlet weak var leaderboardButton: UIButton!
     @IBOutlet weak var myTeamButton: UIButton!
     
+    @IBOutlet weak var teamButton1: UIButton!
+    @IBOutlet weak var teamButton2: UIButton!
+    
 
     var teams = [Team]()
     // Firebase database references
@@ -47,7 +50,6 @@ class LiveViewController: UIViewController {
         super.viewDidLoad()
 
         categoryType = .NBA
-        getGameDataFor(categoryType!)
         // Do any additional setup after loading the view.
         registerCells()
         
@@ -68,52 +70,52 @@ class LiveViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
 
     }
     
-    func getGameDataFor(category: CategoryType) {
-        var categoryName = String()
-        switch category {
-        case .MLB:
-            categoryName = "mlb"
-        case .MLS:
-            categoryName = "mls"
-        case .NCAABasketball:
-            categoryName = "ncaa-basketball"
-        case .NCAAFootball:
-            categoryName = "ncaa-football"
-        case .NBA:
-            categoryName = "nba"
-        case .NFL:
-            categoryName = "nfl"
-        case .NHL:
-            categoryName = "nhl"
-        }
-        
-        categoryRef = FIRDatabase.database().reference().child("category").child(categoryName)
-        
-        categoryRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            
-            if snapshot.value is NSNull {
-                return
-            } else {
-                for child in snapshot.children {
-                    self.matchups += [(team1: child.value["team1"] as! Team, team2: child.value["team2"] as! Team)]
-                }
-                print("MATCHUPS:-")
-                print(self.matchups)
-            }
-        })
     
-    }
+//    func getGameDataFor(category: CategoryType) {
+//        var categoryName = String()
+//        switch category {
+//        case .MLB:
+//            categoryName = "mlb"
+//        case .MLS:
+//            categoryName = "mls"
+//        case .NCAABasketball:
+//            categoryName = "ncaa-basketball"
+//        case .NCAAFootball:
+//            categoryName = "ncaa-football"
+//        case .NBA:
+//            categoryName = "nba"
+//        case .NFL:
+//            categoryName = "nfl"
+//        case .NHL:
+//            categoryName = "nhl"
+//        }
+//        
+//        categoryRef = FIRDatabase.database().reference().child("category").child(categoryName)
+//        
+//        categoryRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+//            
+//            if snapshot.value is NSNull {
+//                return
+//            } else {
+//                for child in snapshot.children {
+//                    self.matchups += [(team1: child.value["team1"] as! Team, team2: child.value["team2"] as! Team)]
+//                }
+//                print("MATCHUPS:-")
+//                print(self.matchups)
+//            }
+//        })
+//    
+//    }
     
     func team1ButtonPressed() {
-
+        print("TEAM BUTTON 1 PRESSED")
     }
     
     func team2ButtonPressed() {
-
+        print("TEAM BUTTON 2 PRESSED")
     }
 
     func showAlert(title: String, message: String) {

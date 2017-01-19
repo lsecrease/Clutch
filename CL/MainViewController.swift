@@ -7,7 +7,7 @@
 //
 
 import CoreLocation
-import Firebase
+import FirebaseDatabase
 import UIKit
 
 
@@ -21,7 +21,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var profileContainerView: UIView!
     @IBOutlet weak var gameContainerView: UIView!
     @IBOutlet weak var liveContainerView: UIView!
-    
     
     // Segment Buttons
     @IBOutlet weak var profileButton: UIButton!
@@ -37,8 +36,21 @@ class MainViewController: UIViewController {
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
-    // Firebase
+    // MARK: Properties
+        
+    // Firebase properties
+    var ref: FIRDatabaseReference!
+    var refHandle: UInt!
     var isSignedIn = true
+    var gamesRef = FIRDatabaseReference()
+    var teamRef1 = FIRDatabaseReference()
+    var teamRef2 = FIRDatabaseReference()
+    var gameCategory: CategoryType?
+    
+    var games = [Game]()
+    var gameKeys = [String]()
+    var team1 = Team()
+    var team2 = Team()
     
     // Boolean view properties
     var gameRosterViewIsActive: Bool!
@@ -49,10 +61,14 @@ class MainViewController: UIViewController {
     var locationManager: CLLocationManager!
     let radius = 300.0
     
+    
     // MARK: View life-cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set category
+        gameCategory = .NBA
         
         configureViews()
         
@@ -64,41 +80,31 @@ class MainViewController: UIViewController {
         
         setupGeofencing()
         
-        if let profileVC = self.storyboard?.instantiateViewControllerWithIdentifier("ProfileViewController") as? ProfileViewController {
-            
-//            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), { Void in
-//                if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
-//                    let url = NSURL(string: picURL),
-//                    let data = NSData(contentsOfURL: url),
-//                    let profilePic = UIImage(data: data) {
-//                    
-//                    print(picURL)
-//                    dispatch_async(dispatch_get_main_queue(), { Void in
-//                        // profileVC.profileImage = UIImage(data: data)!
-//                        profileVC.profileImage = profilePic
-//                    })
-//                    
-//                } else {
-//                    print("COULD NOT SET PROFILE PIC - MAIN VC")
-//                }
-//                
-//                
-//            })
-            
-        }
+        ref = FIRDatabase.database().reference()
         
+//        refHandle = ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+//            
+//            if !snapshot.exists() {
+//                print("NO SNAPSHOT RECEIVED")
+//            }
+//            
+//            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+//            print(postDict)
+//        })
         
-
+         getGameDataFor(gameCategory!)
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+//        refHandle = ref.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+//            let dataDict = snapshot.value
+//            print(dataDict)
+//        })
         
     }
-    
-
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -138,7 +144,6 @@ class MainViewController: UIViewController {
             ]
         }
         
-        
         // Indicate current view
         profileUnderlineLabel.show()
         
@@ -156,19 +161,72 @@ class MainViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    // MARK: Firebase Database
     
-    func connectToDatabase() {
-        
-        if isSignedIn {
-            connectToDatabase()
+    // MARK: Firebase Database functions
+    
+    func getGameDataFor(category: CategoryType) {
+        var categoryName = String()
+        switch category {
+        case .MLB:
+            categoryName = "mlb"
+        case .MLS:
+            categoryName = "mls"
+        case .NCAABasketball:
+            categoryName = "ncaa-basketball"
+        case .NCAAFootball:
+            categoryName = "ncaa-football"
+        case .NBA:
+            categoryName = "nba"
+        case .NFL:
+            categoryName = "nfl"
+        case .NHL:
+            categoryName = "nhl"
         }
         
-    }
-    
-    func getGameData() {
+        gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
+        
+        refHandle = gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+            if !snapshot.exists() {
+                print("NO SNAPSHOT AVAILABLE")
+            } else {
+                
+                let data = snapshot.value
+                
+                if let allKeys = snapshot.value?.allKeys as? [String] {
+                    self.gameKeys = allKeys
+                    var count = 0
+                    
+                    for key in self.gameKeys {
+                        
+                        if let currentGame = snapshot.value!.valueForKey(key) {
+                            var gameData = Game()
+                            gameData.category = categoryName
+                            gameData.gameID = key
+                            gameData.venue = currentGame.valueForKey("venue")! as! String
+                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
+                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
+                            self.games.append(gameData)
+                        }
+                    }
+                                        
+                    for game in self.games {
+                        print(game.category)
+                        print(game.venue)
+                        print(game.gameID)
+                        print(game.latitude)
+                        print(game.longitude)
+                        print("\n")
+                    }
+
+                } else {
+                    print("Could not map data")
+                }
+            }
+
+        })
         
     }
+
     
     // MARK: Geofencing functions
     

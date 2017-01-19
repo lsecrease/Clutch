@@ -31,7 +31,6 @@ public class AddPlayerCell: Cell<Bool>, CellType {
         titleLabel.font = defaultFont
         topSeparator.hidden = true
         height = { return 65 }
-        
     }
     
     override public func update() {

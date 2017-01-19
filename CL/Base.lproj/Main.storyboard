@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-5O-6k5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LoF-5O-6k5">
                                 <rect key="frame" x="133" y="96" width="108" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="108" id="ahe-AG-GPL"/>
@@ -755,7 +755,7 @@
                                 </constraints>
                                 <color key="barTintColor" red="0.29904851319999998" green="0.46762090919999999" blue="0.97483378649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem title="App" id="PMW-Yx-EPu">
+                                    <navigationItem title="Title" id="PMW-Yx-EPu">
                                         <barButtonItem key="leftBarButtonItem" style="plain" id="beD-Uk-IXo">
                                             <view key="customView" clipsSubviews="YES" contentMode="scaleToFill" id="0QM-fl-Ttp">
                                                 <rect key="frame" x="16" y="18" width="83" height="48"/>
