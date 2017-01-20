@@ -46,18 +46,18 @@ class GameViewController: UIViewController {
             self.games = mainVC.games
         }
         
-        for game in self.games {
-            print(game.category)
-            print(game.venue)
-            print(game.gameID)
-            print(game.latitude)
-            print(game.longitude)
-            print(game.team1.name)
-            print(game.team1.players)
-            print(game.team2.name)
-            print(game.team2.players)
-            print("\n")
-        }
+//        for game in self.games {
+//            print(game.category)
+//            print(game.venue)
+//            print(game.gameID)
+//            print(game.latitude)
+//            print(game.longitude)
+//            print(game.team1.name)
+//            print(game.team1.players)
+//            print(game.team2.name)
+//            print(game.team2.players)
+//            print("\n")
+//        }
 
     }
     

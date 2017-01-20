@@ -148,7 +148,6 @@ class CreateGameFormViewController: FormViewController {
             // Category
             
             <<< PickerInlineRow<String>("Category Row") { (row : PickerInlineRow<String>) -> Void in
-                
                 row.options = categories
                 row.title = "Category"
                 // row.value = row.options[2]
@@ -308,6 +307,13 @@ class CreateGameFormViewController: FormViewController {
                 row.title = "End Registration"
                 row.value = NSDate()
                 row.tag = "EndRegistrationDate"
+                
+                // Format date appearance
+                var formatter = NSDateFormatter()
+                formatter.dateStyle = .MediumStyle
+                formatter.timeStyle = .ShortStyle
+                row.dateFormatter = formatter
+                
             }.onChange({ (dateInlineRow) in
                 self.game.endRegistration = dateInlineRow.value!
             })
@@ -624,9 +630,24 @@ class CreateGameFormViewController: FormViewController {
         gameRef.child("latitude").setValue(game.latitude)
         gameRef.child("longitude").setValue(game.longitude)
         gameRef.child("venue").setValue(game.venue)
-        gameRef.child("end-registration").setValue("\(game.endRegistration)")
+        // gameRef.child("end-registration").setValue("\(game.endRegistration)")
+        gameRef.child("end-registration").setValue(stringFromDate(game.endRegistration))
         gameRef.child("starting-value").setValue(game.startingValue)
-
+    }
+    
+    
+    
+    // MARK: Date Formatter
+    
+    func stringFromDate(date: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale.currentLocale()
+        dateFormatter.dateStyle = .FullStyle
+        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.dateFormat = "yyyy-mm-dd H:mm"
+        dateFormatter.defaultDate = NSDate()
+        let dateString = dateFormatter.stringFromDate(date)
+        return dateString
     }
     
     
@@ -713,7 +734,7 @@ class CreateGameFormViewController: FormViewController {
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 90.0))
-        footerView.backgroundColor = UIColor.clearColor()
+        footerView.backgroundColor = UIColor.whiteColor()
         let buttonWidth: CGFloat = 150
         let buttonHeight: CGFloat = 50.0
         let margin: CGFloat = 15.0

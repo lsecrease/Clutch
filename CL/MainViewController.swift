@@ -154,8 +154,8 @@ class MainViewController: UIViewController {
         if let gameVC = self.storyboard?.instantiateViewControllerWithIdentifier("GameViewController") as? GameViewController {
             gameVC.games = games
         }
-        
     }
+    
     
     func getGameDataFor(category: CategoryType) {
         var categoryName = String()
@@ -232,15 +232,13 @@ class MainViewController: UIViewController {
                             if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
                                 
                                 
-                                // Works
+                                // Get team 2 name
                                 if let teamname = team2.valueForKey("teamname") as? String {
                                     gameData.team2.name = teamname
                                 }
                                 
-                                // Doesn't work
-
+                                // Get team 2 players
                                 if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
-                                    
                                     var playerKeys = [String]()
                                     
                                     for player in players2 {
@@ -259,27 +257,25 @@ class MainViewController: UIViewController {
                                     print("GOT DATA AS DICTIONARY")
                                 }
                                 
-                                
                             }
-                            
                             self.games.append(gameData)
                         }
                     }
                     
                     // DEBUGGING....
                     
-//                    for game in self.games {
-//                        print(game.category)
-//                        print(game.venue)
-//                        print(game.gameID)
-//                        print(game.latitude)
-//                        print(game.longitude)
-//                        print(game.team1.name)
-//                        print(game.team1.players)
-//                        print(game.team2.name)
-//                        print(game.team2.players)
-//                        print("\n")
-//                    }
+                    for game in self.games {
+                        print(game.category)
+                        print(game.venue)
+                        print(game.gameID)
+                        print(game.latitude)
+                        print(game.longitude)
+                        print(game.team1.name)
+                        print(game.team1.players)
+                        print(game.team2.name)
+                        print(game.team2.players)
+                        print("\n")
+                    }
                     
                     self.passGameDataToOtherVCs(self.games)
 
