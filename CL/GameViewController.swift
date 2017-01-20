@@ -196,7 +196,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
     }
-    
 
 }
 
@@ -204,11 +203,13 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
 // MARK: - UICollectionView Delegate Flow Layout
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let cellWidth: CGFloat = self.view.bounds.width - 15.0
         let cellHeight: CGFloat = 70.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
+    
 }
 
 

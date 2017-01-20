@@ -420,7 +420,6 @@ class CreateGameFormViewController: FormViewController {
             self.game.team2.players += [playerForTeam2]
             
             if var mainSection = self.form.sectionByTag("MainSection") {
-                
                 var index: Int!
                 
                 if let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
@@ -480,9 +479,7 @@ class CreateGameFormViewController: FormViewController {
     }
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
-        
         createGame()
-
     }
     
     
@@ -520,6 +517,12 @@ class CreateGameFormViewController: FormViewController {
     func formIsComplete() -> Bool {
         
         let allRows = self.form.allRows
+        
+        for row in allRows {
+            if row.baseValue == nil {
+                return false
+            }
+        }
                 
         if game.category == "" {
             missingInputs += ["Category"]

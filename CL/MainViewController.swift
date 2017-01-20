@@ -61,6 +61,8 @@ class MainViewController: UIViewController {
     var locationManager: CLLocationManager!
     let radius = 300.0
     
+    let dateFormatter = NSDateFormatter()
+    
     
     // MARK: View life-cycle
     
@@ -82,13 +84,18 @@ class MainViewController: UIViewController {
         
         ref = FIRDatabase.database().reference()
         
-        getGameDataFor(gameCategory!)
+        dateFormatter.dateStyle = .FullStyle
+        dateFormatter.timeStyle = .MediumStyle
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { 
+            self.getGameDataFor(self.gameCategory!)
+        }
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -183,7 +190,6 @@ class MainViewController: UIViewController {
                 print("NO SNAPSHOT AVAILABLE")
             } else {
                 
-                
                 if let allKeys = snapshot.value?.allKeys as? [String] {
                     self.gameKeys = allKeys
                     
@@ -197,13 +203,15 @@ class MainViewController: UIViewController {
                             gameData.latitude = currentGame.valueForKey("latitude") as! Float
                             gameData.longitude = currentGame.valueForKey("longitude") as! Float
                             
+                            let dateString = currentGame.valueForKey("end-registration") as! String
+                            gameData.endRegistration = self.dateFormatter.dateFromString(dateString)!
+                            
                             
                             // GET TEAM 1 INFO
                             
                             if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
                                 
                                 print(team1.allKeys)
-
                                 
                                 if let teamname = team1.valueForKey("teamname") as? String {
                                     gameData.team1.name = teamname
@@ -274,6 +282,7 @@ class MainViewController: UIViewController {
                         print(game.team1.players)
                         print(game.team2.name)
                         print(game.team2.players)
+                        print(game.endRegistration)
                         print("\n")
                     }
                     
