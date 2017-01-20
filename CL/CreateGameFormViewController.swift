@@ -519,6 +519,8 @@ class CreateGameFormViewController: FormViewController {
     
     func formIsComplete() -> Bool {
         
+        let allRows = self.form.allRows
+                
         if game.category == "" {
             missingInputs += ["Category"]
         } else {
