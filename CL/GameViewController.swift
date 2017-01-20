@@ -8,6 +8,7 @@
 
 import Firebase
 import UIKit
+import SwiftLoader
 
 
 // MARK: - GameViewController
@@ -42,9 +43,6 @@ class GameViewController: UIViewController {
         gameMatchupViewCenterX.constant = self.view.bounds.origin.x
         gameRosterViewCenterX.constant += self.view.bounds.width
         
-        if let mainVC = self.parentViewController as? MainViewController {
-            self.games = mainVC.games
-        }
         
 //        for game in self.games {
 //            print(game.category)
@@ -64,13 +62,160 @@ class GameViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: Data Retrieval
+    
+    func categoryString(category: CategoryType) -> String {
+        switch category {
+        case .MLB:
+            return "mlb"
+        case .MLS:
+            return "mls"
+        case .NCAABasketball:
+            return "ncaa-basketball"
+        case .NCAAFootball:
+            return "ncaa-football"
+        case .NBA:
+            return "nba"
+        case .NFL:
+            return "nfl"
+        case .NHL:
+            return "nhl"
+        }
+        
+    }
+
+    
+    func getGameDataFor(category: CategoryType, completion: (games: [Game]) -> ()) {
+        
+        // Show acitivity indicator
+        self.showLoadingIndicator()
+        
+        let categoryName = categoryString(category)
+        
+        let gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
+        
+        gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+            if !snapshot.exists() {
+                print("NO SNAPSHOT AVAILABLE")
+                self.hideLoadingIndicator()
+            } else {
+                
+                if let allKeys = snapshot.value?.allKeys as? [String] {
+                    
+                    for key in allKeys {
+                        
+                        if let currentGame = snapshot.value!.valueForKey(key) {
+                            var gameData = Game()
+                            gameData.category = categoryName
+                            gameData.gameID = key
+                            gameData.venue = currentGame.valueForKey("venue")! as! String
+                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
+                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
+                            
+                            let dateString = currentGame.valueForKey("end-registration") as! String
+                            
+                            
+                            // GET TEAM 1 INFO
+                            
+                            if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
+                                
+                                print(team1.allKeys)
+                                
+                                if let teamname = team1.valueForKey("teamname") as? String {
+                                    gameData.team1.name = teamname
+                                }
+                                
+                                if let players = team1.valueForKey("players") as? NSMutableDictionary {
+                                    var playerKeys = [String]()
+                                    
+                                    for player in players {
+                                        playerKeys.append(player.key as! String)
+                                        
+                                        if let playerInfo = player.value as? NSDictionary {
+                                            var playerObject = Player()
+                                            playerObject.name = playerInfo.valueForKey("name") as! String
+                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
+                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+                                            gameData.team1.players += [playerObject]
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            
+                            
+                            // GET TEAM 2 INFO
+                            if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
+                                
+                                // Get team 2 name
+                                if let teamname = team2.valueForKey("teamname") as? String {
+                                    gameData.team2.name = teamname
+                                }
+                                
+                                // Get team 2 players
+                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
+                                    var playerKeys = [String]()
+                                    
+                                    for player in players2 {
+                                        playerKeys.append(player.key as! String)
+                                        
+                                        if let playerInfo = player.value as? NSDictionary {
+                                            var playerObject = Player()
+                                            playerObject.name = playerInfo.valueForKey("name") as! String
+                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
+                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+                                            gameData.team2.players += [playerObject]
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                            self.games.append(gameData)
+                        }
+                    }
+                    
+                    completion(games: self.games)
+                    
+                    // Hide activity indicator
+                    dispatch_async(dispatch_get_main_queue(), { 
+                        self.hideLoadingIndicator()
+                    })
+                    
+                } else {
+                    print("Could not map data")
+                }
+            }
+            
+        })
+        
+    }
+    
+    
+    // MARK: UI Functions
+    
+    func hideLoadingIndicator() {
+        SwiftLoader.hide()
+    }
+    
+    func showLoadingIndicator() {
+        var config: SwiftLoader.Config = SwiftLoader.Config()
+        config.size = 50
+        config.spinnerColor = UIColor.whiteColor()
+        config.foregroundColor = UIColor.blackColor()
+        config.foregroundAlpha = 0.7
+        config.backgroundColor = UIColor.blueColor()
+        config.cornerRadius = 5.0
+        SwiftLoader.setConfig(config)
+        SwiftLoader.show(animated: true)
+    }
+
     
     func registerCells() {
         // GAME CollectionViews
@@ -136,13 +281,25 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         if collectionView == gameMatchupCollectionView {
+            // let matchup = GameMatchups[indexPath.row]
+
             let cell = gameMatchupCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameMatchup", forIndexPath: indexPath) as! GameMatchupCell
-            let matchup = GameMatchups[indexPath.row]
-            cell.awayTeam = matchup.awayTeam
-            cell.homeTeam = matchup.homeTeam
-            cell.venue = matchup.venue
-            cell.date = matchup.date
-            cell.time = matchup.time
+            
+            self.getGameDataFor(.NBA, completion: { (games) in
+                var game = games[indexPath.row]
+                cell.homeTeam = game.team1.name
+                cell.awayTeam = game.team2.name
+                cell.venue = game.venue
+                cell.date = "\(game.endRegistration)"
+                
+            })
+            
+//            cell.awayTeam = matchup.awayTeam
+//            cell.homeTeam = matchup.homeTeam
+//            cell.venue = matchup.venue
+//            cell.date = matchup.date
+//            cell.time = matchup.time
+            
             return cell
         } else {
             let cell = gameRosterCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameRoster", forIndexPath: indexPath) as! GameRosterCell

@@ -156,7 +156,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="eDX-0D-Y4d">
-                                                <rect key="frame" x="7.5" y="55" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="55" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -478,7 +478,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="nvu-8R-NFE">
-                                                <rect key="frame" x="7.5" y="15" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="15" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -989,19 +989,19 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dnf-pO-hG8" userLabel="Profile Container View">
                                 <rect key="frame" x="0.0" y="99" width="375" height="568"/>
                                 <connections>
-                                    <segue destination="0u7-AN-OWX" kind="embed" id="Cir-mW-NjA"/>
+                                    <segue destination="0u7-AN-OWX" kind="embed" identifier="idEmbedProfileVC" id="Cir-mW-NjA"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqL-Rz-Rta" userLabel="Game Container View">
                                 <rect key="frame" x="0.0" y="99" width="375" height="568"/>
                                 <connections>
-                                    <segue destination="9vd-FI-5mT" kind="embed" id="lKG-KH-dyE"/>
+                                    <segue destination="9vd-FI-5mT" kind="embed" identifier="idEmbedGameVC" id="lKG-KH-dyE"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olI-sZ-QDp" userLabel="Live Container View">
                                 <rect key="frame" x="0.0" y="99" width="375" height="568"/>
                                 <connections>
-                                    <segue destination="yia-ea-5mt" kind="embed" id="yd6-fA-Hyf"/>
+                                    <segue destination="yia-ea-5mt" kind="embed" identifier="idEmbedLiveVC" id="yd6-fA-Hyf"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -1075,7 +1075,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="i3A-So-udW">
-                                                        <rect key="frame" x="7.5" y="35" width="360" height="65"/>
+                                                        <rect key="frame" x="8" y="35" width="360" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>

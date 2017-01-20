@@ -7,7 +7,7 @@
 //
 
 import CoreLocation
-import FirebaseDatabase
+import Firebase
 import UIKit
 
 
@@ -93,7 +93,7 @@ class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { 
-            self.getGameDataFor(self.gameCategory!)
+            // self.getGameDataFor(self.gameCategory!)
         }
 
     }
@@ -163,139 +163,145 @@ class MainViewController: UIViewController {
         }
     }
     
-    
-    func getGameDataFor(category: CategoryType) {
-        var categoryName = String()
+    func categoryString(category: CategoryType) -> String {
         switch category {
         case .MLB:
-            categoryName = "mlb"
+            return "mlb"
         case .MLS:
-            categoryName = "mls"
+            return "mls"
         case .NCAABasketball:
-            categoryName = "ncaa-basketball"
+            return "ncaa-basketball"
         case .NCAAFootball:
-            categoryName = "ncaa-football"
+            return "ncaa-football"
         case .NBA:
-            categoryName = "nba"
+            return "nba"
         case .NFL:
-            categoryName = "nfl"
+            return "nfl"
         case .NHL:
-            categoryName = "nhl"
+            return "nhl"
         }
-        
-        gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
-        
-        refHandle = gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
-            if !snapshot.exists() {
-                print("NO SNAPSHOT AVAILABLE")
-            } else {
-                
-                if let allKeys = snapshot.value?.allKeys as? [String] {
-                    self.gameKeys = allKeys
-                    
-                    for key in self.gameKeys {
-                        
-                        if let currentGame = snapshot.value!.valueForKey(key) {
-                            var gameData = Game()
-                            gameData.category = categoryName
-                            gameData.gameID = key
-                            gameData.venue = currentGame.valueForKey("venue")! as! String
-                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
-                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
-                            
-                            let dateString = currentGame.valueForKey("end-registration") as! String
-                            gameData.endRegistration = self.dateFormatter.dateFromString(dateString)!
-                            
-                            
-                            // GET TEAM 1 INFO
-                            
-                            if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
-                                
-                                print(team1.allKeys)
-                                
-                                if let teamname = team1.valueForKey("teamname") as? String {
-                                    gameData.team1.name = teamname
-                                }
-                                
-                                if let players = team1.valueForKey("players") as? NSMutableDictionary {
-                                    var playerKeys = [String]()
 
-                                    for player in players {
-                                        playerKeys.append(player.key as! String)
-                                        
-                                        if let playerInfo = player.value as? NSDictionary {
-                                            var playerObject = Player()
-                                            playerObject.name = playerInfo.valueForKey("name") as! String
-                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-                                            playerObject.number = playerInfo.valueForKey("number") as! Int
-                                            gameData.team1.players += [playerObject]
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                            
-                            
-                            // GET TEAM 2 INFO
-                            if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
-                                
-                                
-                                // Get team 2 name
-                                if let teamname = team2.valueForKey("teamname") as? String {
-                                    gameData.team2.name = teamname
-                                }
-                                
-                                // Get team 2 players
-                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
-                                    var playerKeys = [String]()
-                                    
-                                    for player in players2 {
-                                        playerKeys.append(player.key as! String)
-                                        
-                                        if let playerInfo = player.value as? NSDictionary {
-                                            var playerObject = Player()
-                                            playerObject.name = playerInfo.valueForKey("name") as! String
-                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-                                            playerObject.number = playerInfo.valueForKey("number") as! Int
-                                            gameData.team2.players += [playerObject]
-                                        }
-                                    }
-                                    
-                                } else if let players2 = team2.valueForKey("players") as? NSDictionary {
-                                    print("GOT DATA AS DICTIONARY")
-                                }
-                                
-                            }
-                            self.games.append(gameData)
-                        }
-                    }
-                    
-                    // DEBUGGING....
-                    
-                    for game in self.games {
-                        print(game.category)
-                        print(game.venue)
-                        print(game.gameID)
-                        print(game.latitude)
-                        print(game.longitude)
-                        print(game.team1.name)
-                        print(game.team1.players)
-                        print(game.team2.name)
-                        print(game.team2.players)
-                        print(game.endRegistration)
-                        print("\n")
-                    }
-                    
-                    self.passGameDataToOtherVCs(self.games)
-
-                } else {
-                    print("Could not map data")
-                }
-            }
-
-        })
-        
     }
+    
+//    func getGameDataFor(category: CategoryType) {
+//        
+//        let categoryName = categoryString(category)
+//        
+//        gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
+//        
+//        refHandle = gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+//            if !snapshot.exists() {
+//                print("NO SNAPSHOT AVAILABLE")
+//            } else {
+//                
+//                if let allKeys = snapshot.value?.allKeys as? [String] {
+//                    self.gameKeys = allKeys
+//                    
+//                    for key in self.gameKeys {
+//                        
+//                        if let currentGame = snapshot.value!.valueForKey(key) {
+//                            var gameData = Game()
+//                            gameData.category = categoryName
+//                            gameData.gameID = key
+//                            gameData.venue = currentGame.valueForKey("venue")! as! String
+//                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
+//                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
+//                            
+//                            let dateString = currentGame.valueForKey("end-registration") as! String
+//                            
+//                            print("DATE STRING: " + dateString)
+////                            gameData.endRegistration = self.dateFormatter.dateFromString(dateString)!
+//                            
+//                            
+//                            // GET TEAM 1 INFO
+//                            
+//                            if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
+//                                
+//                                print(team1.allKeys)
+//                                
+//                                if let teamname = team1.valueForKey("teamname") as? String {
+//                                    gameData.team1.name = teamname
+//                                }
+//                                
+//                                if let players = team1.valueForKey("players") as? NSMutableDictionary {
+//                                    var playerKeys = [String]()
+//
+//                                    for player in players {
+//                                        playerKeys.append(player.key as! String)
+//                                        
+//                                        if let playerInfo = player.value as? NSDictionary {
+//                                            var playerObject = Player()
+//                                            playerObject.name = playerInfo.valueForKey("name") as! String
+//                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
+//                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+//                                            gameData.team1.players += [playerObject]
+//                                        }
+//                                    }
+//                                    
+//                                }
+//                            }
+//                            
+//                            
+//                            // GET TEAM 2 INFO
+//                            if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
+//                                
+//                                
+//                                // Get team 2 name
+//                                if let teamname = team2.valueForKey("teamname") as? String {
+//                                    gameData.team2.name = teamname
+//                                }
+//                                
+//                                // Get team 2 players
+//                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
+//                                    var playerKeys = [String]()
+//                                    
+//                                    for player in players2 {
+//                                        playerKeys.append(player.key as! String)
+//                                        
+//                                        if let playerInfo = player.value as? NSDictionary {
+//                                            var playerObject = Player()
+//                                            playerObject.name = playerInfo.valueForKey("name") as! String
+//                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
+//                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+//                                            gameData.team2.players += [playerObject]
+//                                        }
+//                                    }
+//                                    
+//                                } else if let players2 = team2.valueForKey("players") as? NSDictionary {
+//                                    print("GOT DATA AS DICTIONARY")
+//                                }
+//                                
+//                            }
+//                            self.games.append(gameData)
+//                        }
+//                    }
+//                    
+//                    // DEBUGGING....
+//                    
+////                    for game in self.games {
+////                        print(game.category)
+////                        print(game.venue)
+////                        print(game.gameID)
+////                        print(game.latitude)
+////                        print(game.longitude)
+////                        print(game.team1.name)
+////                        print(game.team1.players)
+////                        print(game.team2.name)
+////                        print(game.team2.players)
+////                        print(game.endRegistration)
+////                        print("\n")
+////                    }
+//                    
+//                    self.passGameDataToOtherVCs(self.games)
+//
+//                } else {
+//                    print("Could not map data")
+//                }
+//            }
+//
+//        })
+//        
+//    }
 
     
     // MARK: Geofencing functions
