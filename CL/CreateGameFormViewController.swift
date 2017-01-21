@@ -639,8 +639,7 @@ class CreateGameFormViewController: FormViewController {
         gameRef.child("end-registration").setValue(stringFromDate(game.endRegistration))
         gameRef.child("starting-value").setValue(game.startingValue)
     }
-    
-    
+
     
     // MARK: Date Formatter
     
@@ -674,7 +673,9 @@ class CreateGameFormViewController: FormViewController {
                     self.game.team1.players.removeAtIndex(i)
                 } else {
                     i = indexPath.row - (self.game.team1.players.count + 2)
-                    self.game.team2.players.removeAtIndex(i)
+                    
+                    print("INDEX: \(indexPath.row)")
+                    // self.game.team2.players.removeAtIndex(i)
                 }
             }
             
@@ -736,12 +737,14 @@ class CreateGameFormViewController: FormViewController {
                     self.game.team1.players.removeAtIndex(i)
                 } else {
                     i = indexPath.row - (self.game.team1.players.count + 2)
+                    print("TEAM 2 PLAYERS B4 DELETE: \(self.game.team2.players)")
                     self.game.team2.players.removeAtIndex(i)
+                    print("TEAM 2 PLAYERS AFTER DELETE: \(self.game.team2.players)")
                 }
             }
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-
+            print("TEAM 2 PLAYERS AFTER DELETE: \(self.game.team2.players)")
         }
         
     }
