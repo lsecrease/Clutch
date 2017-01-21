@@ -207,10 +207,10 @@ class GameViewController: UIViewController {
     func showLoadingIndicator() {
         var config: SwiftLoader.Config = SwiftLoader.Config()
         config.size = 50
-        config.spinnerColor = UIColor.whiteColor()
-        config.foregroundColor = UIColor.blackColor()
+        config.spinnerColor = UIColor.blackColor()
+        config.foregroundColor = UIColor.lightGrayColor()
         config.foregroundAlpha = 0.7
-        config.backgroundColor = UIColor.blueColor()
+        config.backgroundColor = UIColor.whiteColor()
         config.cornerRadius = 5.0
         SwiftLoader.setConfig(config)
         SwiftLoader.show(animated: true)

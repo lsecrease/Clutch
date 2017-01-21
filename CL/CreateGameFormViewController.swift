@@ -664,9 +664,25 @@ class CreateGameFormViewController: FormViewController {
     
         // Delete Action
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
-            // Run code to delete player
-            print("Delete button clicked")
-        
+
+            // Delete player from team array
+            var i = Int()
+            
+            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow {
+                if indexPath.row < teamRow2.indexPath()!.row {
+                    i = indexPath.row - 2
+                    self.game.team1.players.removeAtIndex(i)
+                } else {
+                    i = indexPath.row - (self.game.team1.players.count + 2)
+                    self.game.team2.players.removeAtIndex(i)
+                }
+            }
+            
+            // Delete row from table
+            if var mainSection = self.form.sectionByTag("MainSection") {
+                mainSection.removeAtIndex(indexPath.row)
+            }
+            
         }
         
         // Edit Action
@@ -707,6 +723,27 @@ class CreateGameFormViewController: FormViewController {
         
         // Return no actions for other rows
         return noActions
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == .Delete {
+            var i = Int()
+            
+            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow {
+                if indexPath.row < teamRow2.indexPath()!.row {
+                    i = indexPath.row - 2
+                    self.game.team1.players.removeAtIndex(i)
+                } else {
+                    i = indexPath.row - (self.game.team1.players.count + 2)
+                    self.game.team2.players.removeAtIndex(i)
+                }
+            }
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+
+        }
+        
     }
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
