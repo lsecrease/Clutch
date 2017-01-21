@@ -408,7 +408,11 @@ class CreateGameFormViewController: FormViewController {
                 
                 mainSection.reload()
             }
+        
+        } else {
+            print("PLAYER TO BE ADDED TO TEAM 1 IS NIL")
         }
+        
         
         playerForTeam1 = nil
         
@@ -437,6 +441,8 @@ class CreateGameFormViewController: FormViewController {
                 
             }
 
+        } else {
+            print("PLAYER TO BE ADDED TO TEAM 2 IS NIL")
         }
         
         playerForTeam2 = nil
@@ -487,6 +493,7 @@ class CreateGameFormViewController: FormViewController {
     
     func createGame() {
         
+        
         // Create database references
         
         gameRef = FIRDatabase.database().reference().child("games").child("category").child(game.category).childByAutoId()
@@ -516,15 +523,7 @@ class CreateGameFormViewController: FormViewController {
     
     func formIsComplete() -> Bool {
         
-        let allRows = self.form.allRows
-        
-        for row in allRows {
-            if row.baseValue == nil {
-                return false
-            }
-        }
-                
-        if game.category == "" {
+        if game.category == "" || game.category == "Select" {
             missingInputs += ["Category"]
         } else {
             print("Category is entered: \(game.category)")
@@ -589,9 +588,12 @@ class CreateGameFormViewController: FormViewController {
                 message += missingInputs[i] + ", "
             }
             message += "and "
+            message += missingInputs[missingInputs.count - 1] + "."
         }
+//        else if missingInputs.count == 1 {
+//            message += missingInputs[0] + "."
+//        }
         
-        message += missingInputs[missingInputs.count - 1] + "."
         
         self.showAlert("Incomplete Data", message: message)
 
@@ -799,6 +801,7 @@ class CreateGameFormViewController: FormViewController {
     }
     
 }
+
 
 // MARK: - UITextField Delegate functions
 

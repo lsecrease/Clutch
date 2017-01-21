@@ -19,6 +19,7 @@ class GameViewController: UIViewController {
     
     var game = Game()
     var games = [Game]()
+    // var games: [FIRDataSnapshot]! = []
     var gameRosterViewIsActive = false
 
     
