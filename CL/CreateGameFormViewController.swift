@@ -665,17 +665,16 @@ class CreateGameFormViewController: FormViewController {
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
 
             // Delete player from team array
-            var i = Int()
             
             if let teamRow2 = self.form.rowByTag("Team2") as? TextRow {
                 if indexPath.row < teamRow2.indexPath()!.row {
-                    i = indexPath.row - 2
+                    let i = indexPath.row - 2
                     self.game.team1.players.removeAtIndex(i)
                 } else {
-                    i = indexPath.row - (self.game.team1.players.count + 2)
+                    let i = indexPath.row - (self.game.team1.players.count + 2)
                     
                     print("INDEX: \(indexPath.row)")
-                    // self.game.team2.players.removeAtIndex(i)
+                    self.game.team2.players.removeAtIndex(i)
                 }
             }
             
