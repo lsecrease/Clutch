@@ -91,7 +91,6 @@ class LoginViewController: UIViewController {
 //            }
 //        }
 
-        
         if self.userIsAdmin {
             self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
         } else {
