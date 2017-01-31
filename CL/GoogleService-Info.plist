@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>969723390302-h7dqrack4sgn32so167o18tlp7bfc4ha.apps.googleusercontent.com</string>
+	<string>68664851754-foof7cr1hdfdacd7r6mtcnr0p7q0v50g.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.969723390302-h7dqrack4sgn32so167o18tlp7bfc4ha</string>
+	<string>com.googleusercontent.apps.68664851754-foof7cr1hdfdacd7r6mtcnr0p7q0v50g</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBSrdwV0U8WuqyCxS9NsgJ849i5QdMR-6E</string>
+	<string>AIzaSyD4adBGXdyIKVITFWd5PeksUDN-BqB4i7Q</string>
 	<key>GCM_SENDER_ID</key>
-	<string>969723390302</string>
+	<string>68664851754</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>iwritecode.CL</string>
+	<string>com.lolivier.clutch</string>
 	<key>PROJECT_ID</key>
-	<string>clutch-1482350689673</string>
+	<string>clutch-e2403</string>
 	<key>STORAGE_BUCKET</key>
-	<string>clutch-1482350689673.appspot.com</string>
+	<string>clutch-e2403.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:969723390302:ios:9b3c5bb448d35aaa</string>
+	<string>1:68664851754:ios:32b724bbd1024cd6</string>
 	<key>DATABASE_URL</key>
-	<string>https://clutch-1482350689673.firebaseio.com</string>
+	<string>https://clutch-e2403.firebaseio.com</string>
 </dict>
 </plist>

@@ -17,7 +17,7 @@ target 'CL' do
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
   pod 'SwiftLoader'
   
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKLoginKit'
+  pod 'FBSDKCoreKit', '4.19'
+  pod 'FBSDKLoginKit', '4.19'
 
 end
