@@ -60,7 +60,7 @@ class GameViewController: UIViewController {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
@@ -72,28 +72,28 @@ class GameViewController: UIViewController {
     
     // MARK: Data Retrieval
     
-    func categoryString(category: CategoryType) -> String {
+    func categoryString(_ category: CategoryType) -> String {
         switch category {
-        case .MLB:
+        case .mlb:
             return "mlb"
-        case .MLS:
+        case .mls:
             return "mls"
-        case .NCAABasketball:
+        case .ncaaBasketball:
             return "ncaa-basketball"
-        case .NCAAFootball:
+        case .ncaaFootball:
             return "ncaa-football"
-        case .NBA:
+        case .nba:
             return "nba"
-        case .NFL:
+        case .nfl:
             return "nfl"
-        case .NHL:
+        case .nhl:
             return "nhl"
         }
         
     }
 
     
-    func getGameDataFor(category: CategoryType, completion: (games: [Game]) -> ()) {
+    func getGameDataFor(_ category: CategoryType, completion: @escaping (_ games: [Game]) -> ()) {
         
         // Show acitivity indicator
         self.showLoadingIndicator()
@@ -102,38 +102,38 @@ class GameViewController: UIViewController {
         
         let gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
         
-        gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
+        gamesRef.observe(FIRDataEventType.value, with: { (snapshot) in
             if !snapshot.exists() {
                 print("NO SNAPSHOT AVAILABLE")
                 self.hideLoadingIndicator()
             } else {
                 
-                if let allKeys = snapshot.value?.allKeys as? [String] {
+                if let allKeys = (snapshot.value as AnyObject).allKeys as? [String] {
                     
                     for key in allKeys {
                         
-                        if let currentGame = snapshot.value!.valueForKey(key) {
-                            var gameData = Game()
+                        if let currentGame = (snapshot.value! as AnyObject).value(forKey: key) {
+                            let gameData = Game()
                             gameData.category = categoryName
                             gameData.gameID = key
-                            gameData.venue = currentGame.valueForKey("venue")! as! String
-                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
-                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
+                            gameData.venue = (currentGame as AnyObject).value(forKey: "venue")! as! String
+                            gameData.latitude = (currentGame as AnyObject).value(forKey: "latitude") as! Float
+                            gameData.longitude = (currentGame as AnyObject).value(forKey: "longitude") as! Float
                             
-                            let dateString = currentGame.valueForKey("end-registration") as! String
+                            let dateString = (currentGame as AnyObject).value(forKey: "end-registration") as! String
                             
                             
                             // GET TEAM 1 INFO
                             
-                            if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
+                            if let team1 = (currentGame as AnyObject).value(forKey: "team1") as? NSMutableDictionary {
                                 
                                 print(team1.allKeys)
                                 
-                                if let teamname = team1.valueForKey("teamname") as? String {
+                                if let teamname = team1.value(forKey: "teamname") as? String {
                                     gameData.team1.name = teamname
                                 }
                                 
-                                if let players = team1.valueForKey("players") as? NSMutableDictionary {
+                                if let players = team1.value(forKey: "players") as? NSMutableDictionary {
                                     var playerKeys = [String]()
                                     
                                     for player in players {
@@ -141,9 +141,9 @@ class GameViewController: UIViewController {
                                         
                                         if let playerInfo = player.value as? NSDictionary {
                                             var playerObject = Player()
-                                            playerObject.name = playerInfo.valueForKey("name") as! String
-                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+                                            playerObject.name = playerInfo.value(forKey: "name") as! String
+                                            playerObject.pointValue = playerInfo.value(forKey: "point-value") as! Float
+                                            playerObject.number = playerInfo.value(forKey: "number") as! Int
                                             gameData.team1.players += [playerObject]
                                         }
                                     }
@@ -153,15 +153,15 @@ class GameViewController: UIViewController {
                             
                             
                             // GET TEAM 2 INFO
-                            if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
+                            if let team2 = (currentGame as AnyObject).value(forKey: "team2") as? NSMutableDictionary {
                                 
                                 // Get team 2 name
-                                if let teamname = team2.valueForKey("teamname") as? String {
+                                if let teamname = team2.value(forKey: "teamname") as? String {
                                     gameData.team2.name = teamname
                                 }
                                 
                                 // Get team 2 players
-                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
+                                if let players2 = team2.value(forKey: "players") as? NSMutableDictionary {
                                     var playerKeys = [String]()
                                     
                                     for player in players2 {
@@ -169,9 +169,9 @@ class GameViewController: UIViewController {
                                         
                                         if let playerInfo = player.value as? NSDictionary {
                                             var playerObject = Player()
-                                            playerObject.name = playerInfo.valueForKey("name") as! String
-                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-                                            playerObject.number = playerInfo.valueForKey("number") as! Int
+                                            playerObject.name = playerInfo.value(forKey: "name") as! String
+                                            playerObject.pointValue = playerInfo.value(forKey: "point-value") as! Float
+                                            playerObject.number = playerInfo.value(forKey: "number") as! Int
                                             gameData.team2.players += [playerObject]
                                         }
                                     }
@@ -182,10 +182,10 @@ class GameViewController: UIViewController {
                         }
                     }
                     
-                    completion(games: self.games)
+                    completion(self.games)
                     
                     // Hide activity indicator
-                    dispatch_async(dispatch_get_main_queue(), { 
+                    DispatchQueue.main.async(execute: { 
                         self.hideLoadingIndicator()
                     })
                     
@@ -208,10 +208,10 @@ class GameViewController: UIViewController {
     func showLoadingIndicator() {
         var config: SwiftLoader.Config = SwiftLoader.Config()
         config.size = 50
-        config.spinnerColor = UIColor.blackColor()
-        config.foregroundColor = UIColor.lightGrayColor()
+        config.spinnerColor = UIColor.black
+        config.foregroundColor = UIColor.lightGray
         config.foregroundAlpha = 0.7
-        config.backgroundColor = UIColor.whiteColor()
+        config.backgroundColor = UIColor.white
         config.cornerRadius = 5.0
         SwiftLoader.setConfig(config)
         SwiftLoader.show(animated: true)
@@ -220,43 +220,43 @@ class GameViewController: UIViewController {
     
     func registerCells() {
         // GAME CollectionViews
-        gameMatchupCollectionView.registerNib(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
-        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
-        gameRosterCollectionView.registerNib(UINib(nibName: "GameRosterCollectionFooter", bundle: nil), forCellWithReuseIdentifier: "idFooterGameRoster")
+        gameMatchupCollectionView.register(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
+        gameRosterCollectionView.register(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
+        gameRosterCollectionView.register(UINib(nibName: "GameRosterCollectionFooter", bundle: nil), forCellWithReuseIdentifier: "idFooterGameRoster")
 
     }
     
     
     func setGameRosterViewState() {
-        if let mainVC = self.parentViewController as? MainViewController {
+        if let mainVC = self.parent as? MainViewController {
             mainVC.gameRosterViewIsActive = self.gameRosterViewIsActive
         }
     }
 
-    func slideGameViews(direction direction: Direction) {
+    func slideGameViews(direction: Direction) {
         switch direction {
-        case .Right:
-            UIView.animateWithDuration(0.2) {
+        case .right:
+            UIView.animate(withDuration: 0.2, animations: {
                 self.gameRosterViewCenterX.constant += self.view.bounds.width
                 self.gameMatchupViewCenterX.constant += self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = false
                 
-                if let mainVC = self.parentViewController as? MainViewController {
+                if let mainVC = self.parent as? MainViewController {
                     mainVC.cancelButton.hide()
                 }
-            }
-        case .Left:
-            UIView.animateWithDuration(0.2) {
+            }) 
+        case .left:
+            UIView.animate(withDuration: 0.2, animations: {
                 self.gameRosterViewCenterX.constant -= self.view.bounds.width
                 self.gameMatchupViewCenterX.constant -= self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = true
                 
-                if let mainVC = self.parentViewController as? MainViewController {
+                if let mainVC = self.parent as? MainViewController {
                     mainVC.cancelButton.show()
                 }
-            }
+            }) 
         }
         
         setGameRosterViewState()
@@ -279,14 +279,14 @@ class GameViewController: UIViewController {
 
 extension GameViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == gameMatchupCollectionView {
             // let matchup = GameMatchups[indexPath.row]
 
-            let cell = gameMatchupCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameMatchup", forIndexPath: indexPath) as! GameMatchupCell
+            let cell = gameMatchupCollectionView.dequeueReusableCell(withReuseIdentifier: "idCellGameMatchup", for: indexPath) as! GameMatchupCell
             
-            self.getGameDataFor(.NBA, completion: { (games) in
+            self.getGameDataFor(.nba, completion: { (games) in
                 var game = games[indexPath.row]
                 cell.homeTeam = game.team1.name
                 cell.awayTeam = game.team2.name
@@ -303,7 +303,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             return cell
         } else {
-            let cell = gameRosterCollectionView.dequeueReusableCellWithReuseIdentifier("idCellGameRoster", forIndexPath: indexPath) as! GameRosterCell
+            let cell = gameRosterCollectionView.dequeueReusableCell(withReuseIdentifier: "idCellGameRoster", for: indexPath) as! GameRosterCell
             let player = players[indexPath.row]
             cell.number = player.number
             cell.playerName = player.name
@@ -314,13 +314,13 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
             
         case gameMatchupCollectionView:
-            self.slideGameViews(direction: .Left)
+            self.slideGameViews(direction: .left)
         case gameRosterCollectionView:
-            if let cell = gameRosterCollectionView.cellForItemAtIndexPath(indexPath) as? GameRosterCell {
+            if let cell = gameRosterCollectionView.cellForItem(at: indexPath) as? GameRosterCell {
                 cell.willAddPlayer = !cell.willAddPlayer
             }
         default:
@@ -329,7 +329,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         // Adjust count to include game information cell on first row
         
@@ -340,16 +340,16 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         if kind == UICollectionElementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath) as! GameInfoHeaderView
-            headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), forControlEvents: .TouchUpInside)
-            headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), forControlEvents: .TouchUpInside)
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", for: indexPath) as! GameInfoHeaderView
+            headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), for: .touchUpInside)
+            headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), for: .touchUpInside)
             return headerView
         } else {
             
-            let footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "idFooterGameRoster", forIndexPath: indexPath)
+            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "idFooterGameRoster", for: indexPath)
             return footerView
         }
         
@@ -362,7 +362,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension GameViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = self.view.bounds.width - 15.0
         let cellHeight: CGFloat = 70.0
         return CGSize(width: cellWidth, height: cellHeight)

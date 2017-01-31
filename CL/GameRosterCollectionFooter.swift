@@ -17,7 +17,7 @@ class GameRosterCollectionFooter: UICollectionReusableView {
         
         saveRosterButton.layer.cornerRadius = 3
         saveRosterButton.layer.borderWidth = 1.0
-        saveRosterButton.layer.borderColor = self.tintColor.CGColor
+        saveRosterButton.layer.borderColor = self.tintColor.cgColor
         
     }
     

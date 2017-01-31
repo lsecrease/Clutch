@@ -19,7 +19,7 @@ let nameKey = "name"
 
 // MARK: UI
 
-let defaultFont = UIFont.systemFontOfSize(16.0)
+let defaultFont = UIFont.systemFont(ofSize: 16.0)
 
 
 struct Constants {
@@ -33,13 +33,13 @@ struct Constants {
 }
 
 enum Direction {
-    case Right, Left
+    case right, left
 }
 
 enum RotationDirection {
-    case Clockwise, CounterClockwise
+    case clockwise, counterClockwise
 }
 
 enum CategoryType {
-    case MLB, MLS, NCAABasketball, NCAAFootball, NBA, NFL, NHL
+    case mlb, mls, ncaaBasketball, ncaaFootball, nba, nfl, nhl
 }

@@ -10,7 +10,7 @@ import UIKit
 import Eureka
 
 
-public class PlayerForTeamCell: Cell<Player>, CellType {
+open class PlayerForTeamCell: Cell<Player>, CellType {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
@@ -31,15 +31,20 @@ public class PlayerForTeamCell: Cell<Player>, CellType {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    override public func setup() {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    override open func setup() {
         super.setup()
         
-        selectionStyle = .None
+        selectionStyle = .none
     }
     
 }
 
-public final class PlayerForTeamRow: Row<Player, PlayerForTeamCell>, RowType {
+public final class PlayerForTeamRow: Row<PlayerForTeamCell>, RowType {
     
     var name: String = "" {
         didSet {

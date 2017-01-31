@@ -13,22 +13,22 @@ class AddOrRemoveButton: UIButton {
     var isShowingClose: Bool = false
     var padding: CGFloat = 3.0
     
-    private func showAdd() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.transform = CGAffineTransformMakeRotation(45.0 * (CGFloat(M_PI) / 180.0))
+    fileprivate func showAdd() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.transform = CGAffineTransform(rotationAngle: 45.0 * (CGFloat(M_PI) / 180.0))
             let pad: CGFloat = 0.5 + self.padding
             self.imageEdgeInsets = UIEdgeInsets(top: pad, left: pad, bottom: pad, right: pad)
-            self.setImage(UIImage(named: "add"), forState: .Normal)
+            self.setImage(UIImage(named: "add"), for: UIControlState())
             self.layoutSubviews()
         })
         self.isShowingClose = false
     }
     
-    private func showClose() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
+    fileprivate func showClose() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.transform = CGAffineTransform(rotationAngle: -(CGFloat(M_PI) / 180.0))
             self.imageEdgeInsets = UIEdgeInsets(top: self.padding, left: self.padding, bottom: self.padding, right: self.padding)
-            self.setImage(UIImage(named: "delete"), forState: .Normal)
+            self.setImage(UIImage(named: "delete"), for: UIControlState())
             self.layoutSubviews()
 
         })
@@ -46,10 +46,10 @@ class AddOrRemoveButton: UIButton {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.contentMode = .ScaleAspectFit
+        self.contentMode = .scaleAspectFit
         let pad: CGFloat = 3.0
         self.imageEdgeInsets = UIEdgeInsets(top: pad, left: pad, bottom: pad, right: pad)
-        self.addTarget(self, action: #selector(self.buttonPressed), forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: #selector(self.buttonPressed), for: .touchUpInside)
 
     }
     

@@ -1,3 +1,4 @@
+
 //
 //  AddPlayerInputCell.swift
 //  CL
@@ -22,20 +23,26 @@ public class AddPlayerInputCell: Cell<Player>, CellType {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    override public func setup() {
+    required public init?(coder aDecoder: NSCoder) {
+
+        super.init(coder: aDecoder)
+//        cellProvider = CellProvider<UpdatePlayerPointsCell>(nibName: "UpdatePlayerPointsCell")
+    }
+    
+    override open func setup() {
         super.setup()
         
-        selectionStyle = .None
+        selectionStyle = .none
         
         height = { return 205 }
     }
     
-    override public func update() {
+    override open func update() {
         super.update()
         
     }
     
-    @IBAction func addPlayerButtonPressed(sender: DesignableButton) {
+    @IBAction func addPlayerButtonPressed(_ sender: DesignableButton) {
         
         if let name = nameField.text,
             let number = Int(numberField.text!),
@@ -53,12 +60,12 @@ public class AddPlayerInputCell: Cell<Player>, CellType {
     
 }
 
-
-public final class AddPlayerInputRow: Row<Player, AddPlayerInputCell>, RowType {
+// Player
+public final class AddPlayerInputRow: Row<AddPlayerInputCell>, RowType {
     
     required public init(tag: String?) {
         super.init(tag: tag)
-        
+        //Swift 3: cellProvider --> CellProvider
         cellProvider = CellProvider<AddPlayerInputCell>(nibName: "AddPlayerInputCell", bundle: nil)
     }
     

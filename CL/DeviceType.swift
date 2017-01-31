@@ -9,7 +9,7 @@
 import Foundation
 
 struct DeviceType {
-    static let isIphone4s = UIScreen.mainScreen().bounds.size.height == 480
-    static let isIphone5 = UIScreen.mainScreen().bounds.size.height == 568
-    static let isIphone6Plus = UIScreen.mainScreen().bounds.size.height == 736
+    static let isIphone4s = UIScreen.main.bounds.size.height == 480
+    static let isIphone5 = UIScreen.main.bounds.size.height == 568
+    static let isIphone6Plus = UIScreen.main.bounds.size.height == 736
 }

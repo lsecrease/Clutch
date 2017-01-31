@@ -19,13 +19,13 @@ class Game {
     var latitude = Float()
     var longitude = Float()
     var venue = String()
-    var endRegistration = NSDate()
+    var endRegistration = Date()
     var participants = [String]()
 
     
     init() {}
     
-    init(gameID: String, category: String, team1: Team, team2: Team, startingValue: Int, latitude: Float, longitude: Float, venue: String, endRegistration: NSDate, participants: [String]) {
+    init(gameID: String, category: String, team1: Team, team2: Team, startingValue: Int, latitude: Float, longitude: Float, venue: String, endRegistration: Date, participants: [String]) {
         self.gameID = gameID
         self.category = category
         self.team1 = team1

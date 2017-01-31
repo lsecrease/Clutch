@@ -32,16 +32,13 @@
                                 <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHX-1M-5fB" userLabel="FB Login Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHX-1M-5fB" userLabel="FB Login Button" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="53" y="260" width="270" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="Vuz-r5-Zgv"/>
                                     <constraint firstAttribute="width" constant="270" id="nzQ-UR-RvR"/>
                                 </constraints>
                                 <state key="normal" image="facebook"/>
-                                <connections>
-                                    <action selector="fbLoginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vuk-9s-LIx"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="By signing up you agree to the" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvx-nL-0fV">
                                 <rect key="frame" x="59" y="366" width="259" height="21"/>
@@ -103,6 +100,7 @@
                     <navigationItem key="navigationItem" id="vQS-u4-i3i"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="facebookButton" destination="oHX-1M-5fB" id="9u0-qS-pEa"/>
                         <segue destination="KvL-JV-Kbd" kind="show" identifier="loginToMain" id="kNf-7p-Xut"/>
                         <segue destination="5FE-Tw-jnJ" kind="show" identifier="loginToAdmin" id="UiT-vM-DOL"/>
                     </connections>

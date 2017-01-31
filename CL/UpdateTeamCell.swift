@@ -9,7 +9,7 @@
 import UIKit
 import Eureka
 
-public class UpdateTeamCell: Cell<Bool>, CellType {
+open class UpdateTeamCell: Cell<Bool>, CellType {
     
     var hideCells = true
     
@@ -22,15 +22,21 @@ public class UpdateTeamCell: Cell<Bool>, CellType {
         
     }
     
-    public override func setup() {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    open override func setup() {
         super.setup()
         
-        selectionStyle = .None
+        selectionStyle = .none
         teamNameLabel.font = defaultFont
         height = { return 80 }
     }
     
-    public override func didSelect() {
+    open override func didSelect() {
         super.didSelect()
         
         
@@ -40,7 +46,8 @@ public class UpdateTeamCell: Cell<Bool>, CellType {
 }
 
 
-final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
+// TODO: this needs to be a bool
+final class UpdateTeamRow: Row<UpdateTeamCell>, RowType {
     
     var teamName: String = "" {
         didSet {
@@ -61,9 +68,9 @@ final class UpdateTeamRow: Row<Bool, UpdateTeamCell>, RowType {
         super.customDidSelect()
         
         if self.value == true {
-            self.cell.arrowButton.turn(90.0, direction: .Clockwise, finalImage: nil)
+            self.cell.arrowButton.turn(90.0, direction: .clockwise, finalImage: nil)
         } else {
-            self.cell.arrowButton.turn(1, direction: .CounterClockwise, finalImage: nil)
+            self.cell.arrowButton.turn(1, direction: .counterClockwise, finalImage: nil)
         }
         // self.value = !self.value!
         

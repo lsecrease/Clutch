@@ -23,46 +23,51 @@ public class UpdatePlayerPointsCell: Cell<Float>, CellType {
         
         
     }
-    
-    override public func setup() {
-        super.setup()
-        
-        selectionStyle = .None
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        cellProvider = CellProvider<UpdatePlayerPointsCell>(nibName: "UpdatePlayerPointsCell")
     }
     
-    @IBAction func stepperPressed(sender: UIStepper) {
+    override open func setup() {
+        super.setup()
+        
+        selectionStyle = .none
+    }
+    
+    @IBAction func stepperPressed(_ sender: UIStepper) {
         
         pointLabel.text = "\(Int(sender.value)) pts"
-        self.row.value = Float(sender.value)
+        row.value = Float(sender.value)
         
         print("NEW VALUE: \(sender.value)")
     }
     
 }
 
-final class UpdatePlayerPointsRow: Row<Float, UpdatePlayerPointsCell>, RowType {
+// TODO: make sure this is float
+public final class UpdatePlayerPointsRow: Row<UpdatePlayerPointsCell>, RowType {
     
     var name: String = "" {
         didSet {
-            self.cell.nameLabel.text = name
+            cell.nameLabel.text = name
         }
     }
     
     var pointValue: Float = 0 {
         didSet {
-            self.cell.pointLabel.text = "\(Int(pointValue)) pts"
-            self.cell.stepper.value = Double(pointValue)
+            cell.pointLabel.text = "\(Int(pointValue)) pts"
+            cell.stepper.value = Double(pointValue)
         }
         
     }
     
-    required init(tag: String?) {
+    public required init(tag: String?) {
         super.init(tag: tag)
         
         cellProvider = CellProvider<UpdatePlayerPointsCell>(nibName: "UpdatePlayerPointsCell")
     }
     
-    override func customDidSelect() {
+    public override func customDidSelect() {
         super.customDidSelect()
         
     }    

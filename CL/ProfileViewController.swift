@@ -31,48 +31,48 @@ class ProfileViewController: UIViewController {
         // setFacebookProfilePic()
         
         // profileImageView.image = profileImage
-        
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
-            graphRequest.startWithCompletionHandler({
-                (connection, result, error) -> Void in
-                if ((error) != nil)
-                {
-                    print("Error: \(error)")
-                }
-                else if error == nil
-                {
-                    let facebookID: NSString = (result.valueForKey("id")
-                        as? NSString)!
-                    
-                    let pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
-                    
-                    self.fullNameLabel.text = (result.valueForKey("name")             as? String)!
-                    
-                    let URLRequest = NSURL(string: pictureURL)
-                    let URLRequestNeeded = NSURLRequest(URL: URLRequest!)
-                    
-                    NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse?,data: NSData?, error: NSError?) -> Void in
-                        
-                        if error == nil {
-                            let picture = UIImage(data: data!)
-                            dispatch_async(dispatch_get_main_queue(), { 
-                                self.profileImageView.image = picture
-                            })
-                            self.profileImageView.image = picture
-                        }
-                        else {
-                            print("Error: \(error!.localizedDescription)")
-                        }
-                    })
 
-                }
-            })
-        }
+        //Seth: Meh
+//        if FBSDKAccessToken.current() != nil {
+//            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: nil)
+//            graphRequest?.start(completionHandler: {
+//                (connection, result, error) -> Void in
+//                if ((error) != nil)
+//                {
+//                    print("Error: \(error)")
+//                }
+//                else if error == nil
+//                {
+//                    let facebookID: NSString = (result.value(forKey: "id")as? NSString)!
+//                    
+//                    let pictureURL = "https://graph.facebook.com/\(facebookID)/picture?type=large&return_ssl_resources=1"
+//                    
+//                    self.fullNameLabel.text = (result.value(forKey: "name") as? String)!
+//                    
+//                    let URLRequest = URL(string: pictureURL)
+//                    let URLRequestNeeded = Foundation.URLRequest(url: URLRequest!)
+//                    
+//                    NSURLConnection.sendAsynchronousRequest(URLRequestNeeded, queue: OperationQueue.main, completionHandler: {(response: URLResponse?,data: Data?, error: NSError?) -> Void in
+//                        
+//                        if error == nil {
+//                            let picture = UIImage(data: data!)
+//                            DispatchQueue.main.async(execute: { 
+//                                self.profileImageView.image = picture
+//                            })
+//                            self.profileImageView.image = picture
+//                        }
+//                        else {
+//                            print("Error: \(error!.localizedDescription)")
+//                        }
+//                    } as! (URLResponse?, Data?, Error?) -> Void)
+//
+//                }
+//            })
+//        }
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // profileImageView.image = profileImage
@@ -100,9 +100,9 @@ class ProfileViewController: UIViewController {
     
     
     func setFacebookProfilePic() {
-        if let picURL = NSUserDefaults.standardUserDefaults().stringForKey(avatarURLKey),
-            let url = NSURL(string: picURL),
-            let data = NSData(contentsOfURL: url),
+        if let picURL = UserDefaults.standard.string(forKey: avatarURLKey),
+            let url = URL(string: picURL),
+            let data = try? Data(contentsOf: url),
             let profilePic = UIImage(data: data) {
             
             print(picURL)
