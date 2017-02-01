@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
     var locationManager: CLLocationManager!
     let radius = 300.0
     
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     
     
     // MARK: View life-cycle
@@ -70,7 +70,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         // Set category
-        gameCategory = .NBA
+        gameCategory = .nba
         
         configureViews()
         
@@ -84,30 +84,30 @@ class MainViewController: UIViewController {
         
         ref = FIRDatabase.database().reference()
         
-        dateFormatter.dateStyle = .FullStyle
-        dateFormatter.timeStyle = .MediumStyle
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .medium
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)) { 
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async { 
             // self.getGameDataFor(self.gameCategory!)
         }
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if CLLocationManager.authorizationStatus() != .AuthorizedAlways {
+        if CLLocationManager.authorizationStatus() != .authorizedAlways {
             switch CLLocationManager.authorizationStatus() {
-            case .NotDetermined:
+            case .notDetermined:
                 locationManager.requestAlwaysAuthorization()
-            case .Denied:
+            case .denied:
                 showAlertWithMessage("Error", message: "Location Services not enabled")
-            case .AuthorizedAlways:
+            case .authorizedAlways:
                 locationManager.startUpdatingLocation()
             default:
                 break
@@ -119,8 +119,8 @@ class MainViewController: UIViewController {
     
     // MARK: Status Bar
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+    override var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
     }
     
     
@@ -131,7 +131,7 @@ class MainViewController: UIViewController {
         // Navbar title
         if let barFont = UIFont(name: "Symbol", size: 26.0) {
             UINavigationBar.appearance().titleTextAttributes = [
-                NSForegroundColorAttributeName: UIColor.whiteColor(),
+                NSForegroundColorAttributeName: UIColor.white,
                 NSFontAttributeName: barFont
             ]
         }
@@ -146,38 +146,38 @@ class MainViewController: UIViewController {
         liveContainerView.hide()
     }
     
-    func showAlertWithMessage(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    func showAlertWithMessage(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     
     // MARK: Firebase Database functions
     
-    func passGameDataToOtherVCs(games: [Game]) {
+    func passGameDataToOtherVCs(_ games: [Game]) {
         
-        if let gameVC = self.storyboard?.instantiateViewControllerWithIdentifier("GameViewController") as? GameViewController {
+        if let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
             gameVC.games = games
         }
     }
     
-    func categoryString(category: CategoryType) -> String {
+    func categoryString(_ category: CategoryType) -> String {
         switch category {
-        case .MLB:
+        case .mlb:
             return "mlb"
-        case .MLS:
+        case .mls:
             return "mls"
-        case .NCAABasketball:
+        case .ncaaBasketball:
             return "ncaa-basketball"
-        case .NCAAFootball:
+        case .ncaaFootball:
             return "ncaa-football"
-        case .NBA:
+        case .nba:
             return "nba"
-        case .NFL:
+        case .nfl:
             return "nfl"
-        case .NHL:
+        case .nhl:
             return "nhl"
         }
 
@@ -310,7 +310,7 @@ class MainViewController: UIViewController {
         
         // Per Apple Guidelines, check if device is capable of monitoring regions
         
-        if !CLLocationManager.isMonitoringAvailableForClass(CLRegion) {
+        if !CLLocationManager.isMonitoringAvailable(for: CLRegion.self) {
             let message = "Your device is not capable of monitoring regions for geofencing"
             showAlertWithMessage("Error", message: message)
             return
@@ -330,14 +330,14 @@ class MainViewController: UIViewController {
         let name = "Some place"
         let region = CLCircularRegion(center: coordinate, radius: radius, identifier: name)
         
-        locationManager.startMonitoringForRegion(region)
+        locationManager.startMonitoring(for: region)
         
     }
     
     
     // MARK: IBAction methods
     
-    @IBAction func segmentButtonPressed(sender: UIButton) {
+    @IBAction func segmentButtonPressed(_ sender: UIButton) {
         
         // TO DO: Create Custom button/ button view class to handle appearance changes
         
@@ -381,29 +381,29 @@ class MainViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButtonPressed(sender: UIButton) {
+    @IBAction func cancelButtonPressed(_ sender: UIButton) {
         
         for child in self.childViewControllers {
             if let gameVC = child as? GameViewController {
-                gameVC.slideGameViews(direction: .Right)
+                gameVC.slideGameViews(direction: .right)
                 gameVC.gameRosterViewIsActive = false
             }
         }
         
     }
     
-    @IBAction func checkInButtonPressed(sender: UIButton) {
+    @IBAction func checkInButtonPressed(_ sender: UIButton) {
         print("Check-in button pressed")
     }
     
     func updateBarButtons() {
-        if !liveContainerView.hidden && liveTeamViewIsActive {
+        if !liveContainerView.isHidden && liveTeamViewIsActive {
             self.checkInbutton.show()
         } else {
             self.checkInbutton.hide()
         }
         
-        if !gameContainerView.hidden && gameRosterViewIsActive {
+        if !gameContainerView.isHidden && gameRosterViewIsActive {
             self.cancelButton.show()
         } else {
             self.cancelButton.hide()
@@ -417,34 +417,34 @@ class MainViewController: UIViewController {
 
 extension MainViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
-        case .AuthorizedWhenInUse, .AuthorizedAlways:
+        case .authorizedWhenInUse, .authorizedAlways:
             manager.startUpdatingLocation()
-        case .Denied:
+        case .denied:
             manager.stopUpdatingLocation()
         default:
             break
         }
     }
     
-    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
             
         }
     }
     
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         if region is CLCircularRegion {
             
         }        
     }
     
-    func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print("Monitoring failed for region with identifier: \(region!.identifier)")
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location Manager failed with error: \(error)")
     }
     

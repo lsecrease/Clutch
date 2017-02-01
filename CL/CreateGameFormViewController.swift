@@ -12,6 +12,19 @@ import Eureka
 import Firebase
 import SwiftLoader
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 
 // MARK: - CreateGameFormViewController
@@ -54,7 +67,7 @@ class CreateGameFormViewController: FormViewController {
     var gameLatitude: Float!
     var gameLongitude: Float!
     var gameVenue: String!
-    var gameRegistrationEnd: NSDate!
+    var gameRegistrationEnd: Date!
     var team1IsVisible = false
     var team2IsVisible = false
     
@@ -74,7 +87,7 @@ class CreateGameFormViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView?.backgroundColor = UIColor.whiteColor()
+        self.tableView?.backgroundColor = UIColor.white
         
         categories = [String](categoryDict.keys)
         
@@ -82,11 +95,11 @@ class CreateGameFormViewController: FormViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        createGameButton.setTitle("Create Game", forState: .Normal)
-        createGameButton.setTitleColor(createGameButton.tintColor, forState: .Normal)
+        createGameButton.setTitle("Create Game", for: UIControlState())
+        createGameButton.setTitleColor(createGameButton.tintColor, for: UIControlState())
         
 //        teamRef1.child("players").observeEventType(.Value) { (snapshot) in
 //            
@@ -94,7 +107,7 @@ class CreateGameFormViewController: FormViewController {
         
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         self.form.removeAll()
@@ -104,9 +117,9 @@ class CreateGameFormViewController: FormViewController {
     
     // MARK: Segue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showUpdatePointsVC" {
-            if let updatePointsVC = segue.destinationViewController as? UpdatePointsViewController {
+            if let updatePointsVC = segue.destination as? UpdatePointsViewController {
                 updatePointsVC.team1 = self.game.team1
                 updatePointsVC.team2 = self.game.team2
                 updatePointsVC.teamRef1 = self.teamRef1
@@ -138,7 +151,7 @@ class CreateGameFormViewController: FormViewController {
             // ADD & CONFIGURE SECTION
             
             +++ Section { Section in
-                Section.header = HeaderFooterView<UIView>(HeaderFooterProvider.Class)
+                Section.header = HeaderFooterView<UIView>(HeaderFooterProvider.class)
                 Section.header!.height = { 0.5 }
                 Section.tag = "MainSection"
             }
@@ -153,9 +166,9 @@ class CreateGameFormViewController: FormViewController {
                 // row.value = row.options[2]
                 row.value = "Select"
                 row.cell.height = { 65 }
-                row.cell.detailTextLabel?.textColor = UIColor.blackColor()
+                row.cell.detailTextLabel?.textColor = UIColor.black
             }.onChange({ (picker) in
-                picker.hidden = .Predicate(NSPredicate(format: "$RowName != nil"))
+                picker.hidden = .predicate(NSPredicate(format: "$RowName != nil"))
                 
                 if picker.value != nil && picker.value != "Select" {
                     // self.game.category = picker.value!
@@ -178,7 +191,7 @@ class CreateGameFormViewController: FormViewController {
             
             
             // Add Player to Team 1 (Expanding row)
-            
+            //Seth: is this a ButtonRow?
             <<< AddPlayerRow() { row in
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
@@ -191,12 +204,12 @@ class CreateGameFormViewController: FormViewController {
             
             <<< AddPlayerInputRow() { row in
                 row.tag = "AddPlayerInputRow1"
-                row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
-                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
+                row.hidden = .function(["AddPlayerRow1"], { form -> Bool in
+                    let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow1")
                         return row.value ?? true == true
                     })
                 }.cellSetup({ (cell, row) in
-                    cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam1), forControlEvents: .TouchUpInside)
+                    cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam1), for: .touchUpInside)
                 }).onChange({ (row) in
                     if row.value != nil {
                         self.playerForTeam1 = row.value!
@@ -241,12 +254,12 @@ class CreateGameFormViewController: FormViewController {
             
             <<< AddPlayerInputRow() { row in
                 row.tag = "AddPlayerInputRow2"
-                row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
-                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
+                row.hidden = .function(["AddPlayerRow2"], { form -> Bool in
+                    let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow2")
                         return row.value ?? true == true
                     })
                 }.cellSetup({ (cell, row) in
-                    cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam2), forControlEvents: .TouchUpInside)
+                    cell.addPlayerButton.addTarget(self, action: #selector(self.addPlayerToTeam2), for: .touchUpInside)
                 }).onChange({ (row) in
                     
                     if row.value != nil {
@@ -305,13 +318,13 @@ class CreateGameFormViewController: FormViewController {
         
             <<< DateTimeInlineRow() { row in
                 row.title = "End Registration"
-                row.value = NSDate()
+                row.value = Date()
                 row.tag = "EndRegistrationDate"
                 
                 // Format date appearance
-                var formatter = NSDateFormatter()
-                formatter.dateStyle = .MediumStyle
-                formatter.timeStyle = .ShortStyle
+                var formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
                 row.dateFormatter = formatter
                 
             }.onChange({ (dateInlineRow) in
@@ -327,7 +340,7 @@ class CreateGameFormViewController: FormViewController {
         // Table Appearance
         
         self.tableView?.sectionHeaderHeight = 0
-        self.tableView?.separatorStyle = .None
+        self.tableView?.separatorStyle = .none
         self.tableView?.sectionFooterHeight = 90.0
         
         // Cell appearance
@@ -335,7 +348,7 @@ class CreateGameFormViewController: FormViewController {
         TextRow.defaultCellUpdate = { cell, row in
             cell.textLabel!.font = defaultFont
             cell.textField.font = defaultFont
-            cell.textField.spellCheckingType = .No
+            cell.textField.spellCheckingType = .no
             cell.height = { 65 }
         }
         
@@ -353,7 +366,7 @@ class CreateGameFormViewController: FormViewController {
     }
     
     // Remove input accessory view
-    override func inputAccessoryViewForRow(row: BaseRow) -> UIView? {
+    override func inputAccessoryView(for row: BaseRow) -> UIView? {
         return nil
     }
     
@@ -367,21 +380,21 @@ class CreateGameFormViewController: FormViewController {
     func showLoadingIndicator() {
         var config: SwiftLoader.Config = SwiftLoader.Config()
         config.size = 100
-        config.spinnerColor = UIColor.whiteColor()
-        config.foregroundColor = UIColor.blackColor()
+        config.spinnerColor = UIColor.white
+        config.foregroundColor = UIColor.black
         config.foregroundAlpha = 0.7
-        config.backgroundColor = UIColor.darkGrayColor()
+        config.backgroundColor = UIColor.darkGray
         config.cornerRadius = 5.0
         SwiftLoader.setConfig(config)
         SwiftLoader.show(animated: true)
     }
     
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    func showAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     func addPlayerToTeam1() {
@@ -390,21 +403,21 @@ class CreateGameFormViewController: FormViewController {
             
             self.game.team1.players += [playerForTeam1]
             
-            if var mainSection = self.form.sectionByTag("MainSection") {
+            if var mainSection = self.form.sectionBy(tag: "MainSection"){
                 var index: Int!
                 
-                if let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
-                    index = addPlayerRow1.indexPath()!.row
+                if let addPlayerRow1 = self.form.rowBy(tag: "AddPlayerRow1") as? AddPlayerRow {
+                    index = addPlayerRow1.indexPath!.row
                 }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
                     row.cell.nameLabel.text = playerForTeam1.name
-                    row.hidden = .Function(["AddPlayerRow1"], { form -> Bool in
-                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow1")
+                    row.hidden = .function(["AddPlayerRow1"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow1")
                         return row.value ?? true == true
                     })
-                    }, atIndex: index)
+                    }, at: index)
                 
                 mainSection.reload()
             }
@@ -423,21 +436,21 @@ class CreateGameFormViewController: FormViewController {
         if playerForTeam2 != nil {
             self.game.team2.players += [playerForTeam2]
             
-            if var mainSection = self.form.sectionByTag("MainSection") {
+            if var mainSection = self.form.sectionBy(tag: "MainSection") {
                 var index: Int!
                 
-                if let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
-                    index = addPlayerRow2.indexPath()!.row
+                if let addPlayerRow2 = self.form.rowBy(tag: "AddPlayerRow2") as? AddPlayerRow {
+                    index = addPlayerRow2.indexPath!.row
                 }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
                     row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
                     row.cell.nameLabel.text = playerForTeam2.name
-                    row.hidden = .Function(["AddPlayerRow2"], { form -> Bool in
-                        let row: RowOf<Bool>! = form.rowByTag("AddPlayerRow2")
+                    row.hidden = .function(["AddPlayerRow2"], { form -> Bool in
+                        let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow2")
                         return row.value ?? true == true
                     })
-                    }, atIndex: index)
+                    }, at: index)
                 
             }
 
@@ -457,11 +470,11 @@ class CreateGameFormViewController: FormViewController {
         var inputRow = AddPlayerInputRow()
         var player = Player()
         
-        if playerForTeamRow.indexPath()!.row < self.form.rowByTag("AddPlayerInputRow1")?.indexPath()!.row {
-            inputRow = self.form.rowByTag("AddPlayerInputRow1") as! AddPlayerInputRow
-            player = game.team1.players[playerForTeamRow.indexPath()!.row - 2]
+        if playerForTeamRow.indexPath!.row < self.form.rowBy(tag: "AddPlayerInputRow1")?.indexPath!.row {
+            inputRow = self.form.rowBy(tag: "AddPlayerInputRow1") as! AddPlayerInputRow
+            player = game.team1.players[playerForTeamRow.indexPath!.row - 2]
         } else {
-            inputRow = self.form.rowByTag("AddPlayerInputRow2") as! AddPlayerInputRow
+            inputRow = self.form.rowBy(tag: "AddPlayerInputRow2") as! AddPlayerInputRow
             // player = game.team2.players[playerForTeamRow.indexPath()!.row]
         }
         
@@ -471,20 +484,20 @@ class CreateGameFormViewController: FormViewController {
 
     }
     
-    func deletePlayerRowAtIndexPath(indexPath: NSIndexPath) {
+    func deletePlayerRowAtIndexPath(_ indexPath: IndexPath) {
         
     }
     
     
     // MARK: IBAction methods
     
-    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         // self.dismissViewControllerAnimated(true, completion: nil)
         
         print("CANCEL BUTTON PRESSED")
     }
     
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         createGame()
     }
     
@@ -500,7 +513,7 @@ class CreateGameFormViewController: FormViewController {
         teamRef1 = gameRef.child("team1")
         teamRef2 = gameRef.child("team2")
         
-        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
+        if let coordinateRow = self.form.rowBy(tag: "CoordinateRow") as? CoordinateRow {
             if let lat = Float(coordinateRow.cell.latitudeField.text!),
                 let lon = Float(coordinateRow.cell.longitudeField.text!) {
                 self.game.latitude = lat
@@ -512,7 +525,7 @@ class CreateGameFormViewController: FormViewController {
         
         if formIsComplete() {
             addGameToDatabase()
-            self.performSegueWithIdentifier("showUpdatePointsVC", sender: self)
+            self.performSegue(withIdentifier: "showUpdatePointsVC", sender: self)
         } else {
             showMissingInputs()
         }
@@ -638,57 +651,57 @@ class CreateGameFormViewController: FormViewController {
         gameRef.child("longitude").setValue(game.longitude)
         gameRef.child("venue").setValue(game.venue)
         // gameRef.child("end-registration").setValue("\(game.endRegistration)")
-        gameRef.child("end-registration").setValue(stringFromDate(game.endRegistration))
+        gameRef.child("end-registration").setValue(stringFromDate(game.endRegistration as Date))
         gameRef.child("starting-value").setValue(game.startingValue)
     }
 
     
     // MARK: Date Formatter
     
-    func stringFromDate(date: NSDate) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale.currentLocale()
-        dateFormatter.dateStyle = .FullStyle
-        dateFormatter.timeStyle = .ShortStyle
+    func stringFromDate(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "yyyy-mm-dd H:mm"
-        dateFormatter.defaultDate = NSDate()
-        let dateString = dateFormatter.stringFromDate(date)
+        dateFormatter.defaultDate = Date()
+        let dateString = dateFormatter.string(from: date)
         return dateString
     }
     
     
     // MARK: UITableView Delegate functions
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction]()
         let noActions = [UITableViewRowAction]()
     
         // Delete Action
-        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
 
             // Delete player from team array
             
-            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow {
-                if indexPath.row < teamRow2.indexPath()!.row {
+            if let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow {
+                if indexPath.row < teamRow2.indexPath!.row {
                     let i = indexPath.row - 2
-                    self.game.team1.players.removeAtIndex(i)
+                    self.game.team1.players.remove(at: i)
                 } else {
                     let i = indexPath.row - (self.game.team1.players.count + 2)
                     
                     print("INDEX: \(indexPath.row)")
-                    self.game.team2.players.removeAtIndex(i)
+                    self.game.team2.players.remove(at: i)
                 }
             }
             
             // Delete row from table
-            if var mainSection = self.form.sectionByTag("MainSection") {
-                mainSection.removeAtIndex(indexPath.row)
+            if var mainSection = self.form.sectionBy(tag: "MainSection") {
+                mainSection.remove(at: indexPath.row)
             }
             
         }
         
         // Edit Action
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (action, indexPath) in
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
             // Run code to edit player info
             print("Edit button clicked")
             
@@ -698,7 +711,7 @@ class CreateGameFormViewController: FormViewController {
             
         }
         
-        editAction.backgroundColor = UIColor.orangeColor()
+        editAction.backgroundColor = UIColor.orange
         
         // Add to array
         actions.append(deleteAction)
@@ -706,18 +719,18 @@ class CreateGameFormViewController: FormViewController {
         
         // Set for player rows
         if game.team1.players.count > 0 {
-            if let teamRow1 = self.form.rowByTag("Team1") as? TextRow,
-                let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
-                if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
+            if let teamRow1 = self.form.rowBy(tag: "Team1") as? TextRow,
+                let addPlayerRow1 = self.form.rowBy(tag: "AddPlayerRow1") as? AddPlayerRow {
+                if indexPath.row > teamRow1.indexPath!.row && indexPath.row < addPlayerRow1.indexPath!.row {
                     return actions
                 }
             }
         }
 
         if game.team2.players.count > 0 {
-            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow,
-                let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
-                if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
+            if let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow,
+                let addPlayerRow2 = self.form.rowBy(tag: "AddPlayerRow2") as? AddPlayerRow {
+                if indexPath.row > teamRow2.indexPath!.row && indexPath.row < addPlayerRow2.indexPath!.row {
                     return actions
                 }
             }
@@ -727,47 +740,47 @@ class CreateGameFormViewController: FormViewController {
         return noActions
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: IndexPath) {
         
-        if editingStyle == .Delete {
+        if editingStyle == .delete {
             var i = Int()
             
-            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow {
-                if indexPath.row < teamRow2.indexPath()!.row {
+            if let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow {
+                if indexPath.row < teamRow2.indexPath!.row {
                     i = indexPath.row - 2
-                    self.game.team1.players.removeAtIndex(i)
+                    self.game.team1.players.remove(at: i)
                 } else {
                     i = indexPath.row - (self.game.team1.players.count + 2)
                     print("TEAM 2 PLAYERS B4 DELETE: \(self.game.team2.players)")
-                    self.game.team2.players.removeAtIndex(i)
+                    self.game.team2.players.remove(at: i)
                     print("TEAM 2 PLAYERS AFTER DELETE: \(self.game.team2.players)")
                 }
             }
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             print("TEAM 2 PLAYERS AFTER DELETE: \(self.game.team2.players)")
         }
         
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAtIndexPath indexPath: IndexPath) -> Bool {
         
         //Make only player rows editable
         
         if game.team1.players.count > 0 {
-            if let teamRow1 = self.form.rowByTag("Team1") as? TextRow,
-                let addPlayerRow1 = self.form.rowByTag("AddPlayerRow1") as? AddPlayerRow {
-                if indexPath.row > teamRow1.indexPath()!.row && indexPath.row < addPlayerRow1.indexPath()!.row {
+            if let teamRow1 = self.form.rowBy(tag: "Team1") as? TextRow,
+                let addPlayerRow1 = self.form.rowBy(tag: "AddPlayerRow1") as? AddPlayerRow {
+                if indexPath.row > teamRow1.indexPath!.row && indexPath.row < addPlayerRow1.indexPath!.row {
                     return true
                 }
             }
         }
         
         if game.team2.players.count > 0 {
-            if let teamRow2 = self.form.rowByTag("Team2") as? TextRow,
-                let addPlayerRow2 = self.form.rowByTag("AddPlayerRow2") as? AddPlayerRow {
+            if let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow,
+                let addPlayerRow2 = self.form.rowBy(tag: "AddPlayerRow2") as? AddPlayerRow {
                 
-                if indexPath.row > teamRow2.indexPath()!.row && indexPath.row < addPlayerRow2.indexPath()!.row {
+                if indexPath.row > teamRow2.indexPath!.row && indexPath.row < addPlayerRow2.indexPath!.row {
                     return true
                 }
             }
@@ -777,23 +790,23 @@ class CreateGameFormViewController: FormViewController {
 
     }
     
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
         let footerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 90.0))
-        footerView.backgroundColor = UIColor.whiteColor()
+        footerView.backgroundColor = UIColor.white
         let buttonWidth: CGFloat = 150
         let buttonHeight: CGFloat = 50.0
         let margin: CGFloat = 15.0
         createGameButton = UIButton(frame: CGRect(x: footerView.bounds.width - buttonWidth - margin, y: footerView.bounds.height - buttonHeight - margin, width: 150, height: 35.0))
         createGameButton.layer.borderWidth = 1.0
-        createGameButton.layer.borderColor = createGameButton.tintColor.CGColor
+        createGameButton.layer.borderColor = createGameButton.tintColor.cgColor
         createGameButton.layer.cornerRadius = 5.0
-        createGameButton.setTitle("Create Game", forState: .Normal)
-        createGameButton.setTitleColor(createGameButton.tintColor, forState: .Normal)
+        createGameButton.setTitle("Create Game", for: UIControlState())
+        createGameButton.setTitleColor(createGameButton.tintColor, for: UIControlState())
         createGameButton.titleLabel?.font = UIFont(name: "System", size: 12.0)
         createGameButton.titleLabel?.tintColor = createGameButton.tintColor
         createGameButton.titleLabel?.text = "Create Game"
-        createGameButton.addTarget(self, action: #selector(self.createGame), forControlEvents: .TouchUpInside)
+        createGameButton.addTarget(self, action: #selector(self.createGame), for: .touchUpInside)
         
         footerView.addSubview(createGameButton)
         
@@ -807,7 +820,7 @@ class CreateGameFormViewController: FormViewController {
 
 extension CreateGameFormViewController: UITextFieldDelegate {
     
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         
 //        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
 //            if textField.text != nil || textField.text != "" {
@@ -824,17 +837,17 @@ extension CreateGameFormViewController: UITextFieldDelegate {
 //        }
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
+        if let coordinateRow = self.form.rowBy(tag: "CoordinateRow") as? CoordinateRow {
             if textField == coordinateRow.cell.latitudeField ||
                 textField == coordinateRow.cell.longitudeField {
                 
-                let existingTextHasDecimal = textField.text?.rangeOfString(".") != nil
-                let existingTextHasMinus = textField.text?.rangeOfString("-") != nil
+                let existingTextHasDecimal = textField.text?.range(of: ".") != nil
+                let existingTextHasMinus = textField.text?.range(of: "-") != nil
                 
-                let replacementTextIsDecimal = string.rangeOfString(".") != nil
-                let replacementTextHasMinus = string.rangeOfString("-") != nil
+                let replacementTextIsDecimal = string.range(of: ".") != nil
+                let replacementTextHasMinus = string.range(of: "-") != nil
                 
                 if Float(string) != nil || string == "-" || string == "." || string == "" {
                     

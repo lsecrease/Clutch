@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import Eureka
 
-public class CoordinateCell: Cell<Coordinates>, CellType {
+open class CoordinateCell: Cell<Coordinates>, CellType {
     
     var latitudeAdded = false
     var longitudeAdded = false
@@ -19,15 +19,15 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
     @IBOutlet weak var latitudeField: UITextField!
     @IBOutlet weak var longitudeField: UITextField!
 
-    override public func setup() {
+    override open func setup() {
         super.setup()
         
-        selectionStyle = .None
+        selectionStyle = .none
         height = { 65 }
         
     }
     
-    @IBAction func textFieldDidEndEditing(sender: UITextField) {
+    @IBAction func textFieldDidEndEditing(_ sender: UITextField) {
 //        switch sender {
 //        case latitudeField:
 //            if let latString = self.latitudeField.text {
@@ -59,7 +59,8 @@ public class CoordinateCell: Cell<Coordinates>, CellType {
     
 }
 
-public class CoordinateRow: Row<Coordinates, CoordinateCell>, RowType {
+// Coordinates
+final class CoordinateRow: Row<CoordinateCell>, RowType {
     
     required public init(tag: String?) {
         super.init(tag: tag)

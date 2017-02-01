@@ -49,7 +49,7 @@ class LiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categoryType = .NBA
+        categoryType = .nba
         // Do any additional setup after loading the view.
         registerCells()
         
@@ -61,7 +61,7 @@ class LiveViewController: UIViewController {
 
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setLiveTeamViewState()
@@ -118,29 +118,29 @@ class LiveViewController: UIViewController {
         print("TEAM BUTTON 2 PRESSED")
     }
 
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    func showAlert(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
     
     /// MARK: IBActions
     
-    @IBAction func bottomTabButtonPressed(sender: UIButton) {
+    @IBAction func bottomTabButtonPressed(_ sender: UIButton) {
         switch sender {
         case leaderboardButton:
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
                 self.liveTeamViewCenterX.constant -= self.view.bounds.width
                 self.leaderboardViewCenterX.constant -= self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.liveTeamViewIsActive = false
                 // self.setLiveTeamViewState()
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    if let mainVC = self.parentViewController as? MainViewController {
+                DispatchQueue.main.async(execute: {
+                    if let mainVC = self.parent as? MainViewController {
                         mainVC.checkInbutton.hide()
                     }
                 })
@@ -148,15 +148,15 @@ class LiveViewController: UIViewController {
             }) { (finished) in
             }
         case myTeamButton:
-            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveLinear, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
                 self.liveTeamViewCenterX.constant += self.view.bounds.width
                 self.leaderboardViewCenterX.constant += self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.liveTeamViewIsActive = true
                 // self.setLiveTeamViewState()
                 
-                dispatch_async(dispatch_get_main_queue(), { 
-                    if let mainVC = self.parentViewController as? MainViewController {
+                DispatchQueue.main.async(execute: { 
+                    if let mainVC = self.parent as? MainViewController {
                         mainVC.checkInbutton.show()
                     }
                 })
@@ -175,13 +175,13 @@ class LiveViewController: UIViewController {
     // MARK: Custom functions
     
     func registerCells() {
-        liveTeamCollectionView.registerNib(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
-        leaderboardCollectionView.registerNib(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
+        liveTeamCollectionView.register(UINib(nibName: "LiveTeamCell", bundle: nil), forCellWithReuseIdentifier: idCellLiveTeam)
+        leaderboardCollectionView.register(UINib(nibName: "LeaderboardCell", bundle: nil), forCellWithReuseIdentifier: idCellLeaderboard)
 
     }
     
     func setLiveTeamViewState() {
-        if let mainVC = self.parentViewController as? MainViewController {
+        if let mainVC = self.parent as? MainViewController {
             mainVC.liveTeamViewIsActive = self.liveTeamViewIsActive
          }
     }
@@ -193,7 +193,7 @@ class LiveViewController: UIViewController {
 
 extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == liveTeamCollectionView {
             return players.count
@@ -204,12 +204,12 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == liveTeamCollectionView {
             // Access the first player's info
             let player = players[indexPath.row]
-            let cell = liveTeamCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLiveTeam, forIndexPath: indexPath) as! LiveTeamCell
+            let cell = liveTeamCollectionView.dequeueReusableCell(withReuseIdentifier: idCellLiveTeam, for: indexPath) as! LiveTeamCell
             cell.playerNumberLabel.text = "\(player.number)"
             cell.playerNameLabel.text = player.name
             //            cell.teamNameLabel.text = player.teamName
@@ -217,7 +217,7 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
 
         } else {
-            let cell = leaderboardCollectionView.dequeueReusableCellWithReuseIdentifier(idCellLeaderboard, forIndexPath: indexPath) as! LeaderboardCell
+            let cell = leaderboardCollectionView.dequeueReusableCell(withReuseIdentifier: idCellLeaderboard, for: indexPath) as! LeaderboardCell
             let user = RankedUsers[indexPath.row]
             cell.rankLabel.text = "\(user.rank)"
             cell.usernameLabel.text = user.username
@@ -227,11 +227,11 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = liveTeamCollectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", forIndexPath: indexPath) as! GameInfoHeaderView
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = liveTeamCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", for: indexPath) as! GameInfoHeaderView
         
-        headerView.teamButton1.addTarget(self, action: #selector(team1ButtonPressed), forControlEvents: .TouchUpInside)
-        headerView.teamButton2.addTarget(self, action: #selector(team2ButtonPressed), forControlEvents: .TouchUpInside)
+        headerView.teamButton1.addTarget(self, action: #selector(team1ButtonPressed), for: .touchUpInside)
+        headerView.teamButton2.addTarget(self, action: #selector(team2ButtonPressed), for: .touchUpInside)
 
         
         return headerView
@@ -243,7 +243,7 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
 // MARK:- UICollectionView Delegate Flow Layout
 
 extension LiveViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = self.view.bounds.width - 15.0
         let cellHeight: CGFloat = 70.0
         return CGSize(width: cellWidth, height: cellHeight)

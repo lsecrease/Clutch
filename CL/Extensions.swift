@@ -18,7 +18,7 @@ extension UIButton {
         
         if let title = self.titleLabel!.text {
             let underlinedTitle = NSMutableAttributedString(string: title, attributes: underlineAttr)
-            self.setAttributedTitle(underlinedTitle, forState: .Normal)
+            self.setAttributedTitle(underlinedTitle, for: UIControlState())
         }
     }
     
@@ -27,7 +27,7 @@ extension UIButton {
             let normalTitle = NSMutableAttributedString(string: title)
             
             UIView.performWithoutAnimation({
-                self.setAttributedTitle(normalTitle, forState: .Normal)
+                self.setAttributedTitle(normalTitle, for: UIControlState())
             })
 
         }
@@ -68,35 +68,35 @@ extension UILabel {
 
 extension UIView {
     
-    func slideLeft(duration duration: NSTimeInterval) {
+    func slideLeft(duration: TimeInterval) {
         let slideLeftTransition = CATransition()
         slideLeftTransition.duration = duration
         slideLeftTransition.type = kCATransitionPush
         slideLeftTransition.subtype = kCATransitionFromRight
         // slideRightTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         slideLeftTransition.fillMode = kCAFillModeRemoved
-        self.layer.addAnimation(slideLeftTransition, forKey: "slideRightTransition")
+        self.layer.add(slideLeftTransition, forKey: "slideRightTransition")
         
     }
     
     func show() {
-        self.hidden = true
+        self.isHidden = true
         self.alpha = 0
         
-        UIView.animateWithDuration(0.3) {
-            self.hidden = false
+        UIView.animate(withDuration: 0.3, animations: {
+            self.isHidden = false
             self.alpha = 1
-        }
+        }) 
     }
     
     func hide() {
         self.alpha = 1
-        self.hidden = false
+        self.isHidden = false
         
-        UIView.animateWithDuration(0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.alpha = 0
-            self.hidden = true
-        }
+            self.isHidden = true
+        }) 
     }
 
 //    func rotate(duration: NSTimeInterval, fromValue: CGFloat, toValue: CGFloat) {
@@ -129,17 +129,17 @@ extension UIImageView {
         2a) If you wish to rotate the image back, call the function again and set
             the angle to 1 and the direction to '.CounterClockwise'
      */
-    func turn(angle: CGFloat, direction: RotationDirection, finalImage: UIImage?) {
+    func turn(_ angle: CGFloat, direction: RotationDirection, finalImage: UIImage?) {
         var angleToTurn: CGFloat!
         
-        if direction == .CounterClockwise {
+        if direction == .counterClockwise {
             angleToTurn = angle * -1.0
         } else {
             angleToTurn = angle
         }
         
-        UIView.animateWithDuration(0.2, animations: {
-            self.transform = CGAffineTransformMakeRotation(angleToTurn * (CGFloat(M_PI) / 180.0))
+        UIView.animate(withDuration: 0.2, animations: {
+            self.transform = CGAffineTransform(rotationAngle: angleToTurn * (CGFloat(M_PI) / 180.0))
             
             if finalImage != nil {
                 self.image = finalImage

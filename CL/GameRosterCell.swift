@@ -58,7 +58,7 @@ class GameRosterCell: UICollectionViewCell {
         }
     }
     
-    private var change: CGFloat!
+    fileprivate var change: CGFloat!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,22 +70,22 @@ class GameRosterCell: UICollectionViewCell {
     
     
     func turnButtonForward() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.button.transform = CGAffineTransformMakeRotation(45 * (CGFloat(M_PI) / 180.0))
+        UIView.animate(withDuration: 0.2, animations: {
+            self.button.transform = CGAffineTransform(rotationAngle: 45 * (CGFloat(M_PI) / 180.0))
             
             if self.endImage != nil {
-                self.button.setImage(self.endImage, forState: .Normal)
+                self.button.setImage(self.endImage, for: UIControlState())
             }
             self.layoutSubviews()
         })
     }
     
     func turnButtonBack() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.button.transform = CGAffineTransformMakeRotation(-(CGFloat(M_PI) / 180.0))
+        UIView.animate(withDuration: 0.2, animations: {
+            self.button.transform = CGAffineTransform(rotationAngle: -(CGFloat(M_PI) / 180.0))
             
             if self.startImage != nil {
-                self.button.setImage(self.startImage, forState: .Normal)
+                self.button.setImage(self.startImage, for: UIControlState())
             }
             self.layoutSubviews()
 

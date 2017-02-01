@@ -6,7 +6,8 @@ Firebase Data Model:
 {
 	"users": {
 		"user-id": {
-
+			"admin": true,
+			"email": "example@gmail.com"
 		}
 	},
 	

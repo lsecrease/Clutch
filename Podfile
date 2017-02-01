@@ -12,8 +12,12 @@ target 'CL' do
   pod 'Firebase/Database'
   pod 'Firebase/Messaging'
   pod 'Firebase/Storage'
-  pod 'Eureka', '1.7.0'
-  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift2'
+  
+  pod 'Eureka', '2.0.0-beta.1'
+  pod 'Spring', :git => 'https://github.com/MengTo/Spring.git', :branch => 'swift3'
   pod 'SwiftLoader'
+  
+  pod 'FBSDKCoreKit', '4.19'
+  pod 'FBSDKLoginKit', '4.19'
 
 end

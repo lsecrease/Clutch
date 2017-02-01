@@ -7,167 +7,191 @@
 //
 
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+
 import SwiftLoader
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 enum UserType {
-    case Regular, Admin
+    case regular, admin
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    
+    @IBOutlet weak var facebookButton: FBSDKLoginButton!
+
+    var ref : FIRDatabaseReference?
+
     
     var isSignedInToFirebase = false
-    var userIsAdmin = true
+    var userIsAdmin = false
+    var userID : String?
+
     
         
     let slideRightTransiton = SlideRightTransitionManager()
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            
-            self.getFBUserData()
-            
-            loginToFirebaseWithFacebookToken()
-            
-            // Move to next screen
-            self.showLoadingIndicator()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if self.userIsAdmin {
-                    self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
-                } else {
-                    self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
-                }
-                self.hideLoadingIndicator()
-            })
-
-        }
-        
     }
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        facebookButton.delegate = self
+        facebookButton.readPermissions = ["email", "public_profile"]
+        self.isLoggedIn()
     }
     
     
-    // IBAction functions
-    
-    @IBAction func fbLoginButtonPressed(sender: UIButton) {
-        
-//        // Call FB Login Manager
-//        let fbLoginManager = FBSDKLoginManager()
-//        
-//        // Login to Facebook
-//        
-//        fbLoginManager.logInWithReadPermissions(["email"], fromViewController: self) { (result, error) in
-//            
-//            if error != nil {
-//                print("COULD NOT LOGIN TO FACEBOOK WITH THOSE CREDENTIALS")
-//                
-//                return
-//            } else {
-//                let fbLoginResult: FBSDKLoginManagerLoginResult = result
-//                
-//                if fbLoginResult.isCancelled {
-//                    return
-//                } else if (fbLoginResult.grantedPermissions.contains("email")) {
-//                    self.getFBUserData()
-//                    
-//                    self.showLoadingIndicator()
-//                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-//                        if self.userIsAdmin {
-//                            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
-//                        } else {
-//                            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
-//                        }
-//                        self.hideLoadingIndicator()
-//                    })
-//
-//                }
-//                
-//                self.loginToFirebaseWithFacebookToken()
-//            }
-//        }
+    //MARK: - FBSDKLoginButtonDelegate
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
+        self.showLoadingIndicator()
 
-        if self.userIsAdmin {
-            self.performSegueWithIdentifier(Constants.Segues.loginToAdmin, sender: self)
-        } else {
-            self.performSegueWithIdentifier(Constants.Segues.loginToMain, sender: self)
+        if let error = error {
+            print(error.localizedDescription)
+            self.showAlertWithMessage("", message: "There was an error logging into Facebook. Try again?")
+            return
         }
+        // success!
+        FIRAnalytics.logEvent(withName: kFIREventLogin, parameters: [
+            kFIRParameterContentType:"action" as NSObject,
+            kFIRParameterSignUpMethod: "facebook" as NSObject
+            ])
         
-    }
-    
-    // MARK: Firebase functions
-    
-    func loginToFirebaseWithFacebookToken() {
-        let accessToken = FBSDKAccessToken.currentAccessToken()
-        guard let tokenString = accessToken.tokenString else { return }
-        
-        let credential = FIRFacebookAuthProvider.credentialWithAccessToken(tokenString)
-        
-        FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, error) in
-            if error != nil {
-                print("COULD NOT LOGIN TO FIREBASE WITH THSE CREDENTIALS")
-                print(error?.localizedDescription)
-                print(error)
-            } else {
-                self.isSignedInToFirebase = true
-                print("SIGNED IN TO FIREBASE: \(self.isSignedInToFirebase)")
-            }
-        })
-
-    }
-    
-    
-    // MARK: Facebook Login Methods
-    
-    func getFBUserData() {
-        if FBSDKAccessToken.currentAccessToken() != nil {
+        let token = FBSDKAccessToken.current()
+        if token != nil {
+            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             
-            let parameters = ["fields" : "id, name, email, picture.type(large)"]
-            FBSDKGraphRequest(graphPath: "/me", parameters: parameters).startWithCompletionHandler({ (connection, result, error) in
+            FIRAuth.auth()?.signIn(with: credential) { (user, error) in
                 if error != nil {
-                    
-                    print("Could not get facebook parameters")
-                    print(error.localizedDescription)
+                    self.showAlertWithMessage("", message: "There was an error logging you in.")
                     return
-                } else {
-                    
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                    
-                    // Get facebook data
-                    // Name
-                    if let name = result["name"] as? String {
-                        defaults.setObject(name, forKey: nameKey)
-                    }
-                    
-                    // Email
-                    if let email = result["email"] as? String {
-                        defaults.setObject(email, forKey: emailKey)
-                    }
-                    
-                    // Avatar
-                    if let picture = result["picture"] as? NSDictionary,
-                        let data = picture["data"] as? NSDictionary,
-                        let urlString = data["url"] as? NSString {
-                        let fbImageURL = NSString(string: urlString)
-                        defaults.setObject(fbImageURL, forKey: avatarURLKey)
-                        
-                        print("GOT PROFILE PICTURE")
-
-                    }
-                    
-                    defaults.synchronize()
                 }
+                
+
+                let req = FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id, name, first_name, last_name, picture.type(large), email"], tokenString: token?.tokenString, version: nil, httpMethod: "GET")
+                let _ = req?.start(completionHandler: { (connection, result, NSError) in
+
+                    if(error == nil)
+                    {
+                        print("result \(result)")
+                        let user = FIRAuth.auth()?.currentUser
+                        let changeRequest = user!.profileChangeRequest()
+                        
+                        //Set Firebase defaults
+                        if let safeResult = result as? [String: AnyObject] {
+                            
+                            let name = safeResult["name"] as? String ?? ""
+                            changeRequest.displayName = name
+                            
+                            if let pictureDict = safeResult["picture"]?["data"] as? [String: AnyObject] {
+                                if let imageUrl = pictureDict["url"] as? String {
+                                    changeRequest.photoURL = URL(string: imageUrl)
+                                }
+                            }
+                            
+                            let email = safeResult["email"] as? String ?? ""
+                            
+                            FIRAuth.auth()?.currentUser?.updateEmail(email) { (error) in
+                                if error != nil {
+                                    // TODO: add specific alerts for invalid email, etc...
+                                    self.showAlertWithMessage("", message: "There was an error signing up. Try again?")
+                                    return
+                                }
+                            }
+                            self.addToFirebase(email: email)
+                        }
+                        
+                        //Firebase Analytics
+                        FIRAnalytics.logEvent(withName: kFIREventSignUp, parameters: [
+                            kFIRParameterContentType:"action" as NSObject,
+                            kFIRParameterSignUpMethod: "facebook" as NSObject
+                            ])
+                        
+                        //check admin status and proceed to next view
+                        self.updateAdminStatus()
+
+                        
+                    }
+                    else
+                    {
+                        print("error \(error)")
+                    }
+                })
+            }
+        }
+    }
+    
+    func isLoggedIn(){
+        if (FIRAuth.auth()?.currentUser?.uid) != nil {
+            self.updateAdminStatus()
+        }
+    }
+    
+    func addToFirebase(email: String?){
+        self.ref = FIRDatabase.database().reference()
+        
+        if let user = FIRAuth.auth()?.currentUser?.uid {
+            
+            var childUpdates : [String : AnyObject] = [:]
+            childUpdates["/users/\(user)/email"] = email as AnyObject?
+
+            self.ref?.updateChildValues(childUpdates)
+
+        }
+    }
+    
+    func updateAdminStatus() {
+        
+        self.userID = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
+        
+        if let userID = self.userID {
+            
+            let userIdRef = ref?.child("users").child(userID)
+            userIdRef?.observe(.value, with: {(snapshot) in
+                
+                userIdRef?.removeAllObservers()
+                
+                // Get user value
+                let snapshotValue = snapshot.value as? NSDictionary
+                if let adminaccess = snapshotValue?["admin"] as? Bool{
+                    print (adminaccess)
+                    self.userIsAdmin = adminaccess
+                }
+                self.loadScreen()
             })
         }
+        //No userId
+        else {
+            if self.userIsAdmin != false {
+                self.userIsAdmin = false
+            }
+        }
+    }
+
+    func loadScreen(){
+        self.hideLoadingIndicator()
+        if self.userIsAdmin {
+            self.performSegue(withIdentifier: Constants.Segues.loginToAdmin, sender: self)
+        } else {
+            self.performSegue(withIdentifier: Constants.Segues.loginToMain, sender: self)
+        }
     }
     
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!){
+//        print ("logged out")
+    }
     
+
     // MARK: Activity indicator
-    
     func hideLoadingIndicator() {
         SwiftLoader.hide()
     }
@@ -175,10 +199,10 @@ class LoginViewController: UIViewController {
     func showLoadingIndicator() {
         var config: SwiftLoader.Config = SwiftLoader.Config()
         config.size = 100
-        config.spinnerColor = UIColor.whiteColor()
-        config.foregroundColor = UIColor.blackColor()
+        config.spinnerColor = UIColor.white
+        config.foregroundColor = UIColor.black
         config.foregroundAlpha = 0.2
-        config.backgroundColor = UIColor.blackColor()
+        config.backgroundColor = UIColor.black
         config.cornerRadius = 5.0
         SwiftLoader.setConfig(config)
         SwiftLoader.show(animated: true)
@@ -186,12 +210,11 @@ class LoginViewController: UIViewController {
     
     
     // MARK: - Alert
-    
-    func showAlertWithMessage(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    func showAlertWithMessage(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 
    

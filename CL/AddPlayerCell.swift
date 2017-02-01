@@ -11,7 +11,7 @@ import UIKit
 import Spring
 import Eureka
 
-public class AddPlayerCell: Cell<Bool>, CellType {
+open class AddPlayerCell: Cell<Bool>, CellType {
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -22,33 +22,39 @@ public class AddPlayerCell: Cell<Bool>, CellType {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    override public func setup() {
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        setup()
+    }
+    
+    override open func setup() {
         super.setup()
         
-        selectionStyle = .None
-        editingAccessoryType = .None
+        selectionStyle = .none
+        editingAccessoryType = .none
         
         titleLabel.font = defaultFont
-        topSeparator.hidden = true
+        topSeparator.isHidden = true
         height = { return 65 }
     }
     
-    override public func update() {
+    override open func update() {
         super.update()
         
         textLabel?.text = nil
         
     }
     
-    public override func didSelect() {
+    open override func didSelect() {
         super.didSelect()
 
     }
     
 }
 
-
-final class AddPlayerRow: Row<Bool, AddPlayerCell>, RowType {
+// BOOL
+final class AddPlayerRow: Row<AddPlayerCell>, RowType {
     
     
     required init(tag: String?) {

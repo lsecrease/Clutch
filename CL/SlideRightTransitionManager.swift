@@ -19,40 +19,38 @@ class SlideRightTransitionManager: NSObject, UIViewControllerAnimatedTransitioni
     var toVC: UIViewController?
     
     
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
     
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         
-        let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)!
-        let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
+        let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+        let toView = transitionContext.view(forKey: UITransitionContextViewKey.to)!
         
-        guard let container = transitionContext.containerView() else {
-            return
-        }
-        
-        let moveLeft = CGAffineTransformMakeTranslation(-container.frame.width, 0)
-        let moveRight = CGAffineTransformMakeTranslation(container.frame.width, 0)
+        let container = transitionContext.containerView
+            
+        let moveLeft = CGAffineTransform(translationX: -container.frame.width, y: 0)
+        let moveRight = CGAffineTransform(translationX: container.frame.width, y: 0)
         
         if isPresenting {
             toView.transform = moveRight
-            snapshot = fromView.snapshotViewAfterScreenUpdates(true)
+            snapshot = fromView.snapshotView(afterScreenUpdates: true)
             container.addSubview(toView)
             container.addSubview(snapshot!)
         }
         
-        UIView.animateWithDuration(duration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             
             if self.isPresenting {
                 
                 self.snapshot?.transform = moveLeft
-                toView.transform = CGAffineTransformIdentity
+                toView.transform = CGAffineTransform.identity
                 
             } else {
                 
-                self.snapshot?.transform = CGAffineTransformIdentity
+                self.snapshot?.transform = CGAffineTransform.identity
                 fromView.transform = moveRight
                 
             }
@@ -67,14 +65,14 @@ class SlideRightTransitionManager: NSObject, UIViewControllerAnimatedTransitioni
         })
     }
     
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         isPresenting = true
         
         return self
     }
     
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         isPresenting = false
         return self
