@@ -14,6 +14,7 @@ public struct Player: Equatable {
     var number = Int()
     var pointValue = Float()
     var score = Float()
+    var playerID = String()
     
     init() {}
     

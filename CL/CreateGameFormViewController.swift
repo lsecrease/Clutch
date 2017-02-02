@@ -76,11 +76,18 @@ class CreateGameFormViewController: FormViewController {
     
     // MARK: Firebase Datbase Reference
     
-    var gameRef = FIRDatabaseReference()
-    var teamRef1 = FIRDatabaseReference()
-    var teamRef2 = FIRDatabaseReference()
+    var ref : FIRDatabaseReference?
     
-    var isConnectedToDatabase = false
+    var gameRef : FIRDatabaseReference?
+    var teamRef1 : FIRDatabaseReference?
+    var teamRef2 : FIRDatabaseReference?
+    
+    var gameBufferTime = 15.0 // 15 min (buffer between game start time and registration closing time
+
+    var gameDict = [String: AnyObject]()
+
+    
+    var isConnectedToDatabase = false //Z - don't think we need (look into where this is used)
     
     // MARK: View lifecycle
     
@@ -122,8 +129,6 @@ class CreateGameFormViewController: FormViewController {
             if let updatePointsVC = segue.destination as? UpdatePointsViewController {
                 updatePointsVC.team1 = self.game.team1
                 updatePointsVC.team2 = self.game.team2
-                updatePointsVC.teamRef1 = self.teamRef1
-                updatePointsVC.teamRef2 = self.teamRef2
             }
         }
     }
@@ -191,7 +196,6 @@ class CreateGameFormViewController: FormViewController {
             
             
             // Add Player to Team 1 (Expanding row)
-            //Seth: is this a ButtonRow?
             <<< AddPlayerRow() { row in
                     row.tag = "AddPlayerRow1"
                 }.onCellSelection({ (cell, row) in
@@ -284,7 +288,6 @@ class CreateGameFormViewController: FormViewController {
             
             
             // Latitude and Longitude
-            
             <<< CoordinateRow() { row in
                 row.tag = "CoordinateRow"
                 row.cell.latitudeField.delegate = self
@@ -322,13 +325,16 @@ class CreateGameFormViewController: FormViewController {
                 row.tag = "EndRegistrationDate"
                 
                 // Format date appearance
-                var formatter = DateFormatter()
+                let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .short
                 row.dateFormatter = formatter
                 
             }.onChange({ (dateInlineRow) in
-                self.game.endRegistration = dateInlineRow.value!
+                self.game.gameStartTime = dateInlineRow.value!
+                let closeRegistration = dateInlineRow.value! as Date
+                self.game.endRegistration = closeRegistration.addingTimeInterval(self.gameBufferTime * 60.0)
+                
             })
         }
     
@@ -484,10 +490,6 @@ class CreateGameFormViewController: FormViewController {
 
     }
     
-    func deletePlayerRowAtIndexPath(_ indexPath: IndexPath) {
-        
-    }
-    
     
     // MARK: IBAction methods
     
@@ -503,15 +505,7 @@ class CreateGameFormViewController: FormViewController {
     
     
     // MARK: Game Creation
-    
     func createGame() {
-        
-        
-        // Create database references
-        
-        gameRef = FIRDatabase.database().reference().child("games").child("category").child(game.category).childByAutoId()
-        teamRef1 = gameRef.child("team1")
-        teamRef2 = gameRef.child("team2")
         
         if let coordinateRow = self.form.rowBy(tag: "CoordinateRow") as? CoordinateRow {
             if let lat = Float(coordinateRow.cell.latitudeField.text!),
@@ -521,8 +515,8 @@ class CreateGameFormViewController: FormViewController {
             }
         }
         
-        // If complete, add game to database. Show missing data otherwise.
         
+//         If complete, add game to database. Show missing data otherwise.
         if formIsComplete() {
             addGameToDatabase()
             self.performSegue(withIdentifier: "showUpdatePointsVC", sender: self)
@@ -535,6 +529,9 @@ class CreateGameFormViewController: FormViewController {
     // MARK: Input Checking
     
     func formIsComplete() -> Bool {
+        missingInputs = []
+//        self.view.endEditing(true)
+//        return true
         
         if game.category == "" || game.category == "Select" {
             missingInputs += ["Category"]
@@ -566,19 +563,19 @@ class CreateGameFormViewController: FormViewController {
             print("Team 2 players entered: \(game.team2.players)")
         }
         
-        if game.startingValue as? Int == nil  {
+        if game.startingValue as Int? == nil  {
             missingInputs += ["Participant Starting Value"]
         } else {
             print("Starting Value entered: \(game.startingValue)")
         }
         
-        if game.latitude as? Float == nil {
+        if game.latitude as Float? == nil {
             missingInputs += ["Latitude"]
         } else {
             print("Latitude entered: \(game.latitude)")
         }
         
-        if self.game.longitude as? Float == nil {
+        if self.game.longitude as Float? == nil {
             missingInputs += ["Longitude"]
         } else {
             print("Longitude entered: \(game.longitude)")
@@ -590,6 +587,12 @@ class CreateGameFormViewController: FormViewController {
             print("Venue entered: \(game.venue)")
         }
 
+        if self.game.gameStartTime == nil{
+            missingInputs += ["Start time"]
+        }else{
+            print ("Start time entered: \(game.gameStartTime)")
+        }
+        
         return missingInputs.isEmpty
     }
     
@@ -614,64 +617,82 @@ class CreateGameFormViewController: FormViewController {
     
     func addGameToDatabase() {
         
-        // Create database references
         
-        let participantRef1 = gameRef.child("participants").childByAutoId()
-        let participantRef2 = gameRef.child("participants").childByAutoId()
+        //set values
+        self.gameDict["category"] = self.game.category as AnyObject?
+        self.gameDict["participant-starting-value"] = self.game.startingValue as AnyObject?
+        self.gameDict["startTime"] = String(describing: self.game.gameStartTime) as AnyObject?
+        self.gameDict["endRegistrationTime"] = String(describing: self.game.endRegistration) as AnyObject?
+        self.gameDict["venue"] = self.game.venue as AnyObject?
         
-        // Set values on Firebase database
-        participantRef1.child("admin").setValue(true)
-        participantRef2.child("admin").setValue(false)
         
+        self.ref = FIRDatabase.database().reference()
         
-        // Team 1
-        teamRef1.child("teamname").setValue(game.team1.name)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yy"
         
-        for player in game.team1.players {
-            let playerRef = teamRef1.child("players").childByAutoId()
-            playerRef.child("name").setValue(player.name)
-            playerRef.child("number").setValue(player.number)
-            playerRef.child("point-value").setValue(player.pointValue)
-            playerRef.child("score").setValue(0)
+        //Create game in Firebase
+        
+        guard let safeGameStartTime = self.game.gameStartTime else {
+            print("Game start time is nil - this should never happen because of formIsComplete()")
+            return }
+        
+        let gameDate = dateFormatter.string(from: safeGameStartTime)
+        if gameDate != ""{
+            if self.game.gameID == ""{
+                self.game.gameID = (self.ref?.child("/games/\(gameDate)/").childByAutoId().key)!
+                
+                var childUpdates : [String: AnyObject] = [:]
+                
+                for detail in self.gameDict{
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/\(detail.key)"] = self.gameDict[detail.key] as AnyObject?
+                }
+                
+                childUpdates["/games/\(gameDate)/\(self.game.gameID)/location/lat"] = self.game.latitude as AnyObject?
+                childUpdates["/games/\(gameDate)/\(self.game.gameID)/location/lon"] = self.game.longitude as AnyObject?
+                
+                childUpdates["/games/\(gameDate)/\(self.game.gameID)/team1/name"] = self.game.team1.name as AnyObject?
+                
+                for player in game.team1.players{
+                    let playerID = (self.ref?.child("/games/\(gameDate)/\(self.game.gameID)/team1/players").childByAutoId().key)!
+                    if let safeIndex = self.game.team1.players.index(of: player){
+                        self.game.team1.players[safeIndex].playerID = playerID
+                    }
+                    
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team1/players/\(playerID)/name"] = player.name as AnyObject?
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team1/players/\(playerID)/number"] = player.number as AnyObject?
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team1/players/\(playerID)/pointValue"] = player.pointValue as AnyObject?
+                }
+                
+                childUpdates["/games/\(gameDate)/\(self.game.gameID)/team2/name"] = self.game.team2.name as AnyObject?
+                for player in game.team2.players{
+                    let playerID = (self.ref?.child("/games/\(gameDate)/\(self.game.gameID)/team1/players").childByAutoId().key)!
+                    if let safeIndex = self.game.team2.players.index(of: player){
+                        self.game.team2.players[safeIndex].playerID = playerID
+                    }
+                    
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team2/players/\(playerID)/name"] = player.name as AnyObject?
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team2/players/\(playerID)/number"] = player.number as AnyObject?
+                    childUpdates["/games/\(gameDate)/\(self.game.gameID)/team2/players/\(playerID)/pointValue"] = player.pointValue as AnyObject?
+                }
+                self.ref?.updateChildValues(childUpdates)
+            }
         }
-        
-        // Team 2
-        teamRef2.child("teamname").setValue(game.team2.name)
-        
-        for player in game.team2.players {
-            let playerRef = teamRef2.child("players").childByAutoId()
-            playerRef.child("name").setValue(player.name)
-            playerRef.child("number").setValue(player.number)
-            playerRef.child("point-value").setValue(player.pointValue)
-            playerRef.child("score").setValue(0)
-        }
-        
-        // Other game properties
-        gameRef.child("latitude").setValue(game.latitude)
-        gameRef.child("longitude").setValue(game.longitude)
-        gameRef.child("venue").setValue(game.venue)
-        // gameRef.child("end-registration").setValue("\(game.endRegistration)")
-        gameRef.child("end-registration").setValue(stringFromDate(game.endRegistration as Date))
-        gameRef.child("starting-value").setValue(game.startingValue)
     }
-
     
     // MARK: Date Formatter
-    
     func stringFromDate(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale.current
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .short
-        dateFormatter.dateFormat = "yyyy-mm-dd H:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd H:mm"
         dateFormatter.defaultDate = Date()
         let dateString = dateFormatter.string(from: date)
         return dateString
     }
     
-    
     // MARK: UITableView Delegate functions
-    
     func tableView(_ tableView: UITableView, editActionsForRowAtIndexPath indexPath: IndexPath) -> [UITableViewRowAction]? {
         var actions = [UITableViewRowAction]()
         let noActions = [UITableViewRowAction]()
@@ -680,18 +701,17 @@ class CreateGameFormViewController: FormViewController {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
 
             // Delete player from team array
-            
-            if let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow {
-                if indexPath.row < teamRow2.indexPath!.row {
-                    let i = indexPath.row - 2
-                    self.game.team1.players.remove(at: i)
-                } else {
-                    let i = indexPath.row - (self.game.team1.players.count + 2)
-                    
-                    print("INDEX: \(indexPath.row)")
-                    self.game.team2.players.remove(at: i)
-                }
+            // Odd code explaination: table is in 1 section, variable rows if team is expanded
+            guard let teamRow1 = self.form.rowBy(tag: "Team1") as? TextRow else {return}
+            guard let teamRow2 = self.form.rowBy(tag: "Team2") as? TextRow else {return}
+            if indexPath.row < teamRow2.indexPath!.row {
+                let i = indexPath.row  - (teamRow1.indexPath?.row)! - 1
+                self.game.team1.players.remove(at: i)
+            } else {
+                let i = indexPath.row  - (teamRow2.indexPath?.row)! - 1
+                self.game.team2.players.remove(at: i)
             }
+            
             
             // Delete row from table
             if var mainSection = self.form.sectionBy(tag: "MainSection") {
@@ -815,27 +835,8 @@ class CreateGameFormViewController: FormViewController {
     
 }
 
-
 // MARK: - UITextField Delegate functions
-
 extension CreateGameFormViewController: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-//        if let coordinateRow = self.form.rowByTag("CoordinateRow") as? CoordinateRow {
-//            if textField.text != nil || textField.text != "" {
-//                if textField == coordinateRow.cell.latitudeField {
-//                    if let lat = coordinateRow.cell.latitudeField.text {
-//                        self.game.latitude = (Float(lat))!
-//                    }
-//                } else if textField == coordinateRow.cell.longitudeField {
-//                    if let lon = coordinateRow.cell.longitudeField.text {
-//                        self.game.longitude = Float(lon)!
-//                    }
-//                }
-//            }
-//        }
-    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

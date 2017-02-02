@@ -16,10 +16,12 @@ class Game {
     var team1 = Team()
     var team2 = Team()
     var startingValue = Int()
-    var latitude = Float()
-    var longitude = Float()
+    var latitude : Float?
+    var longitude : Float?
     var venue = String()
-    var endRegistration = Date()
+    var gameStartTime : Date?
+    var endRegistration : Date?
+    var endGameTime : Date?
     var participants = [String]()
 
     
