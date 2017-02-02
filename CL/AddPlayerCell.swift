@@ -24,18 +24,15 @@ open class AddPlayerCell: Cell<Bool>, CellType {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        setup()
     }
     
     override open func setup() {
         super.setup()
         
         selectionStyle = .none
-        editingAccessoryType = .none
-        
-        titleLabel.font = defaultFont
-        topSeparator.isHidden = true
+        editingAccessoryType = .none        
+        titleLabel.font = defaultFont //fatal error: found nil
+        topSeparator.isHidden = true //fatal error: found nil
         height = { return 65 }
     }
     

@@ -24,8 +24,6 @@ open class UpdateTeamCell: Cell<Bool>, CellType {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        setup()
     }
     
     open override func setup() {
