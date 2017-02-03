@@ -102,7 +102,6 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
             }
             cell.configureCell(game: self.activeGames[indexPath.row])
             cell.tapAction = { _ in
-                //ToDo: add end time to game in FB
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
@@ -121,7 +120,6 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
                 self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
                 return self.performSegue(withIdentifier: "updatePointsSegue", sender: self)
 
-                //ToDo: perform segue to updatePoints
                 
                 
             }
@@ -169,18 +167,14 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "createGameSegue", sender: self)
     }
     @IBAction func logoutButtonPressed(_ sender: Any) {
-        //Seth: do we need messaging manager?
-        
         // log out here
+        
         try! FIRAuth.auth()!.signOut()
         let loginManager = FBSDKLoginManager()
-        loginManager.logOut() // this is an instance function
+        loginManager.logOut()
         
-        self.navigationController?.dismiss(animated: true, completion: {
-//            MessagingManager.registerForNotifications()
-        })
+        self.navigationController?.dismiss(animated: true, completion: nil)
 
-        //        self.performSegue(withIdentifier: "LogInSegue", sender: self)
     }
     
     // MARK: - Custom methods
@@ -218,6 +212,18 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
                         self.completedGames.append(game)
                     }
                 }
+                //sort by date
+                self.activeGames.sort(by: {
+                    guard let safeFirstStartDate = $0.gameStartTime, let safeSecondStartDate = $1.gameStartTime else { return true }
+                    
+                    return safeFirstStartDate.compare(safeSecondStartDate) == .orderedAscending
+                })
+                self.completedGames.sort(by: {
+                    guard let safeFirstStartDate = $0.gameStartTime, let safeSecondStartDate = $1.gameStartTime else { return true }
+                    
+                    return safeFirstStartDate.compare(safeSecondStartDate) == .orderedAscending
+                })
+
                 
             }
             self.updateList()
