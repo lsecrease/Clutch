@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F3BBA2DCA2897E8505876FA /* Pods_CL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0692B644F1BA5E4A421C4A28 /* Pods_CL.framework */; };
 		BFC89B9A1E4392A500730AA7 /* GameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC89B991E4392A400730AA7 /* GameListViewController.swift */; };
+		BFE528CE1E43A99700BE5CE6 /* GameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE528CD1E43A99700BE5CE6 /* GameCell.swift */; };
 		C00346F11E02EEF20000A335 /* CreateGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */; };
 		C00346F61E0345CB0000A335 /* RotatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00346F51E0345CB0000A335 /* RotatingButton.swift */; };
 		C003A3CB1DF46C24008158C7 /* LiveTeamCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C003A3CA1DF46C24008158C7 /* LiveTeamCell.xib */; };
@@ -75,6 +76,7 @@
 		445CC88550A91715E63D6D22 /* Pods-CL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CL/Pods-CL.debug.xcconfig"; sourceTree = "<group>"; };
 		A024F937322D8D8CBA8A0159 /* Pods-CL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CL.release.xcconfig"; path = "Pods/Target Support Files/Pods-CL/Pods-CL.release.xcconfig"; sourceTree = "<group>"; };
 		BFC89B991E4392A400730AA7 /* GameListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameListViewController.swift; sourceTree = "<group>"; };
+		BFE528CD1E43A99700BE5CE6 /* GameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameCell.swift; sourceTree = "<group>"; };
 		C00346F01E02EEF20000A335 /* CreateGameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGameTableViewCell.swift; sourceTree = "<group>"; };
 		C00346F51E0345CB0000A335 /* RotatingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotatingButton.swift; sourceTree = "<group>"; };
 		C003A3CA1DF46C24008158C7 /* LiveTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LiveTeamCell.xib; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 		C00346E21E02C2ED0000A335 /* Table View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BFE528CD1E43A99700BE5CE6 /* GameCell.swift */,
 			);
 			name = "Table View Controllers";
 			sourceTree = "<group>";
@@ -737,6 +740,7 @@
 				C08B5AD51E1642AA000C8328 /* UpdatePlayerPointsCell.swift in Sources */,
 				C0859E3B1E175C5900341F1C /* DeviceType.swift in Sources */,
 				C0353A641E1C4B2600F7F767 /* MainViewController.swift in Sources */,
+				BFE528CE1E43A99700BE5CE6 /* GameCell.swift in Sources */,
 				C0C3E2B21DEB50E200B4978B /* Player.swift in Sources */,
 				C0CDD2BC1E0E54AC0033A072 /* PlayerForTeamCell.swift in Sources */,
 				C0C3E2D31DEBE09C00B4978B /* Extensions.swift in Sources */,
