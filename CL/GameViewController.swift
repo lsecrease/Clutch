@@ -305,8 +305,8 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         } else {
             let cell = gameRosterCollectionView.dequeueReusableCell(withReuseIdentifier: "idCellGameRoster", for: indexPath) as! GameRosterCell
             let player = players[indexPath.row]
-            cell.number = player.number
-            cell.playerName = player.name
+            cell.number = player.number ?? 0 //Seth: is there a better way to fix this?
+            cell.playerName = player.name ?? ""
 //            cell.teamName = player.teamName
 //            cell.cost = "\(player.cost)"
             return cell

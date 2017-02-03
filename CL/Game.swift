@@ -15,7 +15,7 @@ class Game {
     var category = String()
     var team1 = Team()
     var team2 = Team()
-    var startingValue = Int()
+    var startingValue : Int?
     var latitude : Float?
     var longitude : Float?
     var venue = String()
@@ -38,6 +38,44 @@ class Game {
         self.venue = venue
         self.endRegistration = endRegistration
         self.participants = participants
+    }
+    
+    init(gameDict: (key:String, value: AnyObject)) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+
+        print(gameDict)
+        self.gameID = gameDict.key
+        if let gameDetails = gameDict.1 as? [String:AnyObject] {
+            
+            self.category = gameDetails["category"] as? String ?? ""
+            self.venue = gameDetails["venue"] as? String ?? ""
+            self.startingValue = gameDetails["startingValue"] as? Int ?? nil
+            if let startTime = gameDetails["startTime"] as? String{
+                self.gameStartTime = dateFormatter.date(from: startTime)
+            }
+            if let endRegistration = gameDetails["endRegistrationTime"] as? String{
+                self.endRegistration = dateFormatter.date(from: endRegistration)
+            }
+            if let endGameTime = gameDetails["endGameTime"] as? String{
+                self.endGameTime = dateFormatter.date(from: endGameTime)
+            }
+            if let locationDetails = gameDetails["location"] as? [String: AnyObject]{
+                self.latitude = locationDetails["lat"] as? Float ?? nil
+                self.longitude = locationDetails["lon"] as? Float ?? nil
+            }
+            if let team1Details = gameDetails["team1"] as? [String: AnyObject]{
+                print(team1Details)
+                team1 = Team(teamDict: team1Details)
+            }
+            if let team2Details = gameDetails["team2"] as? [String: AnyObject]{
+                print(team2Details)
+                team2 = Team(teamDict: team2Details)
+            }
+            
+            // TODO: do more stuff here
+        }
     }
     
 }

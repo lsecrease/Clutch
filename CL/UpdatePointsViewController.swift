@@ -97,8 +97,8 @@ class UpdatePointsViewController: FormViewController {
                 var index = 1
                 for player in team1.players {
                     let newRow = UpdatePlayerPointsRow() {(row) in
-                        row.name = player.name
-                        row.pointValue = player.pointValue
+                        row.name = player.name ?? ""
+                        row.pointValue = player.pointValue ?? 0
                         row.hidden = .function(["UpdateTeamRow1"], { form -> Bool in
                             let row: RowOf<Bool>! = form.rowBy(tag: "UpdateTeamRow1")
                             return row.value ?? true == true
@@ -124,8 +124,8 @@ class UpdatePointsViewController: FormViewController {
                 var index = 1
                 for player in team2.players {
                     let newRow = UpdatePlayerPointsRow() { row in
-                        row.name = player.name
-                        row.pointValue = player.pointValue
+                        row.name = player.name ?? ""
+                        row.pointValue = player.pointValue ?? 0
                         row.hidden = .function(["UpdateTeamRow2"], { form -> Bool in
                             let row: RowOf<Bool>! = form.rowBy(tag: "UpdateTeamRow2")
                             return row.value ?? true == true

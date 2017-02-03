@@ -78,9 +78,9 @@ class CreateGameFormViewController: FormViewController {
     
     var ref : FIRDatabaseReference?
     
-    var gameRef : FIRDatabaseReference?
-    var teamRef1 : FIRDatabaseReference?
-    var teamRef2 : FIRDatabaseReference?
+//    var gameRef : FIRDatabaseReference?
+//    var teamRef1 : FIRDatabaseReference?
+//    var teamRef2 : FIRDatabaseReference?
     
     var gameBufferTime = 15.0 // 15 min (buffer between game start time and registration closing time
 
@@ -125,12 +125,12 @@ class CreateGameFormViewController: FormViewController {
     // MARK: Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showUpdatePointsVC" {
-            if let updatePointsVC = segue.destination as? UpdatePointsViewController {
-                updatePointsVC.team1 = self.game.team1
-                updatePointsVC.team2 = self.game.team2
-            }
-        }
+//        if segue.identifier == "showUpdatePointsVC" {
+//            if let updatePointsVC = segue.destination as? UpdatePointsViewController {
+//                updatePointsVC.team1 = self.game.team1
+//                updatePointsVC.team2 = self.game.team2
+//            }
+//        }
     }
     
     // MARK: Deinitialization
@@ -320,9 +320,9 @@ class CreateGameFormViewController: FormViewController {
             // End Registration
         
             <<< DateTimeInlineRow() { row in
-                row.title = "End Registration"
+                row.title = "Game Start"
                 row.value = Date()
-                row.tag = "EndRegistrationDate"
+                row.tag = "GameStartDate"
                 
                 // Format date appearance
                 let formatter = DateFormatter()
@@ -330,13 +330,14 @@ class CreateGameFormViewController: FormViewController {
                 formatter.timeStyle = .short
                 row.dateFormatter = formatter
                 
-            }.onChange({ (dateInlineRow) in
-                self.game.gameStartTime = dateInlineRow.value!
-                let closeRegistration = dateInlineRow.value! as Date
-                self.game.endRegistration = closeRegistration.addingTimeInterval(self.gameBufferTime * 60.0)
-                
-            })
-        }
+                }.onChange({ (dateInlineRow) in
+                    if let safeDate = dateInlineRow.value{
+                        self.game.gameStartTime = safeDate
+                        let closeRegistration = safeDate as Date
+                        self.game.endRegistration = closeRegistration.addingTimeInterval(self.gameBufferTime * 60.0)
+                    }
+                })
+    }
     
     
     // MARK: UI Customization
@@ -417,7 +418,10 @@ class CreateGameFormViewController: FormViewController {
                 }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
-                    row.cell.valueLabel.text = "\(playerForTeam1.pointValue)"
+                    
+                    if let safePointValue = playerForTeam1.pointValue{
+                        row.cell.valueLabel.text = "\(safePointValue)"
+                    }
                     row.cell.nameLabel.text = playerForTeam1.name
                     row.hidden = .function(["AddPlayerRow1"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow1")
@@ -450,7 +454,9 @@ class CreateGameFormViewController: FormViewController {
                 }
                 
                 mainSection.insert(PlayerForTeamRow() { row in
-                    row.cell.valueLabel.text = "\(playerForTeam2.pointValue)"
+                    if let safePointValue = playerForTeam2.pointValue{
+                        row.cell.valueLabel.text = "\(safePointValue)"
+                    }
                     row.cell.nameLabel.text = playerForTeam2.name
                     row.hidden = .function(["AddPlayerRow2"], { form -> Bool in
                         let row: RowOf<Bool>! = form.rowBy(tag: "AddPlayerRow2")
@@ -494,9 +500,7 @@ class CreateGameFormViewController: FormViewController {
     // MARK: IBAction methods
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        // self.dismissViewControllerAnimated(true, completion: nil)
-        
-        print("CANCEL BUTTON PRESSED")
+        let _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
@@ -519,7 +523,7 @@ class CreateGameFormViewController: FormViewController {
 //         If complete, add game to database. Show missing data otherwise.
         if formIsComplete() {
             addGameToDatabase()
-            self.performSegue(withIdentifier: "showUpdatePointsVC", sender: self)
+            let _ = self.navigationController?.popViewController(animated: true)
         } else {
             showMissingInputs()
         }
@@ -620,16 +624,21 @@ class CreateGameFormViewController: FormViewController {
         
         //set values
         self.gameDict["category"] = self.game.category as AnyObject?
-        self.gameDict["participant-starting-value"] = self.game.startingValue as AnyObject?
-        self.gameDict["startTime"] = String(describing: self.game.gameStartTime) as AnyObject?
-        self.gameDict["endRegistrationTime"] = String(describing: self.game.endRegistration) as AnyObject?
+        self.gameDict["startingValue"] = self.game.startingValue as AnyObject?
         self.gameDict["venue"] = self.game.venue as AnyObject?
+        
+        if let safeDate = self.game.gameStartTime{
+            self.gameDict["startTime"] = String(describing: safeDate) as AnyObject?
+        }
+        if let safeDate = self.game.endRegistration{
+            self.gameDict["endRegistrationTime"] = String(describing: safeDate) as AnyObject?
+        }
         
         
         self.ref = FIRDatabase.database().reference()
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         
         //Create game in Firebase
         
@@ -678,18 +687,6 @@ class CreateGameFormViewController: FormViewController {
                 self.ref?.updateChildValues(childUpdates)
             }
         }
-    }
-    
-    // MARK: Date Formatter
-    func stringFromDate(_ date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.current
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .short
-        dateFormatter.dateFormat = "yyyy-MM-dd H:mm"
-        dateFormatter.defaultDate = Date()
-        let dateString = dateFormatter.string(from: date)
-        return dateString
     }
     
     // MARK: UITableView Delegate functions
