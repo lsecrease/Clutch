@@ -35,4 +35,8 @@ class Team {
             }
         }
     }
+    
+    func playerForPlayerID(playerId: String) -> Player? {
+        return players.filter ({ $0.playerID == playerId }).first
+    }
 }
