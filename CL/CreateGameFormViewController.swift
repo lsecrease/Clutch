@@ -78,9 +78,9 @@ class CreateGameFormViewController: FormViewController {
     
     var ref : FIRDatabaseReference?
     
-    var gameRef : FIRDatabaseReference?
-    var teamRef1 : FIRDatabaseReference?
-    var teamRef2 : FIRDatabaseReference?
+//    var gameRef : FIRDatabaseReference?
+//    var teamRef1 : FIRDatabaseReference?
+//    var teamRef2 : FIRDatabaseReference?
     
     var gameBufferTime = 15.0 // 15 min (buffer between game start time and registration closing time
 

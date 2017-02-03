@@ -11,6 +11,8 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 enum GameListSections: Int {
     case activeGamesSection = 0
@@ -56,6 +58,8 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
             switch safeIndexPath.section{
             case GameListSections.completedGamesSection.rawValue:
                 currentGame = completedGames[(safeIndexPath as NSIndexPath).row]
+            case GameListSections.activeGamesSection.rawValue:
+                currentGame = activeGames[(safeIndexPath as NSIndexPath).row]
             default:
                 return
             }
@@ -97,6 +101,30 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
                 return UITableViewCell()
             }
             cell.configureCell(game: self.activeGames[indexPath.row])
+            cell.tapAction = { _ in
+                //ToDo: add end time to game in FB
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                
+                self.ref = FIRDatabase.database().reference()
+                var childUpdates : [String: AnyObject] = [:]
+                
+                let currentGame = self.activeGames[indexPath.row]
+                if let safeDate = currentGame.gameStartTime{
+                    let endDate = NSDate()
+                    let gameDate = dateFormatter.string(from: safeDate)
+                    childUpdates["/games/\(gameDate)/\(currentGame.gameID)/endGameTime"] = String(describing: endDate) as AnyObject?
+                    self.ref?.updateChildValues(childUpdates)
+
+                }
+                
+                self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableViewScrollPosition.none)
+                return self.performSegue(withIdentifier: "updatePointsSegue", sender: self)
+
+                //ToDo: perform segue to updatePoints
+                
+                
+            }
             
             return cell
             
@@ -141,7 +169,18 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "createGameSegue", sender: self)
     }
     @IBAction func logoutButtonPressed(_ sender: Any) {
-        //ToDo: Add logout function
+        //Seth: do we need messaging manager?
+        
+        // log out here
+        try! FIRAuth.auth()!.signOut()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut() // this is an instance function
+        
+        self.navigationController?.dismiss(animated: true, completion: {
+//            MessagingManager.registerForNotifications()
+        })
+
+        //        self.performSegue(withIdentifier: "LogInSegue", sender: self)
     }
     
     // MARK: - Custom methods

@@ -13,10 +13,13 @@ class GameCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var finishedButton: UIButton!
 
+    var tapAction: ((GameCell) -> Void)?
+
     // MARK: - Life Cycle Methods
     
     // MARK: - Actions
     @IBAction func finishedButtonPressed(_ sender: Any) {
+        tapAction?(self)
     }
     
     // MARK: - Custom methods
