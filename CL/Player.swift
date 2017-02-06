@@ -25,7 +25,6 @@ public struct Player: Equatable {
         self.score = score
     }
     init (playerDict: (key: String, value: AnyObject)){
-        print(playerDict)
         self.playerID = playerDict.key
         
         if let playerDetails = playerDict.1 as? [String:AnyObject]{

@@ -23,11 +23,12 @@ class Game {
     var endRegistration : Date?
     var endGameTime : Date?
     var participants = [User]()
+    var rank = [String]()
 
     
     init() {}
     
-    init(gameID: String, category: String, team1: Team, team2: Team, startingValue: Int, latitude: Float, longitude: Float, venue: String, endRegistration: Date, participants: [String]) {
+    init(gameID: String, category: String, team1: Team, team2: Team, startingValue: Int, latitude: Float, longitude: Float, venue: String, endRegistration: Date, participants: [User], rank: [String]) {
         self.gameID = gameID
         self.category = category
         self.team1 = team1
@@ -38,6 +39,7 @@ class Game {
         self.venue = venue
         self.endRegistration = endRegistration
         self.participants = []
+        self.rank = []
     }
     
     init(gameDict: (key:String, value: AnyObject)) {
@@ -80,6 +82,10 @@ class Game {
                     let currentUser = User(userDict: user)
                     self.participants.append(currentUser)
                 }
+            }
+            //initializing rank data
+            if let rankUsers = gameDetails["ranking"] as? [String]{
+                self.rank = rankUsers
             }
             
         }

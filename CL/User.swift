@@ -30,7 +30,6 @@ class User {
             self.disqualified = userDetails["disqualified"] as? Bool ?? nil
             
             self.roster = userDetails["roster"] as? [String] ?? []
-            
         }
         
     }
