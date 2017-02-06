@@ -68,10 +68,7 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if segue.identifier == "updatePointsSegue" {
             if let updatePointsVC = segue.destination as? UpdatePointsViewController{
-                updatePointsVC.game = currentGame
-                updatePointsVC.team1 = currentGame.team1
-                updatePointsVC.team2 = currentGame.team2
-                
+                updatePointsVC.game = currentGame                
             }
         }
     }
@@ -142,9 +139,15 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case GameListSections.activeGamesSection.rawValue:
-            return "Active Games"
+            if (self.activeGames.count > 0){
+                return "Active Games"
+            }
+            return ""
         case GameListSections.completedGamesSection.rawValue:
-            return "Completed Games"
+            if (self.completedGames.count > 0){
+                return "Completed Games"
+            }
+            return ""
         default:
             return ""
         }
