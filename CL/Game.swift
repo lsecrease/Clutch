@@ -22,7 +22,7 @@ class Game {
     var gameStartTime : Date?
     var endRegistration : Date?
     var endGameTime : Date?
-    var participants = [String]()
+    var participants = [User]()
 
     
     init() {}
@@ -37,7 +37,7 @@ class Game {
         self.longitude = longitude
         self.venue = venue
         self.endRegistration = endRegistration
-        self.participants = participants
+        self.participants = []
     }
     
     init(gameDict: (key:String, value: AnyObject)) {
@@ -52,6 +52,7 @@ class Game {
             self.category = gameDetails["category"] as? String ?? ""
             self.venue = gameDetails["venue"] as? String ?? ""
             self.startingValue = gameDetails["startingValue"] as? Int ?? nil
+            //initializing times data
             if let startTime = gameDetails["startTime"] as? String{
                 self.gameStartTime = dateFormatter.date(from: startTime)
             }
@@ -61,20 +62,26 @@ class Game {
             if let endGameTime = gameDetails["endGameTime"] as? String{
                 self.endGameTime = dateFormatter.date(from: endGameTime)
             }
+            //initializing location data
             if let locationDetails = gameDetails["location"] as? [String: AnyObject]{
                 self.latitude = locationDetails["lat"] as? Float ?? nil
                 self.longitude = locationDetails["lon"] as? Float ?? nil
             }
+            //initializing team data
             if let team1Details = gameDetails["team1"] as? [String: AnyObject]{
-                print(team1Details)
                 team1 = Team(teamDict: team1Details)
             }
             if let team2Details = gameDetails["team2"] as? [String: AnyObject]{
-                print(team2Details)
                 team2 = Team(teamDict: team2Details)
             }
+            //initializing user data
+            if let participants = gameDetails["participants"] as? [String: AnyObject]{
+                for user in participants{
+                    let currentUser = User(userDict: user)
+                    self.participants.append(currentUser)
+                }
+            }
             
-            // TODO: do more stuff here
         }
     }
     

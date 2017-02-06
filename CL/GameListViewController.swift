@@ -68,10 +68,7 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if segue.identifier == "updatePointsSegue" {
             if let updatePointsVC = segue.destination as? UpdatePointsViewController{
-                updatePointsVC.game = currentGame
-                updatePointsVC.team1 = currentGame.team1
-                updatePointsVC.team2 = currentGame.team2
-                
+                updatePointsVC.game = currentGame                
             }
         }
     }

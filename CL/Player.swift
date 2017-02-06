@@ -33,17 +33,6 @@ public struct Player: Equatable {
             self.name = playerDetails["name"] as? String ?? ""
             self.pointValue = playerDetails["pointValue"] as? Float ?? nil
             self.score = playerDetails["score"] as? Float ?? nil
-        
-//            if let safeNumber = playerDetails["number"] as? Int{
-//                self.number = safeNumber
-//            }
-//            if let safePointValue = playerDetails["pointValue"] as? Float{
-//                self.pointValue = safePointValue
-//            }
-//            if let safeScore = playerDetails["score"] as? Float{
-//                self.score = safeScore
-//            }
-        
         }
     }
 }

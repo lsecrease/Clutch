@@ -21,14 +21,11 @@ class Team {
         self.players = players
     }
     
-    init(teamDict: [String:AnyObject]){
-        print(teamDict)
-        
+    init(teamDict: [String:AnyObject]){        
         let teamName = teamDict["name"] as? String ?? ""
         self.name = teamName
 
         if let teamPlayers = teamDict["players"] as? [String: AnyObject]{
-            print(teamPlayers)
             for player in teamPlayers {
                 let currentPlayer = Player(playerDict: player)
                 self.players.append(currentPlayer)
