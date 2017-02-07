@@ -25,6 +25,11 @@ class ProfileViewController: UIViewController {
 
     var profileImage = UIImage()
 
+    var ref : FIRDatabaseReference?
+    var userID : String?
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -74,6 +79,10 @@ class ProfileViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+//        self.userID = FIRAuth.auth()?.currentUser?.uid
+//        ref = FIRDatabase.database().reference()
+
+        self.fullNameLabel.text = FIRAuth.auth()?.currentUser?.displayName
         
         // profileImageView.image = profileImage
 
@@ -100,9 +109,11 @@ class ProfileViewController: UIViewController {
     
     
     func setFacebookProfilePic() {
-        if let picURL = UserDefaults.standard.string(forKey: avatarURLKey),
-            let url = URL(string: picURL),
-            let data = try? Data(contentsOf: url),
+//        if let picURL = UserDefaults.standard.string(forKey: avatarURLKey),
+//        let url = URL(string: picURL),
+
+        if let picURL = FIRAuth.auth()?.currentUser?.photoURL,
+            let data = try? Data(contentsOf: picURL),
             let profilePic = UIImage(data: data) {
             
             print(picURL)

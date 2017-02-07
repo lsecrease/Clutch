@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -156,7 +157,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="eDX-0D-Y4d">
-                                                <rect key="frame" x="8" y="55" width="360" height="65"/>
+                                                <rect key="frame" x="7.5" y="55" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -477,7 +478,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="nvu-8R-NFE">
-                                                <rect key="frame" x="8" y="15" width="360" height="65"/>
+                                                <rect key="frame" x="7.5" y="15" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -731,7 +732,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b0e-Au-mFo" id="CJA-Z6-nEz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjR-oR-8fb">
@@ -865,14 +866,27 @@
                                                             <action selector="cancelButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="7Vg-rS-Mat"/>
                                                         </connections>
                                                     </button>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lk0-v5-G7H">
+                                                        <rect key="frame" x="8" y="8" width="55" height="32"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <state key="normal" title="Logout">
+                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="logoutButtonPressed:" destination="KvL-JV-Kbd" eventType="touchUpInside" id="gw1-oY-5MK"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="u4d-6a-LWC" firstAttribute="centerY" secondItem="0QM-fl-Ttp" secondAttribute="centerY" id="Yw5-Bo-bPV"/>
                                                     <constraint firstItem="u4d-6a-LWC" firstAttribute="leading" secondItem="0QM-fl-Ttp" secondAttribute="leading" id="jHi-dN-7yp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Lk0-v5-G7H" secondAttribute="trailing" constant="20" id="mkz-bf-QnI"/>
                                                     <constraint firstItem="u4d-6a-LWC" firstAttribute="top" secondItem="0QM-fl-Ttp" secondAttribute="top" constant="9" id="tyi-KF-dRB"/>
                                                     <constraint firstAttribute="trailing" secondItem="u4d-6a-LWC" secondAttribute="trailing" constant="20" id="wk9-Pv-eWM"/>
+                                                    <constraint firstItem="Lk0-v5-G7H" firstAttribute="centerY" secondItem="0QM-fl-Ttp" secondAttribute="centerY" id="xm0-Tm-65c"/>
+                                                    <constraint firstItem="Lk0-v5-G7H" firstAttribute="leading" secondItem="0QM-fl-Ttp" secondAttribute="leadingMargin" id="z3e-MR-QiD"/>
                                                 </constraints>
                                             </view>
                                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1130,6 +1144,7 @@
                         <outlet property="liveButton" destination="OIF-o4-8Tx" id="MCn-9W-bIW"/>
                         <outlet property="liveContainerView" destination="olI-sZ-QDp" id="Lmf-N7-6Zs"/>
                         <outlet property="liveUnderlineLabel" destination="QMY-6a-1HQ" id="1OO-hj-6Yk"/>
+                        <outlet property="logoutButton" destination="Lk0-v5-G7H" id="H8S-Ml-DKq"/>
                         <outlet property="profileButton" destination="joO-l1-gnW" id="f5F-Ca-UfB"/>
                         <outlet property="profileContainerView" destination="Dnf-pO-hG8" id="KCM-r5-jsG"/>
                         <outlet property="profileUnderlineLabel" destination="vh6-al-j5c" id="vpz-19-kc2"/>
@@ -1168,7 +1183,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="i3A-So-udW">
-                                                        <rect key="frame" x="8" y="35" width="360" height="65"/>
+                                                        <rect key="frame" x="7.5" y="35" width="360" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -1645,9 +1660,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="568"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGq-aV-IYg">
-                                        <rect key="frame" x="100" y="170" width="174" height="32"/>
+                                        <rect key="frame" x="-0.5" y="170" width="375" height="32"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="174" id="E0M-LG-k8f"/>
                                             <constraint firstAttribute="height" constant="32" id="dkp-B5-8sS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -1684,6 +1698,7 @@
                                     <constraint firstAttribute="trailing" secondItem="etG-zY-uFa" secondAttribute="trailing" constant="13" id="WMY-3j-jt5"/>
                                     <constraint firstItem="pCO-ts-nge" firstAttribute="centerX" secondItem="hSL-O0-e8i" secondAttribute="centerX" id="tHL-ix-afy"/>
                                     <constraint firstItem="pCO-ts-nge" firstAttribute="top" secondItem="hSL-O0-e8i" secondAttribute="top" constant="23" id="u7S-SQ-cx2"/>
+                                    <constraint firstItem="yGq-aV-IYg" firstAttribute="width" secondItem="hSL-O0-e8i" secondAttribute="width" id="yZp-iN-sW2"/>
                                 </constraints>
                             </view>
                         </subviews>

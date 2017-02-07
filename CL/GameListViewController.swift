@@ -170,7 +170,6 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "createGameSegue", sender: self)
     }
     @IBAction func logoutButtonPressed(_ sender: Any) {
-        // log out here
         
         try! FIRAuth.auth()!.signOut()
         let loginManager = FBSDKLoginManager()

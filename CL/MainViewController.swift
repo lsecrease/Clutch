@@ -9,6 +9,8 @@
 import CoreLocation
 import Firebase
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 
 // MARK: - ManinViewController
@@ -35,6 +37,7 @@ class MainViewController: UIViewController {
     // Navbar buttons
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     // MARK: Properties
         
@@ -138,6 +141,7 @@ class MainViewController: UIViewController {
         
         // Indicate current view
         profileUnderlineLabel.show()
+        logoutButton.show() // Seth: is there a better place for this? 1st time loading deal
         
         // Set active views
         // liveTeamViewIsActive = true
@@ -391,6 +395,15 @@ class MainViewController: UIViewController {
         }
         
     }
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        try! FIRAuth.auth()!.signOut()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+//        self.navigationController?.dismiss(animated: true, completion: nil) //Seth: should we make this a navigation controller?
+        let _ = self.navigationController?.popViewController(animated: true)
+
+    }
     
     @IBAction func checkInButtonPressed(_ sender: UIButton) {
         print("Check-in button pressed")
@@ -407,6 +420,12 @@ class MainViewController: UIViewController {
             self.cancelButton.show()
         } else {
             self.cancelButton.hide()
+        }
+        
+        if !profileContainerView.isHidden{
+            self.logoutButton.show()
+        }else{
+            self.logoutButton.hide()
         }
         
     }
