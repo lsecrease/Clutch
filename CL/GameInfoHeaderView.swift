@@ -72,5 +72,23 @@ class GameInfoHeaderView: UICollectionReusableView {
         
     }
     
+    func configureHeader(game: Game){
+        
+        self.teamLabel1.text = game.team1.name as String ?? ""
+        teamLabel2.text = game.team2.name
+        venueLabel.text = game.venue
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, d MMM"
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        
+        if let safeDate = game.gameStartTime{ //Seth: gameStartTime or endRegistration?
+            dateLabel.text = dateFormatter.string(from: safeDate)
+            timeLabel.text = timeFormatter.string(from: safeDate)
+        }
+        
+        
+    }
 
 }

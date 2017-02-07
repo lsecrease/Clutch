@@ -157,7 +157,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="eDX-0D-Y4d">
-                                                <rect key="frame" x="7.5" y="55" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="55" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -478,7 +478,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="nvu-8R-NFE">
-                                                <rect key="frame" x="7.5" y="15" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="15" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -732,7 +732,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b0e-Au-mFo" id="CJA-Z6-nEz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjR-oR-8fb">
@@ -1103,7 +1103,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hqL-Rz-Rta" userLabel="Game Container View">
                                 <rect key="frame" x="0.0" y="99" width="375" height="568"/>
                                 <connections>
-                                    <segue destination="9vd-FI-5mT" kind="embed" identifier="idEmbedGameVC" id="lKG-KH-dyE"/>
+                                    <segue destination="9vd-FI-5mT" kind="embed" identifier="idEmbedGameVC" id="aWs-Eq-Ldb"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olI-sZ-QDp" userLabel="Live Container View">
@@ -1183,7 +1183,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="i3A-So-udW">
-                                                        <rect key="frame" x="7.5" y="35" width="360" height="65"/>
+                                                        <rect key="frame" x="8" y="35" width="360" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -1510,8 +1510,13 @@
                                                         <constraint firstItem="wCP-lB-maY" firstAttribute="leading" secondItem="Noi-sx-xcN" secondAttribute="leading" constant="8" id="gU8-kl-kLZ"/>
                                                     </constraints>
                                                     <connections>
+                                                        <outlet property="dateLabel" destination="eDq-Vl-FR4" id="1Lc-xx-Rfg"/>
                                                         <outlet property="teamButton1" destination="VEp-c7-bmT" id="d3c-b5-4d7"/>
                                                         <outlet property="teamButton2" destination="a53-dS-5hj" id="jf4-Hu-wnz"/>
+                                                        <outlet property="teamLabel1" destination="6jU-xZ-Egr" id="Ei4-i5-uqn"/>
+                                                        <outlet property="teamLabel2" destination="Cli-4b-uLv" id="BcA-rZ-ydW"/>
+                                                        <outlet property="timeLabel" destination="ENI-GZ-29g" id="wCO-3c-NMF"/>
+                                                        <outlet property="venueLabel" destination="QH3-la-0Tg" id="QZ9-vr-3hO"/>
                                                     </connections>
                                                 </collectionReusableView>
                                                 <connections>

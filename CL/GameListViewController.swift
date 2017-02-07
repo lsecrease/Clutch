@@ -191,9 +191,9 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         gamesRef = gamessQuery?.observe(.value, with: { (snapshot) in
             if let games = snapshot.value as? [String : AnyObject] {
                 
-                self.allGames = [] // clear allGames dictionary
+                self.allGames = [] // clear allGames array
                 
-                //save games
+                //save games to classes
                 for gameByDate in games{
                     if let gameByID = gameByDate.1 as? [String:AnyObject]{
                         for game in gameByID{
@@ -203,7 +203,7 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
                     }
                 }
                 
-                //clear out id arrays
+                //clear out game arrays
                 self.activeGames = []
                 self.completedGames = []
                 

@@ -1,4 +1,4 @@
-//
+
 //  MainViewController.swift
 //  CL
 //
@@ -8,16 +8,27 @@
 
 import CoreLocation
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 
 
-// MARK: - ManinViewController
+protocol MainViewDelegate
+{
+    func updateGameDone(games : [Game], sender : UIViewController)
+    
+}
 
+// MARK: - ManinViewController
 class MainViewController: UIViewController {
     
     // MARK: IBOutlets
+    
+    var delegate : MainViewDelegate?
+
     
     // Container Views
     @IBOutlet weak var profileContainerView: UIView!
@@ -42,18 +53,12 @@ class MainViewController: UIViewController {
     // MARK: Properties
         
     // Firebase properties
-    var ref: FIRDatabaseReference!
-    var refHandle: UInt!
-    var isSignedIn = true
-    var gamesRef = FIRDatabaseReference()
-    var teamRef1 = FIRDatabaseReference()
-    var teamRef2 = FIRDatabaseReference()
-    var gameCategory: CategoryType?
+    var ref : FIRDatabaseReference?
+    var gamesRef : UInt?
     
-    var games = [Game]()
-    var gameKeys = [String]()
-    var team1 = Team()
-    var team2 = Team()
+    var allGames = [Game]()
+    var activeGames : [Game] = []
+
     
     // Boolean view properties
     var gameRosterViewIsActive: Bool!
@@ -73,7 +78,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         // Set category
-        gameCategory = .nba
+//        gameCategory = .nba
         
         configureViews()
         
@@ -94,6 +99,9 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        ref = FIRDatabase.database().reference()
+        self.updateGames()
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async { 
             // self.getGameDataFor(self.gameCategory!)
@@ -161,32 +169,40 @@ class MainViewController: UIViewController {
     // MARK: Firebase Database functions
     
     func passGameDataToOtherVCs(_ games: [Game]) {
-        
-        if let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
-            gameVC.games = games
-        }
+//        doesn't work!!
+//        if let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController{
+//
+//            gameVC.games = games
+//        }
     }
     
-    func categoryString(_ category: CategoryType) -> String {
-        switch category {
-        case .mlb:
-            return "mlb"
-        case .mls:
-            return "mls"
-        case .ncaaBasketball:
-            return "ncaa-basketball"
-        case .ncaaFootball:
-            return "ncaa-football"
-        case .nba:
-            return "nba"
-        case .nfl:
-            return "nfl"
-        case .nhl:
-            return "nhl"
-        }
 
-    }
+        
+        
+    //Z: I commented this out - not sure what it's used for
+//    func categoryString(_ category: CategoryType) -> String {
+//        switch category {
+//        case .mlb:
+//            return "mlb"
+//        case .mls:
+//            return "mls"
+//        case .ncaaBasketball:
+//            return "ncaa-basketball"
+//        case .ncaaFootball:
+//            return "ncaa-football"
+//        case .nba:
+//            return "nba"
+//        case .nfl:
+//            return "nfl"
+//        case .nhl:
+//            return "nhl"
+//        }
+//
+//    }
     
+    
+    
+// Z: previous code - looks like it may be for pulling games by category
 //    func getGameDataFor(category: CategoryType) {
 //        
 //        let categoryName = categoryString(category)
@@ -467,6 +483,47 @@ extension MainViewController: CLLocationManagerDelegate {
         print("Location Manager failed with error: \(error)")
     }
     
+    // MARK: - Custom methods
+    func updateGames(){
+        ref = ref?.child("games")
+        let gamessQuery = ref?.queryLimited(toLast: 25) //Seth: how were we going to do this?
+        //addAsyncLoad() do we need this?
+        
+        gamesRef = gamessQuery?.observe(.value, with: { (snapshot) in
+            if let games = snapshot.value as? [String : AnyObject] {
+                
+                self.allGames = [] // clear allGames array
+                
+                //save games to classes
+                for gameByDate in games{
+                    if let gameByID = gameByDate.1 as? [String:AnyObject]{
+                        for game in gameByID{
+                            let currentGame = Game(gameDict: game)
+                            self.allGames.append(currentGame)
+                        }
+                    }
+                }
+                
+                //clear out game array
+                self.activeGames = []
+                
+                for game in self.allGames{
+                    if game.endGameTime == nil{
+                        self.activeGames.append(game)
+                    }
+                }
+                //sort by date
+                self.activeGames.sort(by: {
+                    guard let safeFirstStartDate = $0.gameStartTime, let safeSecondStartDate = $1.gameStartTime else { return true }
+                    
+                    return safeFirstStartDate.compare(safeSecondStartDate) == .orderedAscending
+                })
+            }
+            self.delegate?.updateGameDone(games: self.activeGames, sender: self)
+            //            self.passGameDataToOtherVCs(self.activeGames)
+
+        })
+    }
     
 }
 
