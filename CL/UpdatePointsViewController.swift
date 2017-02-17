@@ -235,11 +235,15 @@ class UpdatePointsViewController: FormViewController {
         //filter out disqualified participants
         var participants = safeGame.participants.filter ({
             
+            if $0.checkInTime == nil {
+                return false
+            }
+            
             if let isDisqualified = $0.disqualified{
                 return !isDisqualified
             }
             
-            return false
+            return true
         })
         
         //sort scores by hi-low

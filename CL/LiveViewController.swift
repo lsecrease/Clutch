@@ -10,7 +10,7 @@ import Firebase
 import UIKit
 
 
-class LiveViewController: UIViewController {
+class LiveViewController: UIViewController, ChildViewProtocol {
     
     @IBOutlet weak var liveTeamView: UIView!
     @IBOutlet weak var liveTeamViewCenterX: NSLayoutConstraint!
@@ -21,23 +21,22 @@ class LiveViewController: UIViewController {
     @IBOutlet weak var leaderboardCollectionView: UICollectionView!
     @IBOutlet weak var rankLabel: UILabel!
     @IBOutlet weak var totalPointsLabel: UILabel!
+    @IBOutlet weak var rankLabel2: UILabel!
+    @IBOutlet weak var totalPointsLabel2: UILabel!
     
     @IBOutlet weak var leaderboardButton: UIButton!
     @IBOutlet weak var myTeamButton: UIButton!
     
-    @IBOutlet weak var teamButton1: UIButton!
-    @IBOutlet weak var teamButton2: UIButton!
-    
+    var games = [Game]()
+    var liveGame: Game? = nil
+    var selectedParticipant: User? = nil
 
-    var teams = [Team]()
+    
     // Firebase database references
     var matchups = [(team1: Team, team2: Team)]()
-    
-    var teamRef1 = FIRDatabaseReference()
-    var teamRef2 = FIRDatabaseReference()
-    
-    var categoryRef = FIRDatabaseReference()
-    var categoryType: CategoryType?
+
+    var ref : FIRDatabaseReference?
+
 
     // Cell Identifiers
     let idCellLeaderboard = "idCellLeaderboard"
@@ -49,11 +48,9 @@ class LiveViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categoryType = .nba
         // Do any additional setup after loading the view.
         registerCells()
         
-        // setLiveTeamViewState()
         
         // Position live views
         leaderboardViewCenterX.constant += self.view.bounds.width
@@ -71,51 +68,6 @@ class LiveViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
-    }
-    
-    
-//    func getGameDataFor(category: CategoryType) {
-//        var categoryName = String()
-//        switch category {
-//        case .MLB:
-//            categoryName = "mlb"
-//        case .MLS:
-//            categoryName = "mls"
-//        case .NCAABasketball:
-//            categoryName = "ncaa-basketball"
-//        case .NCAAFootball:
-//            categoryName = "ncaa-football"
-//        case .NBA:
-//            categoryName = "nba"
-//        case .NFL:
-//            categoryName = "nfl"
-//        case .NHL:
-//            categoryName = "nhl"
-//        }
-//        
-//        categoryRef = FIRDatabase.database().reference().child("category").child(categoryName)
-//        
-//        categoryRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-//            
-//            if snapshot.value is NSNull {
-//                return
-//            } else {
-//                for child in snapshot.children {
-//                    self.matchups += [(team1: child.value["team1"] as! Team, team2: child.value["team2"] as! Team)]
-//                }
-//                print("MATCHUPS:-")
-//                print(self.matchups)
-//            }
-//        })
-//    
-//    }
-    
-    func team1ButtonPressed() {
-        print("TEAM BUTTON 1 PRESSED")
-    }
-    
-    func team2ButtonPressed() {
-        print("TEAM BUTTON 2 PRESSED")
     }
 
     func showAlert(_ title: String, message: String) {
@@ -137,7 +89,6 @@ class LiveViewController: UIViewController {
                 self.leaderboardViewCenterX.constant -= self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.liveTeamViewIsActive = false
-                // self.setLiveTeamViewState()
                 
                 DispatchQueue.main.async(execute: {
                     if let mainVC = self.parent as? MainViewController {
@@ -153,7 +104,6 @@ class LiveViewController: UIViewController {
                 self.leaderboardViewCenterX.constant += self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.liveTeamViewIsActive = true
-                // self.setLiveTeamViewState()
                 
                 DispatchQueue.main.async(execute: { 
                     if let mainVC = self.parent as? MainViewController {
@@ -196,9 +146,9 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == liveTeamCollectionView {
-            return players.count
+           return self.selectedParticipant?.roster.count ?? 0
         } else {
-            return RankedUsers.count
+            return liveGame?.rank.count ?? 0
         }
         
     }
@@ -206,22 +156,52 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        
         if collectionView == liveTeamCollectionView {
-            // Access the first player's info
-            let player = players[indexPath.row]
             let cell = liveTeamCollectionView.dequeueReusableCell(withReuseIdentifier: idCellLiveTeam, for: indexPath) as! LiveTeamCell
-            cell.playerNumberLabel.text = "\(player.number)"
-            cell.playerNameLabel.text = player.name
-            //            cell.teamNameLabel.text = player.teamName
-            cell.playerPointLabel.text = "\(player.pointValue)"
+            
+            guard let safeGame = liveGame, let safeParticipant = self.selectedParticipant else{ return cell }
+            let allPlayers: [Player] = safeGame.team1.players + safeGame.team2.players
+            
+            let currentPlayerID = safeParticipant.roster[indexPath.row]
+            
+            for player in allPlayers{
+                if player.playerID == currentPlayerID{
+                    // set player's information
+                    cell.playerNumber = player.number ?? 0
+                    cell.playerName = player.name ?? ""
+                    
+                    let score = player.score ?? 0
+                    cell.playerPoint = String(describing: Int(score))
+                
+                    if safeGame.team1.players.contains(player){
+                        cell.teamName = safeGame.team1.name
+                    }else{
+                        cell.teamName = safeGame.team2.name
+                    }
+                }
+            }
             return cell
 
         } else {
             let cell = leaderboardCollectionView.dequeueReusableCell(withReuseIdentifier: idCellLeaderboard, for: indexPath) as! LeaderboardCell
-            let user = RankedUsers[indexPath.row]
-            cell.rankLabel.text = "\(user.rank)"
-            cell.usernameLabel.text = user.username
-            cell.pointsLabel.text = "\(user.points)" + " pts"
+            guard let safeRanking = self.liveGame?.rank, let safeUsers = self.liveGame?.participants, let safeCurrentUser = FIRAuth.auth()?.currentUser else { return cell }
+            
+            let rankedUserId = safeRanking[indexPath.row]
+            
+            let user = safeUsers.filter({$0.userId == rankedUserId}).first
+            cell.rankLabel.text = "\(indexPath.row)"
+            cell.usernameLabel.text = user?.name
+            let userScore = user?.score ?? 0
+            cell.pointsLabel.text = "\(Int(userScore))" + " pts"
+            
+            //set footer (total points and rank) values
+            if safeCurrentUser.uid == user?.userId{
+                self.totalPointsLabel.text = "\(Int(userScore))"
+                self.rankLabel.text = "\(indexPath.row + 1)"
+                self.totalPointsLabel2.text = "\(Int(userScore))"
+                self.rankLabel2.text = "\(indexPath.row + 1)"
+            }
             return cell
         }
         
@@ -229,14 +209,50 @@ extension LiveViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerView = liveTeamCollectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", for: indexPath) as! GameInfoHeaderView
-        
-        headerView.teamButton1.addTarget(self, action: #selector(team1ButtonPressed), for: .touchUpInside)
-        headerView.teamButton2.addTarget(self, action: #selector(team2ButtonPressed), for: .touchUpInside)
 
-        
+        if let safeGame = self.liveGame{
+            headerView.configureHeader(game: safeGame)
+        }
         return headerView
     }
     
+    
+    func updateGameData(allGames: [Game], activeGames: [Game], sender : UIViewController){
+        self.games = allGames
+        self.updateLiveGame()
+    }
+    
+    func updateLiveGame(){
+        guard let safeCurrentUser = FIRAuth.auth()?.currentUser else { return }
+        
+        
+        // get the live game, if I am a participant, and if I have checked in, and if I am not disqualified
+        self.liveGame = self.games.filter({
+            
+            if $0.participants.filter({$0.userId == safeCurrentUser.uid && $0.checkInTime != nil && $0.disqualified != true}).count > 0 {
+                return true
+            }
+            
+            return false
+        
+        }).first
+        
+        // get the participant that is me
+        if let safeLiveGame = self.liveGame {
+            for participant in safeLiveGame.participants {
+   
+                if participant.userId == safeCurrentUser.uid {
+                    self.selectedParticipant = participant
+                }
+            }
+        }
+     
+        self.updateList()
+    }
+    func updateList() {
+        self.liveTeamCollectionView.reloadData()
+        self.leaderboardCollectionView.reloadData()
+    }
 }
 
 

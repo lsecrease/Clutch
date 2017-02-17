@@ -9,22 +9,38 @@
 import Firebase
 import UIKit
 import SwiftLoader
+import CoreLocation
 
-
-
-
+protocol GameViewDelegate {
+    func gameSelected(game: Game?)
+}
 
 // MARK: - GameViewController
-class GameViewController: UIViewController, MainViewDelegate {
+class GameViewController: UIViewController, ChildViewProtocol, CLLocationManagerDelegate {
     
     
 
+    var delegate : GameViewDelegate?
+    
     // MARK: Game properties
+    
+    let locationManager = CLLocationManager()
     
 //    var game = Game() //Z: not used
     var selectedGame: Game? = nil
+    var selectedTeam: String? = ""
+    var selectedParticipant: User? = nil
+    
     var games = [Game]()
     var gameRosterViewIsActive = false
+    
+    var remainingPoints: Float = 0.0
+    
+    var ref : FIRDatabaseReference?
+
+
+//    var remainingPoints: Float?
+//    var rosterPoints: Float?
 
     
     // MARK: IBOutlets
@@ -35,6 +51,9 @@ class GameViewController: UIViewController, MainViewDelegate {
     @IBOutlet weak var gameMatchupViewCenterX: NSLayoutConstraint!
     @IBOutlet weak var gameRosterViewCenterX: NSLayoutConstraint!
 
+    @IBOutlet weak var footerView: UIView!
+    @IBOutlet weak var rosterPointsLabel: UILabel!
+    @IBOutlet weak var remainingPointsLabel: UILabel!
     
     // MARK: View lifecycle
     
@@ -48,28 +67,18 @@ class GameViewController: UIViewController, MainViewDelegate {
         gameMatchupViewCenterX.constant = self.view.bounds.origin.x
         gameRosterViewCenterX.constant += self.view.bounds.width
         
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
         
-//        for game in self.games {
-//            print(game.category)
-//            print(game.venue)
-//            print(game.gameID)
-//            print(game.latitude)
-//            print(game.longitude)
-//            print(game.team1.name)
-//            print(game.team1.players)
-//            print(game.team2.name)
-//            print(game.team2.players)
-//            print("\n")
-//        }
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let mainVC = parent as! MainViewController
-        mainVC.delegate = self
-        
-    }
-    override func viewDidAppear(_ animated: Bool) {
 
     }
     
@@ -230,9 +239,9 @@ class GameViewController: UIViewController, MainViewDelegate {
     func registerCells() {
         // GAME CollectionViews
         gameMatchupCollectionView.register(UINib(nibName: "GameMatchupCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameMatchup")
-        gameRosterCollectionView.register(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
+//        gameRosterCollectionView.register(UINib(nibName: "GameRosterCell", bundle: nil), forCellWithReuseIdentifier: "idCellGameInfo")
         
-        gameRosterCollectionView.register(UINib(nibName: "GameRosterCollectionFooter", bundle: nil), forCellWithReuseIdentifier: "idFooterGameRoster")
+//        gameRosterCollectionView.register(UINib(nibName: "GameRosterCollectionFooter", bundle: nil), forCellWithReuseIdentifier: "idFooterGameRoster")
         
 //        gameRosterCollectionView.register(UINib(nibName: "GameInfoHeaderView", bundle: nil), forCellWithReuseIdentifier: "idCellHeaderGameInfo")
     }
@@ -252,6 +261,7 @@ class GameViewController: UIViewController, MainViewDelegate {
                 self.gameMatchupViewCenterX.constant += self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = false
+                self.footerView.isHidden = true
                 
                 if let mainVC = self.parent as? MainViewController {
                     mainVC.cancelButton.hide()
@@ -263,6 +273,7 @@ class GameViewController: UIViewController, MainViewDelegate {
                 self.gameMatchupViewCenterX.constant -= self.view.bounds.width
                 self.view.layoutIfNeeded()
                 self.gameRosterViewIsActive = true
+                self.footerView.isHidden = false
                 
                 if let mainVC = self.parent as? MainViewController {
                     mainVC.cancelButton.show()
@@ -277,10 +288,15 @@ class GameViewController: UIViewController, MainViewDelegate {
     
     func teamButton1Pressed() {
         print("TEAM 1 BUTTON PRESSED!")
+        self.selectedTeam = self.selectedGame?.team1.name
+        gameRosterCollectionView.reloadData()
+        
     }
     
     func teamButton2Pressed() {
         print("TEAM 2 BUTTON PRESSED!")
+        self.selectedTeam = self.selectedGame?.team2.name
+        gameRosterCollectionView.reloadData()
     }
 
 }
@@ -293,7 +309,6 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == gameMatchupCollectionView {
-            // let matchup = GameMatchups[indexPath.row]
 
             let cell = gameMatchupCollectionView.dequeueReusableCell(withReuseIdentifier: "idCellGameMatchup", for: indexPath) as! GameMatchupCell
 
@@ -307,7 +322,7 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             let timeFormatter = DateFormatter()
             timeFormatter.dateFormat = "h:mm a"
             
-            if let safeDate = game.endRegistration{
+            if let safeDate = game.gameStartTime{
                 cell.date = dateFormatter.string(from: safeDate)
                 cell.time = timeFormatter.string(from: safeDate)
 
@@ -334,23 +349,34 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         } else {
             let cell = gameRosterCollectionView.dequeueReusableCell(withReuseIdentifier: "idCellGameRoster", for: indexPath) as! GameRosterCell
             
-            let safeCount = self.selectedGame?.team1.players.count ?? 0
+            cell.configureCell()
             
-            
-            if indexPath.row < safeCount {
+            if self.selectedTeam == self.selectedGame?.team1.name{
                 let player = self.selectedGame?.team1.players[indexPath.row]
                 cell.number = player?.number ?? 0 //Seth: is there a better way to fix this?
                 cell.playerName = player?.name ?? ""
                 cell.teamName = self.selectedGame?.team1.name ?? ""
                 let pointValue = player?.pointValue ?? 0
                 cell.cost = String(describing: Int(pointValue)) //Seth: is there a reason that pointValue is a float?
+                guard let safePlayerID = player?.playerID, let safeParticipant = self.selectedParticipant else { return cell }
+                if (safeParticipant.roster.contains(safePlayerID)){
+                    cell.addedToRoster = true
+                }
             }else{
-                let player = self.selectedGame?.team2.players[(indexPath.row - safeCount)]
+                let player = self.selectedGame?.team2.players[(indexPath.row)]
                 cell.number = player?.number ?? 0 //Seth: is there a better way to fix this?
                 cell.playerName = player?.name ?? ""
                 cell.teamName = self.selectedGame?.team2.name ?? ""
                 let pointValue = player?.pointValue ?? 0
                 cell.cost = String(describing: Int(pointValue))
+                guard let safePlayerID = player?.playerID, let safeParticipant = self.selectedParticipant else { return cell }
+                if (safeParticipant.roster.contains(safePlayerID)){
+                    cell.addedToRoster = true
+                }
+            }
+
+            cell.tapAction = { (_, player) in
+                self.addPlayer(player: player)
             }
 //            let player = self.selectedGame?.team1.players[indexPath.row]
 //            cell.number = player.number ?? 0 //Seth: is there a better way to fix this?
@@ -368,13 +394,28 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
             
         case gameMatchupCollectionView:
             self.selectedGame = self.games[indexPath.row]
+            self.selectedTeam = self.selectedGame?.team1.name
+            self.updateCurrentParticipant()
+            self.updatePoints()
+
             self.gameRosterCollectionView.reloadData()
             
             self.slideGameViews(direction: .left)
+            if let safeGame = self.selectedGame {
+                self.delegate?.gameSelected(game: safeGame)
+            }
         case gameRosterCollectionView:
             if let cell = gameRosterCollectionView.cellForItem(at: indexPath) as? GameRosterCell {
-                cell.willAddPlayer = !cell.willAddPlayer
+//                cell.willAddPlayer = !cell.willAddPlayer
+                guard let safeTeam = self.selectedTeam, let safeGame = self.selectedGame else{ return }
+                if safeGame.team1.name == safeTeam{
+                    cell.player = safeGame.team1.players[indexPath.row]
+                }else{
+                    cell.player = safeGame.team2.players[indexPath.row]
+                }
+                cell.updateAddingPlayer()
             }
+            
         default:
             break
         }
@@ -388,30 +429,31 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == gameMatchupCollectionView {
             return self.games.count
         } else {
-            let team1Count = self.selectedGame?.team1.players.count ?? 0
-            let team2Count = self.selectedGame?.team2.players.count ?? 0
-            let totalPlayers = team1Count + team2Count
-            return totalPlayers
+            if self.selectedTeam == self.selectedGame?.team1.name{
+                return self.selectedGame?.team1.players.count ?? 0
+            }else{
+                return self.selectedGame?.team2.players.count ?? 0
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if kind == UICollectionElementKindSectionHeader {
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", for: indexPath) as! GameInfoHeaderView
-            headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), for: .touchUpInside)
-            headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), for: .touchUpInside)
-//            headerView.team1 = "Test"
-            
-            if let safeGame = self.selectedGame{
-                headerView.configureHeader(game: safeGame)
-            }
-            return headerView
-        } else {
-            
-            let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "idFooterGameRoster", for: indexPath)
-            return footerView
+//        if kind == UICollectionElementKindSectionHeader {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "idCellHeaderGameInfo", for: indexPath) as! GameInfoHeaderView
+        headerView.teamButton1.addTarget(self, action: #selector(self.teamButton1Pressed), for: .touchUpInside)
+        headerView.teamButton2.addTarget(self, action: #selector(self.teamButton2Pressed), for: .touchUpInside)
+        
+        if let safeGame = self.selectedGame{
+            headerView.configureHeader(game: safeGame)
         }
+        return headerView
+//        } else {
+//
+//                let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "idFooterGameRoster", for: indexPath)
+//                return footerView
+//            
+//        }
         
     }
     
@@ -419,9 +461,135 @@ extension GameViewController: UICollectionViewDataSource, UICollectionViewDelega
         gameMatchupCollectionView.reloadData()
     }
     
-    func updateGameDone(games: [Game], sender : UIViewController){
-        self.games = games
+    func updateGameData(allGames: [Game], activeGames: [Game], sender : UIViewController){
+        self.games = activeGames
         self.updateList()
+    }
+    func updateCurrentParticipant(){
+        guard let safeGame = self.selectedGame, let safeParticipants = self.selectedGame?.participants, let safeCurrentUser = FIRAuth.auth()?.currentUser else{ return }
+        
+        if safeParticipants.contains(where: { (User) -> Bool in
+           return User.userId == safeCurrentUser.uid
+        }){
+            //current user is a participant -> load user information
+            for user in safeParticipants{
+                if user.userId == FIRAuth.auth()?.currentUser?.uid{
+                    self.selectedParticipant = user
+                }
+            }
+        }else{
+            //current user is NOT a participant -> create new user in Firebase
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let safeName = safeCurrentUser.displayName as String? ?? ""
+            let safeEmail = safeCurrentUser.email as String? ?? ""
+            
+            self.ref = FIRDatabase.database().reference()
+            var childUpdates : [String: AnyObject] = [:]
+            if let safeDate = safeGame.gameStartTime{
+                let gameDate = dateFormatter.string(from: safeDate)
+                childUpdates["/games/\(gameDate)/\(safeGame.gameID)/participants/\(safeCurrentUser.uid)/name"] = safeName as AnyObject?
+                childUpdates["/games/\(gameDate)/\(safeGame.gameID)/participants/\(safeCurrentUser.uid)/email"] = safeEmail as AnyObject?
+            }
+            
+            self.ref?.updateChildValues(childUpdates, withCompletionBlock: { (error, ref) in
+                if error == nil {
+                        for game in self.games{
+                            if game.gameID == self.selectedGame?.gameID{
+                                self.selectedGame = game
+                                self.gameRosterCollectionView.reloadData()
+                                
+                            }
+                        }
+                    
+                    
+                    self.updateCurrentParticipant()
+                }
+            })
+        }
+    }
+    
+    func addPlayer(player: Player) -> Bool{
+        guard let safeGame = self.selectedGame, let safeParticipant = self.selectedParticipant, let safeParticipantID = safeParticipant.userId, let safePlayerID = player.playerID else { return false }
+        
+        // if past registration time then not allowed to set roster
+        let currentDate = NSDate()
+        if let safeEndRegistration = safeGame.endRegistration{
+            if currentDate.compare(safeEndRegistration) == ComparisonResult.orderedDescending{
+                return false
+            }
+        }
+        
+        var safePointValue = player.pointValue ?? 0
+        if safeParticipant.roster.contains(safePlayerID){
+            safePointValue = safePointValue * -1
+        }
+        
+        
+        if (self.remainingPoints - safePointValue) >= 0{
+            if (safeParticipant.roster.contains(safePlayerID)){
+                if let safeIndex = safeParticipant.roster.index(of: safePlayerID){
+                    safeParticipant.roster.remove(at: safeIndex)
+                }
+            }else{
+                safeParticipant.roster.append(safePlayerID)
+            }
+            // TODO: add the player (in firebase)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            self.ref = FIRDatabase.database().reference()
+            var childUpdates : [String: AnyObject] = [:]
+            if let safeDate = safeGame.gameStartTime{
+                let gameDate = dateFormatter.string(from: safeDate)
+                childUpdates["/games/\(gameDate)/\(safeGame.gameID)/participants/\(safeParticipantID)/roster"] = safeParticipant.roster as AnyObject?
+            }
+//            self.ref?.updateChildValues(childUpdates)
+            
+            self.ref?.updateChildValues(childUpdates, withCompletionBlock: { (error, ref) in
+                if error == nil {
+                }
+                self.updatePoints()
+            })
+            
+            return true
+        }
+        
+        return false
+    }
+    func updatePoints(){
+        guard let safeGame = self.selectedGame else{ return }
+        remainingPoints = 0.0
+        var rosterPoints: Float = 0.0
+        if let safeRoster = self.selectedParticipant?.roster{
+            //Roster Points
+            for playerID in safeRoster{
+                for team1Player in safeGame.team1.players{
+                    if playerID == team1Player.playerID{
+                        let safeScore = team1Player.pointValue ?? 0.0
+                        rosterPoints += safeScore
+                    }
+                }
+                for team2Player in safeGame.team2.players{
+                    if playerID == team2Player.playerID{
+                        let safeScore = team2Player.pointValue ?? 0.0
+                        rosterPoints += safeScore
+                    }
+                }
+            }
+        }
+        if let safeValue = safeGame.startingValue{
+            remainingPoints = Float(safeValue) - rosterPoints
+            if (remainingPoints < 0){
+                return
+            }
+        }
+        self.rosterPointsLabel.text = "ROSTER: " + String(Int(rosterPoints))
+        self.remainingPointsLabel.text = "REMAINING POINTS: " + String(Int(remainingPoints))
+        
+        
     }
 
 }
@@ -436,7 +604,6 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
         let cellHeight: CGFloat = 70.0
         return CGSize(width: cellWidth, height: cellHeight)
     }
-    
 }
 
 

@@ -83,7 +83,7 @@ class GameInfoHeaderView: UICollectionReusableView {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "h:mm a"
         
-        if let safeDate = game.gameStartTime{ //Seth: gameStartTime or endRegistration?
+        if let safeDate = game.gameStartTime{
             dateLabel.text = dateFormatter.string(from: safeDate)
             timeLabel.text = timeFormatter.string(from: safeDate)
         }

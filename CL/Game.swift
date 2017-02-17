@@ -55,14 +55,14 @@ class Game {
             self.venue = gameDetails["venue"] as? String ?? ""
             self.startingValue = gameDetails["startingValue"] as? Int ?? nil
             //initializing times data
-            if let startTime = gameDetails["startTime"] as? String{
-                self.gameStartTime = dateFormatter.date(from: startTime)
+            if let selfStartTime = gameDetails["startTime"] as? String{
+                self.gameStartTime = dateFormatter.date(from: selfStartTime)
             }
-            if let endRegistration = gameDetails["endRegistrationTime"] as? String{
-                self.endRegistration = dateFormatter.date(from: endRegistration)
+            if let safeEndRegistration = gameDetails["endRegistrationTime"] as? String{
+                self.endRegistration = dateFormatter.date(from: safeEndRegistration)
             }
-            if let endGameTime = gameDetails["endGameTime"] as? String{
-                self.endGameTime = dateFormatter.date(from: endGameTime)
+            if let safeEndGameTime = gameDetails["endGameTime"] as? String{
+                self.endGameTime = dateFormatter.date(from: safeEndGameTime)
             }
             //initializing location data
             if let locationDetails = gameDetails["location"] as? [String: AnyObject]{
