@@ -154,7 +154,7 @@ class MainViewController: UIViewController, GameViewDelegate {
         
         // Indicate current view
         profileUnderlineLabel.show()
-        logoutButton.show() // Seth: is there a better place for this? 1st time loading deal
+        logoutButton.show()
         
         // Set active views
         // liveTeamViewIsActive = true
@@ -301,15 +301,6 @@ class MainViewController: UIViewController, GameViewDelegate {
     }
     
     func updateBarButtons() {
-        //ToDo: Add CheckIn button to GameRoster when close enough to game location
-        
-        
-        
-//        if !liveContainerView.isHidden && liveTeamViewIsActive {
-//            self.checkInbutton.show()
-//        } else {
-//            self.checkInbutton.hide()
-//        }
         
         if !gameContainerView.isHidden && gameRosterViewIsActive {
             self.cancelButton.show()
@@ -390,8 +381,6 @@ extension MainViewController: CLLocationManagerDelegate {
         
         
         if self.isNearGame(game: self.atGame, currentLocation: currentCoord) == false {
-            // TODO: disable from game if the game is still in progress
-            // check to see if game is over
             guard let safeGame = selectedGame, let safeCurrentUser = FIRAuth.auth()?.currentUser else { return }
             let currentDate = Date()
             let dateFormatter = DateFormatter()
@@ -418,20 +407,6 @@ extension MainViewController: CLLocationManagerDelegate {
             
             self.atGame = nil
         }
-        
-        //        if destinations.count == 0 {
-        //            return
-        //        }
-        
-        
-        
-        //        destinationsInRange = destinations.filter { destination -> Bool in
-        //            let destinationLocation = CLLocation(latitude: destination.coordinate.latitude, longitude: destination.coordinate.longitude)
-        //            let distance = destinationLocation.distanceFromLocation(currentLocation)
-        //            return (distance < 100)
-        //        }
-        
-        
     }
     
     func isNearGame(game: Game?, currentLocation: CLLocationCoordinate2D) -> Bool {

@@ -44,7 +44,6 @@ public class UpdatePlayerPointsCell: Cell<Float>, CellType {
     
 }
 
-// TODO: make sure this is float
 public final class UpdatePlayerPointsRow: Row<UpdatePlayerPointsCell>, RowType {
     
     var name: String = "" {

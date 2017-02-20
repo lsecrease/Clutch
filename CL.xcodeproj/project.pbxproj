@@ -32,7 +32,6 @@
 		C0638CD91E0B11B100A03B57 /* CoordinateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CD71E0B11B100A03B57 /* CoordinateCell.swift */; };
 		C0638CDA1E0B11B100A03B57 /* CoordinateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0638CD81E0B11B100A03B57 /* CoordinateCell.xib */; };
 		C0638CDC1E0B12A300A03B57 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CDB1E0B12A300A03B57 /* Coordinates.swift */; };
-		C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE31E0B221200A03B57 /* LocationRow.swift */; };
 		C0638CE61E0B28AC00A03B57 /* UpdatePointsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */; };
 		C08281771E1AFD1B00185ABF /* SlideRightTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */; };
 		C0859E381E174B3E00341F1C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0859E371E174B3E00341F1C /* GoogleService-Info.plist */; };
@@ -96,7 +95,6 @@
 		C0638CD71E0B11B100A03B57 /* CoordinateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateCell.swift; sourceTree = "<group>"; };
 		C0638CD81E0B11B100A03B57 /* CoordinateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoordinateCell.xib; sourceTree = "<group>"; };
 		C0638CDB1E0B12A300A03B57 /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
-		C0638CE31E0B221200A03B57 /* LocationRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationRow.swift; sourceTree = "<group>"; };
 		C0638CE51E0B28AC00A03B57 /* UpdatePointsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdatePointsViewController.swift; sourceTree = "<group>"; };
 		C08281761E1AFD1B00185ABF /* SlideRightTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideRightTransitionManager.swift; sourceTree = "<group>"; };
 		C0859E371E174B3E00341F1C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -370,7 +368,6 @@
 			children = (
 				C0AFE6571DF89D8C00F2A32A /* AddOrRemoveButton.swift */,
 				C00346F51E0345CB0000A335 /* RotatingButton.swift */,
-				C0638CE31E0B221200A03B57 /* LocationRow.swift */,
 			);
 			name = "Custom Classes";
 			sourceTree = "<group>";
@@ -699,7 +696,6 @@
 				C009A02B1DF9EFAC0096CF06 /* CreateGameFormViewController.swift in Sources */,
 				C003A3DF1DF4AD96008158C7 /* LeaderboardCell.swift in Sources */,
 				BFC89B9A1E4392A500730AA7 /* GameListViewController.swift in Sources */,
-				C0638CE41E0B221200A03B57 /* LocationRow.swift in Sources */,
 				C00FE44C1E0D9BD4002E56D5 /* AddPlayerInputCell.swift in Sources */,
 				C00A07381DF725190032C39A /* GameRosterCell.swift in Sources */,
 				C0638CCC1E0B03CF00A03B57 /* AddPlayerCell.swift in Sources */,

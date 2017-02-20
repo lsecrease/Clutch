@@ -184,9 +184,7 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.reloadData()
     }
     func updateGames(){
-        ref = ref?.child("games")
-        let gamessQuery = ref?.queryLimited(toLast: 25) //Seth: how were we going to do this?
-        //addAsyncLoad() do we need this?
+        let gamessQuery = ref?.child("games")
         
         gamesRef = gamessQuery?.observe(.value, with: { (snapshot) in
             if let games = snapshot.value as? [String : AnyObject] {

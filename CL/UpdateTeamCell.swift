@@ -44,7 +44,6 @@ open class UpdateTeamCell: Cell<Bool>, CellType {
 }
 
 
-// TODO: this needs to be a bool
 final class UpdateTeamRow: Row<UpdateTeamCell>, RowType {
     
     var teamName: String = "" {
