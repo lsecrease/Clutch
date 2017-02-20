@@ -18,21 +18,36 @@ class GameRosterCell: UICollectionViewCell {
     
     var padding: CGFloat = 3.0
     
+    
     let startImage = UIImage(named: "add")
     let endImage = UIImage(named: "delete")
+    var player = Player()
+    var tapAction: ((GameRosterCell, Player) -> Bool)?
+    var willAddPlayer = true
     
-    var willAddPlayer = true {
-        didSet {
+    
+    
+    func updateAddingPlayer() {
+        let success = tapAction?(self, player)
+        
+        if success == true {
             if willAddPlayer {
+                self.willAddPlayer = false
                 button.turnForward(endImage, padding: 0)
             } else {
+                self.willAddPlayer = true
                 button.turnBack(startImage, padding: 1)
             }
         }
     }
     
     
-    var addedToRoster = false
+    var addedToRoster: Bool = false{
+        didSet {
+            button.turnForward(endImage, padding: 0)
+            willAddPlayer = false
+        }
+    }
     
     var number: Int = 0 {
         didSet {
@@ -62,35 +77,40 @@ class GameRosterCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        
-    }
-    
-    
-    
-    func turnButtonForward() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.button.transform = CGAffineTransform(rotationAngle: 45 * (CGFloat(M_PI) / 180.0))
-            
-            if self.endImage != nil {
-                self.button.setImage(self.endImage, for: UIControlState())
-            }
-            self.layoutSubviews()
-        })
-    }
-    
-    func turnButtonBack() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.button.transform = CGAffineTransform(rotationAngle: -(CGFloat(M_PI) / 180.0))
-            
-            if self.startImage != nil {
-                self.button.setImage(self.startImage, for: UIControlState())
-            }
-            self.layoutSubviews()
 
-        })
+        
     }
+    
+    func configureCell(){
+        self.willAddPlayer = true
+        button.setImage(startImage, for: UIControlState())
+        button.turnBack(startImage, padding: 1)
+
+    }
+    
+    
+//    func turnButtonForward() {
+//        UIView.animate(withDuration: 0.2, animations: {
+//            self.button.transform = CGAffineTransform(rotationAngle: 45 * (CGFloat(M_PI) / 180.0))
+//            
+//            if self.endImage != nil {
+//                self.button.setImage(self.endImage, for: UIControlState())
+//            }
+//            self.layoutSubviews()
+//        })
+//    }
+//    
+//    func turnButtonBack() {
+//        UIView.animate(withDuration: 0.2, animations: {
+//            self.button.transform = CGAffineTransform(rotationAngle: -(CGFloat(M_PI) / 180.0))
+//            
+//            if self.startImage != nil {
+//                self.button.setImage(self.startImage, for: UIControlState())
+//            }
+//            self.layoutSubviews()
+//
+//        })
+//    }
 
     
 

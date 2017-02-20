@@ -1,4 +1,4 @@
-//
+
 //  MainViewController.swift
 //  CL
 //
@@ -8,14 +8,25 @@
 
 import CoreLocation
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
+
+protocol ChildViewProtocol {
+    func updateGameData(allGames : [Game], activeGames: [Game], sender : UIViewController)
+}
 
 // MARK: - ManinViewController
-
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, GameViewDelegate {
     
     // MARK: IBOutlets
+    
+    var childViews : [ChildViewProtocol] = []
+
     
     // Container Views
     @IBOutlet weak var profileContainerView: UIView!
@@ -35,22 +46,19 @@ class MainViewController: UIViewController {
     // Navbar buttons
     @IBOutlet weak var checkInbutton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
     
     // MARK: Properties
         
     // Firebase properties
-    var ref: FIRDatabaseReference!
-    var refHandle: UInt!
-    var isSignedIn = true
-    var gamesRef = FIRDatabaseReference()
-    var teamRef1 = FIRDatabaseReference()
-    var teamRef2 = FIRDatabaseReference()
-    var gameCategory: CategoryType?
+    var ref : FIRDatabaseReference?
+    var gamesRef : UInt?
     
-    var games = [Game]()
-    var gameKeys = [String]()
-    var team1 = Team()
-    var team2 = Team()
+    var allGames = [Game]()
+    var activeGames : [Game] = []
+    var selectedGame : Game?
+    var atGame : Game?
+
     
     // Boolean view properties
     var gameRosterViewIsActive: Bool!
@@ -69,10 +77,28 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set category
-        gameCategory = .nba
-        
         configureViews()
+        
+        dateFormatter.dateStyle = .full
+        dateFormatter.timeStyle = .medium
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ChildViewProtocol {
+            childViews.append(vc)
+        }
+        
+        if let gameVC = segue.destination as? GameViewController {
+            gameVC.delegate = self
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        ref = FIRDatabase.database().reference()
+        self.updateGames()
         
         // Core location setup
         locationManager = CLLocationManager()
@@ -81,16 +107,6 @@ class MainViewController: UIViewController {
         locationManager.requestAlwaysAuthorization()
         
         setupGeofencing()
-        
-        ref = FIRDatabase.database().reference()
-        
-        dateFormatter.dateStyle = .full
-        dateFormatter.timeStyle = .medium
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async { 
             // self.getGameDataFor(self.gameCategory!)
@@ -138,6 +154,7 @@ class MainViewController: UIViewController {
         
         // Indicate current view
         profileUnderlineLabel.show()
+        logoutButton.show()
         
         // Set active views
         // liveTeamViewIsActive = true
@@ -153,157 +170,7 @@ class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
-    // MARK: Firebase Database functions
-    
-    func passGameDataToOtherVCs(_ games: [Game]) {
-        
-        if let gameVC = self.storyboard?.instantiateViewController(withIdentifier: "GameViewController") as? GameViewController {
-            gameVC.games = games
-        }
-    }
-    
-    func categoryString(_ category: CategoryType) -> String {
-        switch category {
-        case .mlb:
-            return "mlb"
-        case .mls:
-            return "mls"
-        case .ncaaBasketball:
-            return "ncaa-basketball"
-        case .ncaaFootball:
-            return "ncaa-football"
-        case .nba:
-            return "nba"
-        case .nfl:
-            return "nfl"
-        case .nhl:
-            return "nhl"
-        }
-
-    }
-    
-//    func getGameDataFor(category: CategoryType) {
-//        
-//        let categoryName = categoryString(category)
-//        
-//        gamesRef = FIRDatabase.database().reference().child("games").child("category").child(categoryName)
-//        
-//        refHandle = gamesRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
-//            if !snapshot.exists() {
-//                print("NO SNAPSHOT AVAILABLE")
-//            } else {
-//                
-//                if let allKeys = snapshot.value?.allKeys as? [String] {
-//                    self.gameKeys = allKeys
-//                    
-//                    for key in self.gameKeys {
-//                        
-//                        if let currentGame = snapshot.value!.valueForKey(key) {
-//                            var gameData = Game()
-//                            gameData.category = categoryName
-//                            gameData.gameID = key
-//                            gameData.venue = currentGame.valueForKey("venue")! as! String
-//                            gameData.latitude = currentGame.valueForKey("latitude") as! Float
-//                            gameData.longitude = currentGame.valueForKey("longitude") as! Float
-//                            
-//                            let dateString = currentGame.valueForKey("end-registration") as! String
-//                            
-//                            print("DATE STRING: " + dateString)
-////                            gameData.endRegistration = self.dateFormatter.dateFromString(dateString)!
-//                            
-//                            
-//                            // GET TEAM 1 INFO
-//                            
-//                            if let team1 = currentGame.valueForKey("team1") as? NSMutableDictionary {
-//                                
-//                                print(team1.allKeys)
-//                                
-//                                if let teamname = team1.valueForKey("teamname") as? String {
-//                                    gameData.team1.name = teamname
-//                                }
-//                                
-//                                if let players = team1.valueForKey("players") as? NSMutableDictionary {
-//                                    var playerKeys = [String]()
-//
-//                                    for player in players {
-//                                        playerKeys.append(player.key as! String)
-//                                        
-//                                        if let playerInfo = player.value as? NSDictionary {
-//                                            var playerObject = Player()
-//                                            playerObject.name = playerInfo.valueForKey("name") as! String
-//                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-//                                            playerObject.number = playerInfo.valueForKey("number") as! Int
-//                                            gameData.team1.players += [playerObject]
-//                                        }
-//                                    }
-//                                    
-//                                }
-//                            }
-//                            
-//                            
-//                            // GET TEAM 2 INFO
-//                            if let team2 = currentGame.valueForKey("team2") as? NSMutableDictionary {
-//                                
-//                                
-//                                // Get team 2 name
-//                                if let teamname = team2.valueForKey("teamname") as? String {
-//                                    gameData.team2.name = teamname
-//                                }
-//                                
-//                                // Get team 2 players
-//                                if let players2 = team2.valueForKey("players") as? NSMutableDictionary {
-//                                    var playerKeys = [String]()
-//                                    
-//                                    for player in players2 {
-//                                        playerKeys.append(player.key as! String)
-//                                        
-//                                        if let playerInfo = player.value as? NSDictionary {
-//                                            var playerObject = Player()
-//                                            playerObject.name = playerInfo.valueForKey("name") as! String
-//                                            playerObject.pointValue = playerInfo.valueForKey("point-value") as! Float
-//                                            playerObject.number = playerInfo.valueForKey("number") as! Int
-//                                            gameData.team2.players += [playerObject]
-//                                        }
-//                                    }
-//                                    
-//                                } else if let players2 = team2.valueForKey("players") as? NSDictionary {
-//                                    print("GOT DATA AS DICTIONARY")
-//                                }
-//                                
-//                            }
-//                            self.games.append(gameData)
-//                        }
-//                    }
-//                    
-//                    // DEBUGGING....
-//                    
-////                    for game in self.games {
-////                        print(game.category)
-////                        print(game.venue)
-////                        print(game.gameID)
-////                        print(game.latitude)
-////                        print(game.longitude)
-////                        print(game.team1.name)
-////                        print(game.team1.players)
-////                        print(game.team2.name)
-////                        print(game.team2.players)
-////                        print(game.endRegistration)
-////                        print("\n")
-////                    }
-//                    
-//                    self.passGameDataToOtherVCs(self.games)
-//
-//                } else {
-//                    print("Could not map data")
-//                }
-//            }
-//
-//        })
-//        
-//    }
-
-    
+     
     // MARK: Geofencing functions
     
     func setupGeofencing() {
@@ -382,6 +249,8 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
+        self.checkInbutton.isHidden = true
+        self.selectedGame = nil
         
         for child in self.childViewControllers {
             if let gameVC = child as? GameViewController {
@@ -391,17 +260,47 @@ class MainViewController: UIViewController {
         }
         
     }
+    @IBAction func logoutButtonPressed(_ sender: Any) {
+        try! FIRAuth.auth()!.signOut()
+        let loginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        
+        let _ = self.navigationController?.popViewController(animated: true)
+
+    }
     
     @IBAction func checkInButtonPressed(_ sender: UIButton) {
         print("Check-in button pressed")
+        guard let safeGame = selectedGame, let safeCurrentUser = FIRAuth.auth()?.currentUser else { return }
+        
+        let currentParticipant = safeGame.participants.filter({$0.userId == safeCurrentUser.uid}).first
+        if currentParticipant?.checkInTime == nil{
+            
+            let currentDate = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let fullDateFormatter = DateFormatter()
+            fullDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            
+            self.ref = FIRDatabase.database().reference()
+            var childUpdates : [String: AnyObject] = [:]
+            if let safeDate = safeGame.gameStartTime{
+                let gameDate = dateFormatter.string(from: safeDate)
+                childUpdates["/games/\(gameDate)/\(safeGame.gameID)/participants/\(safeCurrentUser.uid)/checkInTime"] = fullDateFormatter.string(from: currentDate) as AnyObject?
+                
+                self.ref?.updateChildValues(childUpdates, withCompletionBlock: { (error, ref) in
+                    if error == nil {
+                        // update selected game
+                        let safeSelectedGame = self.allGames.filter({$0.gameID == safeGame.gameID}).first
+                        self.gameSelected(game: safeSelectedGame)
+                    }
+                })
+            }
+        }
     }
     
     func updateBarButtons() {
-        if !liveContainerView.isHidden && liveTeamViewIsActive {
-            self.checkInbutton.show()
-        } else {
-            self.checkInbutton.hide()
-        }
         
         if !gameContainerView.isHidden && gameRosterViewIsActive {
             self.cancelButton.show()
@@ -409,8 +308,24 @@ class MainViewController: UIViewController {
             self.cancelButton.hide()
         }
         
+        if !profileContainerView.isHidden{
+            self.logoutButton.show()
+        }else{
+            self.logoutButton.hide()
+        }
+        
     }
     
+    // MARK: GameViewDelegate
+    
+    func gameSelected(game: Game?) {
+        // location stuff to enable the check in button
+        selectedGame = game
+        
+        if game == nil {
+            self.checkInbutton.isHidden = true
+        }
+    }
 }
 
 // MARK: CLLocationManagerDelegate
@@ -448,7 +363,154 @@ extension MainViewController: CLLocationManagerDelegate {
         print("Location Manager failed with error: \(error)")
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        guard let currentCoord = manager.location?.coordinate else {
+            return
+        }
+        
+        if let safeSelectedGame = selectedGame {
+            if self.isNearGame(game: safeSelectedGame, currentLocation: currentCoord) {
+                self.checkInbutton.isHidden = false
+                self.atGame = self.selectedGame
+            } else {
+                self.checkInbutton.isHidden = true
+  
+            }
+        }
+        
+        
+        if self.isNearGame(game: self.atGame, currentLocation: currentCoord) == false {
+            guard let safeGame = selectedGame, let safeCurrentUser = FIRAuth.auth()?.currentUser else { return }
+            let currentDate = Date()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            
+            let fullDateFormatter = DateFormatter()
+            fullDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+
+            
+            var childUpdates : [String: AnyObject] = [:]
+            if let safeDate = safeGame.gameStartTime{
+                let gameDate = dateFormatter.string(from: safeDate)
+                childUpdates["/games/\(gameDate)/\(safeGame.gameID)/participants/\(safeCurrentUser.uid)/leaveTime"] = fullDateFormatter.string(from: currentDate) as AnyObject?
+                
+                self.ref?.updateChildValues(childUpdates, withCompletionBlock: { (error, ref) in
+                    if error == nil {
+                        self.setDisqualified()
+                    }
+                })
+            }
+            
+
+
+            
+            self.atGame = nil
+        }
+    }
     
+    func isNearGame(game: Game?, currentLocation: CLLocationCoordinate2D) -> Bool {
+        let currentLocation = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        
+        if let safeSelectedGame = selectedGame, let safeLat = safeSelectedGame.latitude, let safeLon = safeSelectedGame.longitude {
+            let gameLocation = CLLocation(latitude: CLLocationDegrees(safeLat), longitude: CLLocationDegrees(safeLon))
+            let distance = gameLocation.distance(from: currentLocation)
+            
+            return distance < 500
+        }
+        
+        return false
+    }
+    
+    func setDisqualified(){
+        guard let safeGame = selectedGame, let safeCurrentUser = FIRAuth.auth()?.currentUser, let safeGameStartTime = safeGame.gameStartTime else { return }
+
+
+        let gameDate = dateFormatter.string(from: safeGameStartTime)
+
+        
+        let gameQuery = ref?.child("games/\(gameDate)/\(safeGame.gameID)")
+        gamesRef = gameQuery?.observe(.value, with: { (snapshot) in
+            
+            if let game = snapshot.value as? [String: AnyObject]{
+                let endGameTime = game["endGameTime"] as? Date
+                
+                if let participants = game["participant"] as? [String : AnyObject] {
+                    if let participant = participants["\(safeCurrentUser.uid)"] as? [String : AnyObject] {
+                        
+                        let leaveTime = participant["leavelTime"] as? Date
+                        var childUpdates : [String: AnyObject] = [:]
+
+                        if let safeLeaveTime = leaveTime {
+                            
+                            if endGameTime == nil {
+                                childUpdates["/participants/\(safeCurrentUser.uid)/disqualified"] = true as AnyObject?
+                            } else if safeLeaveTime.compare(endGameTime!) == ComparisonResult.orderedDescending {
+                                //set disqualified to true
+                                childUpdates["/participants/\(safeCurrentUser.uid)/disqualified"] = false as AnyObject?
+                            } else {
+                                //set disqualified to false
+                                childUpdates["/participants/\(safeCurrentUser.uid)/disqualified"] = true as AnyObject?
+                                
+                            }
+                            self.ref?.updateChildValues(childUpdates)
+                        }
+                    }
+                    
+                }
+                
+            }
+            
+        })
+        
+        
+    }
+    
+    // MARK: - Custom methods
+    func updateGames(){
+        let gamesQuery = ref?.child("games")
+        gamesRef = gamesQuery?.observe(.value, with: { (snapshot) in
+            if let games = snapshot.value as? [String : AnyObject] {
+                
+                self.allGames = [] // clear allGames array
+                
+                //save games to classes
+                for gameByDate in games{
+                    if let gameByID = gameByDate.1 as? [String:AnyObject]{
+                        for game in gameByID{
+                            let currentGame = Game(gameDict: game)
+                            self.allGames.append(currentGame)
+                        }
+                    }
+                }
+                
+                //clear out game array
+                self.activeGames = []
+                
+                for game in self.allGames{
+                    if game.endGameTime == nil{
+                        self.activeGames.append(game)
+                    }
+                }
+                
+                //sort by date
+                self.allGames.sort(by: {
+                    guard let safeFirstStartDate = $0.gameStartTime, let safeSecondStartDate = $1.gameStartTime else { return true }
+                    
+                    return safeFirstStartDate.compare(safeSecondStartDate) == .orderedAscending
+                })
+                
+                self.activeGames.sort(by: {
+                    guard let safeFirstStartDate = $0.gameStartTime, let safeSecondStartDate = $1.gameStartTime else { return true }
+                    
+                    return safeFirstStartDate.compare(safeSecondStartDate) == .orderedAscending
+                })
+            }
+            for childView in self.childViews {
+                childView.updateGameData(allGames: self.allGames, activeGames: self.activeGames, sender: self)
+            }
+        })
+    }
 }
 
 

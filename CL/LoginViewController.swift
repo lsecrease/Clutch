@@ -101,7 +101,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
                             
                             FIRAuth.auth()?.currentUser?.updateEmail(email) { (error) in
                                 if error != nil {
-                                    // TODO: add specific alerts for invalid email, etc...
                                     self.showAlertWithMessage("", message: "There was an error signing up. Try again?")
                                     return
                                 }
@@ -187,7 +186,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!){
-//        print ("logged out")
+        print ("logged out")
     }
     
 

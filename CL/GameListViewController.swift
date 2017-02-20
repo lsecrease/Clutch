@@ -170,7 +170,6 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         self.performSegue(withIdentifier: "createGameSegue", sender: self)
     }
     @IBAction func logoutButtonPressed(_ sender: Any) {
-        // log out here
         
         try! FIRAuth.auth()!.signOut()
         let loginManager = FBSDKLoginManager()
@@ -185,16 +184,14 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.reloadData()
     }
     func updateGames(){
-        ref = ref?.child("games")
-        let gamessQuery = ref?.queryLimited(toLast: 25) //Seth: how were we going to do this?
-        //addAsyncLoad() do we need this?
+        let gamessQuery = ref?.child("games")
         
         gamesRef = gamessQuery?.observe(.value, with: { (snapshot) in
             if let games = snapshot.value as? [String : AnyObject] {
                 
-                self.allGames = [] // clear allGames dictionary
+                self.allGames = [] // clear allGames array
                 
-                //save games
+                //save games to classes
                 for gameByDate in games{
                     if let gameByID = gameByDate.1 as? [String:AnyObject]{
                         for game in gameByID{
@@ -204,7 +201,7 @@ class GameListViewController: UIViewController, UITableViewDataSource, UITableVi
                     }
                 }
                 
-                //clear out id arrays
+                //clear out game arrays
                 self.activeGames = []
                 self.completedGames = []
                 

@@ -16,9 +16,9 @@ class LiveTeamCell: UICollectionViewCell {
     @IBOutlet weak var teamNameLabel: UILabel!
     @IBOutlet weak var playerPointLabel: UILabel!
     
-    var playerNumber: String = "" {
+    var playerNumber: Int = 0 {
         didSet {
-            playerNumberLabel.text = playerNumber
+            playerNumberLabel.text = "\(playerNumber)"
         }
     }
 
