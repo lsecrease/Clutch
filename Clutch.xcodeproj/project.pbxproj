@@ -125,7 +125,7 @@
 		C0CDD2BA1E0E54AC0033A072 /* PlayerForTeamCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerForTeamCell.swift; sourceTree = "<group>"; };
 		C0CDD2BB1E0E54AC0033A072 /* PlayerForTeamCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerForTeamCell.xib; sourceTree = "<group>"; };
 		C0CDD2BE1E0EBBE80033A072 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		C0E3025D1DEA4FD00007988B /* CL.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CL.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0E3025D1DEA4FD00007988B /* Clutch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clutch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0E302601DEA4FD00007988B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0E302651DEA4FD00007988B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C0E302681DEA4FD00007988B /* CL.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CL.xcdatamodel; sourceTree = "<group>"; };
@@ -481,7 +481,7 @@
 		C0E3025E1DEA4FD00007988B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C0E3025D1DEA4FD00007988B /* CL.app */,
+				C0E3025D1DEA4FD00007988B /* Clutch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -551,9 +551,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C0E3025C1DEA4FD00007988B /* CL */ = {
+		C0E3025C1DEA4FD00007988B /* Clutch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C0E302721DEA4FD00007988B /* Build configuration list for PBXNativeTarget "CL" */;
+			buildConfigurationList = C0E302721DEA4FD00007988B /* Build configuration list for PBXNativeTarget "Clutch" */;
 			buildPhases = (
 				B5512AE12D0B38FFCACDA4F0 /* [CP] Check Pods Manifest.lock */,
 				C0E302591DEA4FD00007988B /* Sources */,
@@ -566,9 +566,9 @@
 			);
 			dependencies = (
 			);
-			name = CL;
+			name = Clutch;
 			productName = CL;
-			productReference = C0E3025D1DEA4FD00007988B /* CL.app */;
+			productReference = C0E3025D1DEA4FD00007988B /* Clutch.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -583,11 +583,12 @@
 				TargetAttributes = {
 					C0E3025C1DEA4FD00007988B = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 48PS7GT6P4;
 						LastSwiftMigration = 0820;
 					};
 				};
 			};
-			buildConfigurationList = C0E302581DEA4FD00007988B /* Build configuration list for PBXProject "CL" */;
+			buildConfigurationList = C0E302581DEA4FD00007988B /* Build configuration list for PBXProject "Clutch" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -600,7 +601,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C0E3025C1DEA4FD00007988B /* CL */,
+				C0E3025C1DEA4FD00007988B /* Clutch */,
 			);
 		};
 /* End PBXProject section */
@@ -837,6 +838,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 48PS7GT6P4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods",
@@ -858,6 +860,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 48PS7GT6P4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods",
@@ -875,7 +878,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C0E302581DEA4FD00007988B /* Build configuration list for PBXProject "CL" */ = {
+		C0E302581DEA4FD00007988B /* Build configuration list for PBXProject "Clutch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0E302701DEA4FD00007988B /* Debug */,
@@ -884,7 +887,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C0E302721DEA4FD00007988B /* Build configuration list for PBXNativeTarget "CL" */ = {
+		C0E302721DEA4FD00007988B /* Build configuration list for PBXNativeTarget "Clutch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C0E302731DEA4FD00007988B /* Debug */,
