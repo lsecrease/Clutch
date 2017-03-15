@@ -312,6 +312,8 @@ class MainViewController: UIViewController, GameViewDelegate {
             self.logoutButton.show()
         }else{
             self.logoutButton.hide()
+            //My change
+            self.checkInbutton.isHidden = true
         }
         
     }
