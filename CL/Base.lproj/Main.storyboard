@@ -14,7 +14,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -134,7 +134,7 @@
         <!--Live View Controller-->
         <scene sceneID="s7g-jG-tpV">
             <objects>
-                <viewController storyboardIdentifier="LiveViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yia-ea-5mt" customClass="LiveViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LiveViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yia-ea-5mt" customClass="LiveViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0tG-Yc-P7i"/>
                         <viewControllerLayoutGuide type="bottom" id="LKJ-aR-AaX"/>
@@ -157,7 +157,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="eDX-0D-Y4d">
-                                                <rect key="frame" x="7.5" y="55" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="55" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -165,7 +165,7 @@
                                                 </view>
                                             </collectionViewCell>
                                         </cells>
-                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Atb-9e-36r" customClass="GameInfoHeaderView" customModule="CL" customModuleProvider="target">
+                                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Atb-9e-36r" customClass="GameInfoHeaderView" customModule="Clutch" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -481,7 +481,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="nvu-8R-NFE">
-                                                <rect key="frame" x="7.5" y="15" width="360" height="65"/>
+                                                <rect key="frame" x="8" y="15" width="360" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -690,7 +690,7 @@
         <!--Create Game-->
         <scene sceneID="k4D-ma-Ig8">
             <objects>
-                <viewController id="4la-IQ-PCu" customClass="CreateGameFormViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4la-IQ-PCu" customClass="CreateGameFormViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="3yP-Jl-Ps7"/>
                         <viewControllerLayoutGuide type="bottom" id="28F-vt-Vbp"/>
@@ -720,7 +720,7 @@
         <!--Game List View Controller-->
         <scene sceneID="doC-gH-AQX">
             <objects>
-                <viewController id="bZ3-ru-kDN" customClass="GameListViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bZ3-ru-kDN" customClass="GameListViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kxe-Hs-gor"/>
                         <viewControllerLayoutGuide type="bottom" id="vjx-xD-Bri"/>
@@ -733,11 +733,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameCell" id="b0e-Au-mFo" customClass="GameCell" customModule="CL" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameCell" id="b0e-Au-mFo" customClass="GameCell" customModule="Clutch" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b0e-Au-mFo" id="CJA-Z6-nEz">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjR-oR-8fb">
@@ -839,7 +839,7 @@
         <!--Main View Controller-->
         <scene sceneID="JYo-o1-BUb">
             <objects>
-                <viewController id="KvL-JV-Kbd" customClass="MainViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="KvL-JV-Kbd" customClass="MainViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Up-jy-HlX"/>
                         <viewControllerLayoutGuide type="bottom" id="M5i-0v-SKW"/>
@@ -1161,7 +1161,7 @@
         <!--Game View Controller-->
         <scene sceneID="3Mn-p1-wju">
             <objects>
-                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vd-FI-5mT" customClass="GameViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9vd-FI-5mT" customClass="GameViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IBf-0V-8gl"/>
                         <viewControllerLayoutGuide type="bottom" id="v75-If-e76"/>
@@ -1187,7 +1187,7 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="i3A-So-udW">
-                                                        <rect key="frame" x="7.5" y="35" width="360" height="65"/>
+                                                        <rect key="frame" x="8" y="35" width="360" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                             <rect key="frame" x="0.0" y="0.0" width="360" height="65"/>
@@ -1222,7 +1222,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellGameRoster" id="BcE-Ne-4kZ" customClass="GameRosterCell" customModule="CL" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellGameRoster" id="BcE-Ne-4kZ" customClass="GameRosterCell" customModule="Clutch" customModuleProvider="target">
                                                         <rect key="frame" x="9" y="55" width="357" height="65"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1315,7 +1315,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ah2-rC-sFi" userLabel="Button container">
                                                                                     <rect key="frame" x="72" y="0.0" width="48" height="62"/>
                                                                                     <subviews>
-                                                                                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRu-mL-A7l" customClass="RotatingButton" customModule="CL" customModuleProvider="target">
+                                                                                        <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FRu-mL-A7l" customClass="RotatingButton" customModule="Clutch" customModuleProvider="target">
                                                                                             <rect key="frame" x="8" y="3" width="30" height="30"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="30" id="IvP-32-LRb"/>
@@ -1379,7 +1379,7 @@
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Noi-sx-xcN" customClass="GameInfoHeaderView" customModule="CL" customModuleProvider="target">
+                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="idCellHeaderGameInfo" id="Noi-sx-xcN" customClass="GameInfoHeaderView" customModule="Clutch" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
@@ -1659,7 +1659,7 @@
         <!--Profile View Controller-->
         <scene sceneID="cUd-OU-Haw">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0u7-AN-OWX" customClass="ProfileViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0u7-AN-OWX" customClass="ProfileViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZTB-eE-DjR"/>
                         <viewControllerLayoutGuide type="bottom" id="TJx-nL-7kp"/>
@@ -1680,9 +1680,10 @@
                                         <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Permanent Statement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etG-zY-uFa">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etG-zY-uFa">
                                         <rect key="frame" x="12" y="231" width="350" height="307"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Welcome to Clutch! We are bringing fantasy sports to the stadium. Our goal is to provide venues a promotional tool to encourage attendance and engage spectators throughout the contest. In future versions of the application, the profile page will be built to store your Clutch performances. Select Games to see if Clutch is available at your next sporting event!</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1739,7 +1740,7 @@
         <!--Update Points-->
         <scene sceneID="JUx-hW-d1f">
             <objects>
-                <viewController id="vVH-iU-I3A" customClass="UpdatePointsViewController" customModule="CL" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vVH-iU-I3A" customClass="UpdatePointsViewController" customModule="Clutch" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SKU-62-nY8"/>
                         <viewControllerLayoutGuide type="bottom" id="CjC-sa-rVH"/>
