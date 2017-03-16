@@ -32,6 +32,9 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let logo = UIImage(named: "Clutch-Logo.png")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
         
     }
     

@@ -48,6 +48,8 @@ class MainViewController: UIViewController, GameViewDelegate {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
+    @IBOutlet weak var logoView: UIView!
+    
     // MARK: Properties
         
     // Firebase properties
@@ -77,7 +79,12 @@ class MainViewController: UIViewController, GameViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let logo = UIImage(named: "Clutch-Logo.png")
+        logoView = UIImageView(image:logo)
+        self.navigationItem.titleView = logoView
+        
         configureViews()
+        
         
         dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .medium
